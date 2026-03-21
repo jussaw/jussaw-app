@@ -1,0 +1,12 @@
+[data-theme="mauve-periwinkle"] {
+  --color-bg: #000000;
+  --color-surface: #0d0e10;
+  --color-accent: #c4a0b2;
+  --color-accent-2: #98a4cc;
+  --color-accent-muted: #887090;
+  --color-text-primary: #eeeef2;
+  --color-text-secondary: #7e8090;
+  --color-border: #1a1c22;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

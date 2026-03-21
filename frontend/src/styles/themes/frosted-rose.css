@@ -1,0 +1,11 @@
+[data-theme="frosted-rose"] {
+  --color-bg: #000000;
+  --color-surface: #0f0f0f;
+  --color-accent: #f2c8d4;
+  --color-accent-muted: #c49aa4;
+  --color-text-primary: #f5f2f3;
+  --color-text-secondary: #9a9092;
+  --color-border: #1e1e1e;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

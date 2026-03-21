@@ -1,0 +1,13 @@
+[data-theme="warm-coral"] {
+  --color-bg: #000000;
+  --color-surface: #0f0e0d;
+  --color-accent: #c4a0b2;
+  --color-accent-2: #c88870;
+  --color-accent-3: #8090a8;
+  --color-accent-muted: #887080;
+  --color-text-primary: #f0eeec;
+  --color-text-secondary: #848288;
+  --color-border: #201e1c;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}
