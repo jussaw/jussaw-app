@@ -1,0 +1,12 @@
+[data-theme="mauve-sage"] {
+  --color-bg: #000000;
+  --color-surface: #0e0f0e;
+  --color-accent: #c4a0b2;
+  --color-accent-2: #8cb898;
+  --color-accent-muted: #8a7080;
+  --color-text-primary: #eeeeec;
+  --color-text-secondary: #808880;
+  --color-border: #1e201e;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

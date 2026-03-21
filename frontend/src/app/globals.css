@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import "../styles/themes/baby-blue-3.css";
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-lora);
+  --font-mono: var(--font-jbmono);
+
+  --color-bg: #faf8f2;
+  --color-surface: #f2ede0;
+  --color-accent: #d4956a;
+  --color-accent-muted: #f0cba8;
+  --color-text-primary: #2d2016;
+  --color-text-secondary: #7a6248;
+  --color-border: #e8ddd0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome / Safari */
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

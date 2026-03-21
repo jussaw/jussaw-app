@@ -1,0 +1,13 @@
+[data-theme="tri-teal-blush"] {
+  --color-bg: #000000;
+  --color-surface: #0d1010;
+  --color-accent: #c4a0b2;
+  --color-accent-2: #7aa8a0;
+  --color-accent-3: #d4b0c0;
+  --color-accent-muted: #887080;
+  --color-text-primary: #eef2f0;
+  --color-text-secondary: #80888c;
+  --color-border: #181e1e;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

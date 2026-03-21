@@ -1,0 +1,11 @@
+[data-theme="rose-mist"] {
+  --color-bg: #000000;
+  --color-surface: #0e0e10;
+  --color-accent: #dbb8c4;
+  --color-accent-muted: #a8889c;
+  --color-text-primary: #f2eff0;
+  --color-text-secondary: #928890;
+  --color-border: #1c1a1e;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

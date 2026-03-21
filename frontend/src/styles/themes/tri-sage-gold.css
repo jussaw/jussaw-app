@@ -1,0 +1,13 @@
+[data-theme="tri-sage-gold"] {
+  --color-bg: #000000;
+  --color-surface: #0f0f0e;
+  --color-accent: #c4a0b2;
+  --color-accent-2: #c8aa6e;
+  --color-accent-3: #8fa890;
+  --color-accent-muted: #8a7080;
+  --color-text-primary: #f0eeec;
+  --color-text-secondary: #848280;
+  --color-border: #201e1c;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

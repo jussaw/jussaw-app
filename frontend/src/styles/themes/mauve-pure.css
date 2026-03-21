@@ -1,0 +1,11 @@
+[data-theme="mauve-pure"] {
+  --color-bg: #000000;
+  --color-surface: #0f0e0f;
+  --color-accent: #c4a0b2;
+  --color-accent-muted: #987888;
+  --color-text-primary: #f0ecee;
+  --color-text-secondary: #8a8082;
+  --color-border: #201e20;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}
