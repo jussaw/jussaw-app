@@ -2,10 +2,9 @@ import { siteContent } from "@/data/content";
 
 interface FooterProps {
   id?: string;
-  onOpenSetup?: () => void;
 }
 
-export default function Footer({ id, onOpenSetup }: FooterProps = {}) {
+export default function Footer({ id }: FooterProps = {}) {
   const { hostingNote } = siteContent;
 
   return (
@@ -16,20 +15,10 @@ export default function Footer({ id, onOpenSetup }: FooterProps = {}) {
         borderColor: "color-mix(in srgb, var(--color-border) 80%, transparent)",
       }}
     >
-      <div className="max-w-4xl mx-auto flex items-center justify-between w-full">
+      <div className="max-w-4xl mx-auto flex justify-center w-full">
         <p className="text-xs" style={{ color: "var(--color-text-secondary)" }}>
           {hostingNote}
         </p>
-        {onOpenSetup && (
-          <button
-            onClick={onOpenSetup}
-            className="text-xs hover:opacity-70 transition-opacity"
-            aria-label="Open setup"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            Setup
-          </button>
-        )}
       </div>
     </footer>
   );

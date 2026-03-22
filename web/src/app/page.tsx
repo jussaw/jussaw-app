@@ -9,11 +9,9 @@ import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import Hobbies from "@/components/sections/Hobbies";
 import Footer from "@/components/sections/Footer";
-import SetupDrawer from "@/components/ui/SetupDrawer";
 import Terminal from "@/components/ui/Terminal";
 
 export default function Home() {
-  const [setupOpen, setSetupOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
 
   useEffect(() => {
@@ -34,8 +32,7 @@ export default function Home() {
       <Experience displayMode="timeline" />
       <Projects />
       <Hobbies />
-      <Footer id="footer" onOpenSetup={() => setSetupOpen(true)} />
-      <SetupDrawer open={setupOpen} onClose={() => setSetupOpen(false)} />
+      <Footer id="footer" />
       <Terminal open={terminalOpen} onClose={() => setTerminalOpen(false)} />
       <TimelineScrollbar />
     </main>

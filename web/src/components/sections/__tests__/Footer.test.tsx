@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Footer from '../Footer';
 import { siteContent } from '@/data/content';
 
@@ -25,15 +25,4 @@ describe('Footer', () => {
     expect(footer).not.toHaveAttribute('id');
   });
 
-  it('renders a setup button when onOpenSetup is provided', () => {
-    render(<Footer onOpenSetup={() => {}} />);
-    expect(screen.getByRole('button', { name: /setup/i })).toBeInTheDocument();
-  });
-
-  it('calls onOpenSetup when setup button is clicked', () => {
-    const onOpenSetup = vi.fn();
-    render(<Footer onOpenSetup={onOpenSetup} />);
-    fireEvent.click(screen.getByRole('button', { name: /setup/i }));
-    expect(onOpenSetup).toHaveBeenCalled();
-  });
 });
