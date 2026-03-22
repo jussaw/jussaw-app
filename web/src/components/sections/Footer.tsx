@@ -5,18 +5,14 @@ interface FooterProps {
 }
 
 export default function Footer({ id }: FooterProps = {}) {
-  const { person, hostingNote } = siteContent;
+  const { hostingNote } = siteContent;
 
   return (
     <footer
       id={id}
-      className="px-6 py-8 border-t"
-      style={{ borderColor: "var(--color-border)" }}
+      className="px-6 py-8"
     >
-      <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between w-full gap-4">
-        <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>
-          © {new Date().getFullYear()} {person.name}
-        </p>
+      <div className="max-w-4xl mx-auto flex items-center justify-center w-full">
         <p className="text-xs" style={{ color: "var(--color-text-secondary)" }}>
           {hostingNote}
         </p>
