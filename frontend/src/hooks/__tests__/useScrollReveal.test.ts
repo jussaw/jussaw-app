@@ -30,7 +30,7 @@ describe('useScrollReveal', () => {
 
   it('adds "visible" class when element enters viewport', () => {
     const div = document.createElement('div');
-    const { result } = renderHook(() => {
+    renderHook(() => {
       const ref = useRef(div);
       useScrollReveal(ref);
       return ref;

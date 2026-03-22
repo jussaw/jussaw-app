@@ -5,7 +5,7 @@ export default function Hobbies() {
   const { hobbies } = siteContent;
 
   return (
-    <SectionWrapper id="hobbies" className="mb-24">
+    <SectionWrapper id="hobbies" className="mb-28">
       <h2
         className="text-3xl font-semibold mb-4"
         style={{
@@ -19,7 +19,7 @@ export default function Hobbies() {
         className="text-base mb-8"
         style={{ color: "var(--color-text-secondary)" }}
       >
-        A few things that keep me grounded when I'm not writing code.
+        A few things that keep me grounded when I&apos;m not writing code.
       </p>
       <div className="flex flex-wrap gap-3">
         {hobbies.map((h) => (
