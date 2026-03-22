@@ -8,15 +8,17 @@ const STORAGE_KEY = 'theme';
 
 export default function ThemeSwitcher() {
   const [open, setOpen] = useState(false);
-  const [activeTheme, setActiveTheme] = useState(DEFAULT_THEME);
+  const [activeTheme, setActiveTheme] = useState<string>(() =>
+    typeof window !== 'undefined'
+      ? (localStorage.getItem(STORAGE_KEY) ?? DEFAULT_THEME)
+      : DEFAULT_THEME
+  );
   const ref = useRef<HTMLDivElement>(null);
 
-  // Apply saved theme on mount
+  // Apply active theme to DOM
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY) ?? DEFAULT_THEME;
-    document.body.setAttribute('data-theme', saved);
-    setActiveTheme(saved);
-  }, []);
+    document.body.setAttribute('data-theme', activeTheme);
+  }, [activeTheme]);
 
   // Close on Escape
   useEffect(() => {
@@ -59,6 +61,7 @@ export default function ThemeSwitcher() {
       <button
         aria-label="Switch theme"
         aria-expanded={open}
+        aria-haspopup="dialog"
         onClick={() => setOpen((v) => !v)}
         className="flex items-center hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm"
         style={{ color: 'var(--color-text-secondary)' }}

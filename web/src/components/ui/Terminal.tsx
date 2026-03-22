@@ -38,11 +38,6 @@ export default function Terminal({ open, onClose }: TerminalProps) {
   const [input, setInput] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  // Reset on open
-  useEffect(() => {
-    if (open) setLines([WELCOME]);
-  }, [open]);
-
   // Auto-scroll
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -63,6 +58,7 @@ export default function Terminal({ open, onClose }: TerminalProps) {
     const inputLine: Line = { type: 'input', text: raw.trim() };
 
     if (cmd === 'exit') {
+      setInput('');
       onClose();
       return;
     }
