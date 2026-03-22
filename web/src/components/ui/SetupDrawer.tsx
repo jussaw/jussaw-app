@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { siteContent } from '@/data/content';
 
 interface SetupDrawerProps {
@@ -9,6 +9,8 @@ interface SetupDrawerProps {
 }
 
 export default function SetupDrawer({ open, onClose }: SetupDrawerProps) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -17,6 +19,11 @@ export default function SetupDrawer({ open, onClose }: SetupDrawerProps) {
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [open, onClose]);
+
+  // Move focus into the dialog when it opens
+  useEffect(() => {
+    if (open) closeButtonRef.current?.focus();
+  }, [open]);
 
   if (!open) return null;
 
@@ -55,6 +62,7 @@ export default function SetupDrawer({ open, onClose }: SetupDrawerProps) {
         }}
       >
         <button
+          ref={closeButtonRef}
           onClick={onClose}
           aria-label="Close setup drawer"
           className="hover:opacity-70 transition-opacity mb-6 block"
@@ -95,13 +103,6 @@ export default function SetupDrawer({ open, onClose }: SetupDrawerProps) {
           ))}
         </ul>
       </div>
-
-      <style>{`
-        @keyframes slideIn {
-          from { transform: translateX(100%); }
-          to { transform: translateX(0); }
-        }
-      `}</style>
     </>
   );
 }
