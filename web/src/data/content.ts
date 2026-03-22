@@ -40,13 +40,21 @@ export interface SiteContent {
 export const siteContent: SiteContent = {
   person: {
     name: "Justin Sawyer",
-    title: "Software Engineer",
+    title: "Software Engineer | Ergo Keyboard Enthusiast",
     tagline: "I care about how it works, how it feels, and who it's for.",
     email: "jtsaw36@gmail.com",
     github: "https://github.com/jussaw",
     linkedin: "https://linkedin.com/in/jussaw",
     hostingNote: "Hosted with ❤️ on my Raspberry Pi",
   },
+  kit: [
+    { label: "keyboard", value: "Corne LP w/ nice!nano" },
+    { label: "laptop", value: "M2 MacBook Air" },
+    { label: "headphones", value: "AirPods Pro 3" },
+    { label: "browser", value: "Zen Browser" },
+    { label: "editor", value: "VS Code" },
+    { label: "terminal", value: "iTerm2" },
+  ],
   skills: [
     { name: "React", category: "frontend" },
     { name: "Next.js", category: "frontend" },
@@ -126,13 +134,5 @@ export const siteContent: SiteContent = {
     { label: "Gaming", icon: "Gamepad2" },
     { label: "Hiking", icon: "Footprints" },
     { label: "Snowboarding", icon: "MountainSnow" },
-  ],
-  kit: [
-    { label: "keyboard", value: "Corne LP w/ nice!nano" },
-    { label: "laptop", value: "M2 MacBook Air" },
-    { label: "headphones", value: "AirPods Pro 3" },
-    { label: "browser", value: "Zen Browser" },
-    { label: "editor", value: "VS Code" },
-    { label: "terminal", value: "iTerm2" },
   ],
 };
