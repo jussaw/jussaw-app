@@ -44,6 +44,7 @@ web/
 - **Tests**: Colocated in `__tests__/` directories next to the files they test.
 - **Section IDs**: Sections that need scroll tracking must have an `id` prop passed from `page.tsx`.
 - **Path alias**: Always use `@/` imports, never relative paths that traverse directories.
+- **Icons**: Use `react-icons` for all icons (e.g. `react-icons/fa`). Do not use `lucide-react`.
 
 ## Docker
 ```bash

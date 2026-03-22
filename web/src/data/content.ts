@@ -27,8 +27,8 @@ export interface SiteContent {
     title: string;
     tagline: string;
     email: string;
-    github: string;
     linkedin: string;
+    github: string;
   };
   kit: KitItem[];
   skills: Skill[];
@@ -128,11 +128,11 @@ export const siteContent: SiteContent = {
     },
   ],
   hobbies: [
-    { label: "Ergonomic Keyboards", icon: "Keyboard" },
-    { label: "Home Lab", icon: "Server" },
-    { label: "Gaming", icon: "Gamepad2" },
-    { label: "Hiking", icon: "Footprints" },
-    { label: "Snowboarding", icon: "MountainSnow" },
+    { label: "Ergonomic Keyboards", icon: "FaKeyboard" },
+    { label: "Home Lab", icon: "FaServer" },
+    { label: "Gaming", icon: "FaGamepad" },
+    { label: "Hiking", icon: "FaHiking" },
+    { label: "Snowboarding", icon: "FaMountain" },
   ],
   hostingNote: "Hosted with ❤️ on my Raspberry Pi",
 };
