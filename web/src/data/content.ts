@@ -16,6 +16,11 @@ export interface HobbyEntry {
   emoji: string;
 }
 
+export interface KitItem {
+  label: string;
+  value: string;
+}
+
 export interface SiteContent {
   person: {
     name: string;
@@ -29,6 +34,7 @@ export interface SiteContent {
   skills: Skill[];
   experience: ExperienceEntry[];
   hobbies: HobbyEntry[];
+  kit: KitItem[];
 }
 
 export const siteContent: SiteContent = {
@@ -120,5 +126,13 @@ export const siteContent: SiteContent = {
     { label: "Gaming", emoji: "🎮" },
     { label: "Hiking", emoji: "🥾" },
     { label: "Snowboarding", emoji: "🏂" },
+  ],
+  kit: [
+    { label: "keyboard", value: "Corne LP w/ nice!nano" },
+    { label: "laptop", value: "M2 MacBook Air" },
+    { label: "headphones", value: "AirPods Pro 3" },
+    { label: "browser", value: "Zen Browser" },
+    { label: "editor", value: "VS Code" },
+    { label: "terminal", value: "iTerm2" },
   ],
 };
