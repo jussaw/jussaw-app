@@ -29,12 +29,12 @@ export interface SiteContent {
     email: string;
     github: string;
     linkedin: string;
-    hostingNote: string;
   };
+  kit: KitItem[];
   skills: Skill[];
   experience: ExperienceEntry[];
   hobbies: HobbyEntry[];
-  kit: KitItem[];
+  hostingNote: string;
 }
 
 export const siteContent: SiteContent = {
@@ -45,7 +45,6 @@ export const siteContent: SiteContent = {
     email: "jtsaw36@gmail.com",
     github: "https://github.com/jussaw",
     linkedin: "https://linkedin.com/in/jussaw",
-    hostingNote: "Hosted with ❤️ on my Raspberry Pi",
   },
   kit: [
     { label: "keyboard", value: "Corne LP w/ nice!nano" },
@@ -135,4 +134,5 @@ export const siteContent: SiteContent = {
     { label: "Hiking", icon: "Footprints" },
     { label: "Snowboarding", icon: "MountainSnow" },
   ],
+  hostingNote: "Hosted with ❤️ on my Raspberry Pi",
 };
