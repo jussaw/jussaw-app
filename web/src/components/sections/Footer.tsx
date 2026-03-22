@@ -1,3 +1,4 @@
+import { Mail, Github, Linkedin } from 'lucide-react';
 import { siteContent } from "@/data/content";
 
 interface FooterProps {
@@ -24,27 +25,30 @@ export default function Footer({ id }: FooterProps = {}) {
           <div className="flex items-center gap-6">
             <a
               href={`mailto:${person.email}`}
-              className="text-sm hover:opacity-70 transition-opacity"
+              className="flex items-center gap-1.5 text-sm hover:opacity-70 transition-opacity"
               style={{ color: "var(--color-text-secondary)" }}
             >
+              <Mail size={15} />
               Email
             </a>
             <a
               href={person.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm hover:opacity-70 transition-opacity"
+              className="flex items-center gap-1.5 text-sm hover:opacity-70 transition-opacity"
               style={{ color: "var(--color-text-secondary)" }}
             >
+              <Github size={15} />
               GitHub
             </a>
             <a
               href={person.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm hover:opacity-70 transition-opacity"
+              className="flex items-center gap-1.5 text-sm hover:opacity-70 transition-opacity"
               style={{ color: "var(--color-text-secondary)" }}
             >
+              <Linkedin size={15} />
               LinkedIn
             </a>
           </div>
