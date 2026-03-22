@@ -21,6 +21,15 @@ export interface KitItem {
   value: string;
 }
 
+export interface ProjectEntry {
+  title: string;
+  description: string;
+  highlights: string[];
+  stack: string[];
+  liveUrl: string;
+  githubUrl: string;
+}
+
 export interface SiteContent {
   person: {
     name: string;
@@ -35,6 +44,7 @@ export interface SiteContent {
   experience: ExperienceEntry[];
   hobbies: HobbyEntry[];
   hostingNote: string;
+  projects: ProjectEntry[];
 }
 
 export const siteContent: SiteContent = {
@@ -135,4 +145,20 @@ export const siteContent: SiteContent = {
     { label: "Snowboarding", icon: "FaMountain" },
   ],
   hostingNote: "Hosted with ❤️ on my Raspberry Pi",
+  projects: [
+    {
+      title: "jussaw.com",
+      description: "This site — designed, built, and self-hosted",
+      highlights: [
+        "27-theme design system via CSS custom properties",
+        "Self-hosted on Raspberry Pi via Docker + Docker Compose",
+        "Standalone Next.js build optimized for minimal production artifact",
+        "Scroll-triggered animations with Intersection Observer API",
+        "Full test coverage with Vitest + React Testing Library",
+      ],
+      stack: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Docker", "Raspberry Pi"],
+      liveUrl: "https://jussaw.com",
+      githubUrl: "https://github.com/jussaw/jussaw-app",
+    },
+  ],
 };
