@@ -35,7 +35,8 @@ describe('useActiveSection', () => {
       createSectionEl('hero',       0),
       createSectionEl('skills',     800),
       createSectionEl('experience', 1600),
-      createSectionEl('hobbies',    2400),
+      createSectionEl('projects',   2400),
+      createSectionEl('hobbies',    3200),
     ];
 
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true });
@@ -68,12 +69,20 @@ describe('useActiveSection', () => {
     expect(result.current).toBe(2);
   });
 
-  it('returns 3 (Hobbies) when scrolled past the hobbies trigger line', () => {
-    // triggerLine = 2100 + 360 = 2460; hobbies top = 2400 <= 2460 → hobbies active
+  it('returns 3 (Projects) when scrolled past the projects trigger line', () => {
+    // triggerLine = 2100 + 360 = 2460; projects top = 2400 <= 2460 → projects active
     Object.defineProperty(window, 'scrollY', { value: 2100 });
 
     const { result } = renderHook(() => useActiveSection());
     expect(result.current).toBe(3);
+  });
+
+  it('returns 4 (Hobbies) when scrolled past the hobbies trigger line', () => {
+    // triggerLine = 2900 + 360 = 3260; hobbies top = 3200 <= 3260 → hobbies active
+    Object.defineProperty(window, 'scrollY', { value: 2900 });
+
+    const { result } = renderHook(() => useActiveSection());
+    expect(result.current).toBe(4);
   });
 
   it('updates activeIndex on scroll events', () => {
@@ -102,11 +111,12 @@ describe('useActiveSection', () => {
     expect(result.current).toBe(0);
   });
 
-  it('has 4 entries in SECTIONS', () => {
-    expect(SECTIONS).toHaveLength(4);
+  it('has 5 entries in SECTIONS', () => {
+    expect(SECTIONS).toHaveLength(5);
     expect(SECTIONS[0].id).toBe('hero');
     expect(SECTIONS[1].id).toBe('skills');
     expect(SECTIONS[2].id).toBe('experience');
-    expect(SECTIONS[3].id).toBe('hobbies');
+    expect(SECTIONS[3].id).toBe('projects');
+    expect(SECTIONS[4].id).toBe('hobbies');
   });
 });

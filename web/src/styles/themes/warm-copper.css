@@ -1,13 +1,12 @@
 [data-theme="warm-copper"] {
-  --color-bg: #000000;
-  --color-surface: #0f0e0d;
-  --color-accent: #c4a0b2;
-  --color-accent-2: #c07858;
-  --color-accent-3: #8090a8;
-  --color-accent-muted: #887080;
-  --color-text-primary: #f0eeec;
-  --color-text-secondary: #848288;
-  --color-border: #201e1c;
+  --color-bg: #fffaf4;
+  --color-surface: #f8ece0;
+  --color-accent: #7a3818;
+  --color-accent-2: #7a3818;
+  --color-accent-muted: #a05030;
+  --color-text-primary: #1c0e04;
+  --color-text-secondary: #783820;
+  --color-border: #e8d0b0;
   --heading-font: var(--font-sans);
   --card-radius: 0.5rem;
 }
