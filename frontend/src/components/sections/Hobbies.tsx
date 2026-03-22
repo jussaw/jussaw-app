@@ -5,7 +5,7 @@ export default function Hobbies() {
   const { hobbies } = siteContent;
 
   return (
-    <SectionWrapper id="hobbies" className="mb-28">
+    <SectionWrapper id="hobbies" className="mb-36">
       <h2
         className="text-3xl font-semibold mb-4"
         style={{
