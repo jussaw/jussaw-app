@@ -25,7 +25,7 @@ describe('TimelineScrollbar', () => {
 
   it('renders a dot for each section', () => {
     render(<TimelineScrollbar />);
-    expect(screen.getByText('Me')).toBeInTheDocument();
+    expect(screen.getByText('jussaw')).toBeInTheDocument();
     expect(screen.getByText('Skills')).toBeInTheDocument();
     expect(screen.getByText('Experience')).toBeInTheDocument();
     expect(screen.getByText('Hobbies')).toBeInTheDocument();

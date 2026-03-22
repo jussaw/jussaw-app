@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Lora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import TimelineScrollbar from "@/components/ui/TimelineScrollbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,13 +18,29 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jussaw.com"),
   title: "jussaw — Software Engineer",
   description: "Full-stack software engineer. I build things for the web — from the database to the browser.",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
+    type: "website",
+    locale: "en_US",
     title: "jussaw — Software Engineer",
-    description: "Full-stack software engineer portfolio",
+    description: "Full-stack software engineer. I build things for the web — from the database to the browser.",
     url: "https://jussaw.com",
     siteName: "jussaw.com",
+  },
+  twitter: {
+    card: "summary",
+    title: "jussaw — Software Engineer",
+    description: "Full-stack software engineer. I build things for the web — from the database to the browser.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -41,7 +56,6 @@ export default function RootLayout({
     >
       <body data-theme="baby-blue-3">
         {children}
-        <TimelineScrollbar />
       </body>
     </html>
   );

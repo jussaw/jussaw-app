@@ -34,7 +34,7 @@ export default function Header() {
         <a
           href={`mailto:${person.email}`}
           aria-label="Email"
-          className="flex items-center hover:opacity-70 transition-opacity"
+          className="flex items-center hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm"
           style={{ color: "var(--color-text-secondary)" }}
         >
           <FaEnvelope size={18} />
@@ -44,7 +44,7 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
-          className="flex items-center hover:opacity-70 transition-opacity"
+          className="flex items-center hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm"
           style={{ color: "var(--color-text-secondary)" }}
         >
           <FaLinkedin size={18} />
@@ -54,7 +54,7 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          className="flex items-center hover:opacity-70 transition-opacity"
+          className="flex items-center hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm"
           style={{ color: "var(--color-text-secondary)" }}
         >
           <FaGithub size={18} />

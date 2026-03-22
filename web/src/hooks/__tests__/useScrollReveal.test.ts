@@ -19,8 +19,8 @@ vi.stubGlobal(
   })
 );
 
-function makeEntry(isIntersecting: boolean, target: Element): IntersectionObserverEntry {
-  return { isIntersecting, target } as unknown as IntersectionObserverEntry;
+function makeEntry(isIntersecting: boolean, target: Element, boundingTop = 1): IntersectionObserverEntry {
+  return { isIntersecting, target, boundingClientRect: { top: boundingTop } } as unknown as IntersectionObserverEntry;
 }
 
 describe('useScrollReveal', () => {

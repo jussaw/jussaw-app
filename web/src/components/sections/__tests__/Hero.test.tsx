@@ -21,10 +21,9 @@ describe('Hero', () => {
     expect(innerDiv).toHaveClass('reveal');
   });
 
-  it('applies 150ms transitionDelay to the inner content div', () => {
+  it('applies reveal-stagger class to the heading', () => {
     const { container } = render(<Hero />);
-    const section = container.querySelector('section');
-    const innerDiv = section?.querySelector('div') as HTMLElement;
-    expect(innerDiv?.style.transitionDelay).toBe('150ms');
+    const h1 = container.querySelector('h1');
+    expect(h1).toHaveClass('reveal-stagger');
   });
 });

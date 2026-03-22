@@ -3,11 +3,12 @@
 import { useRef } from 'react';
 import { siteContent } from "@/data/content";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { getFontFamily, HeadingStyle } from '@/utils/fonts';
 
 interface HeroProps {
   id?: string;
   layout?: "centered" | "left-aligned";
-  headingStyle?: "serif-elegant" | "bold-sans" | "mono-minimal";
+  headingStyle?: HeadingStyle;
 }
 
 export default function Hero({ id, layout = "centered", headingStyle = "serif-elegant" }: HeroProps) {
@@ -15,12 +16,7 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
   const ref = useRef<HTMLDivElement>(null);
   useScrollReveal(ref);
 
-  const headingFont =
-    headingStyle === "serif-elegant"
-      ? "var(--font-serif)"
-      : headingStyle === "mono-minimal"
-      ? "var(--font-mono)"
-      : "var(--font-sans)";
+  const headingFont = getFontFamily(headingStyle);
 
   const headingWeight =
     headingStyle === "bold-sans" ? "800" : "600";
