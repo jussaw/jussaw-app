@@ -57,7 +57,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm hover:opacity-70 transition-opacity"
-          aria-label="Live site"
+          aria-label={`Live site for ${project.title}`}
           style={{ color: 'var(--color-accent)' }}
         >
           ↗ Live site
@@ -67,7 +67,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm hover:opacity-70 transition-opacity"
-          aria-label="GitHub"
+          aria-label={`GitHub for ${project.title}`}
           style={{ color: 'var(--color-accent)' }}
         >
           ↗ GitHub
