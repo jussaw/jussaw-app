@@ -26,17 +26,17 @@ Add four new features to jussaw.com to signal both engineering craft and distinc
 
 **Behavior:**
 - A palette icon button in the header
-- Clicking opens a swatch popover — a grid of circular color swatches, one per theme (all 28)
-- Hovering a swatch previews the theme live on the page (applies `data-theme` to `<html>` temporarily)
+- Clicking opens a swatch popover — a grid of circular color swatches, one per theme (derive count from `src/styles/themes/` directory at build time)
+- Hovering a swatch previews the theme live on the page (applies `data-theme` to `<body>` temporarily)
 - Clicking a swatch locks the theme in and persists to `localStorage`
 - On page load, apply theme from `localStorage` if set, otherwise use the default
 - Popover closes when clicking outside or pressing Escape
 
 **Implementation:**
 - New `ThemeSwitcher` component at `src/components/ui/ThemeSwitcher.tsx`
-- Theme list derived from the 28 CSS files in `src/styles/themes/` — each file name is the theme key
+- Theme list derived from CSS files in `src/styles/themes/` — each file name is the theme key (count derived at build time, not hardcoded)
 - Each swatch reads the primary color from the theme (use a hardcoded color map or extract from CSS)
-- Uses `document.documentElement.setAttribute('data-theme', themeName)` to switch
+- Uses `document.body.setAttribute('data-theme', themeName)` to switch (matches existing `body[data-theme]` CSS selectors in `layout.tsx`)
 
 ---
 
@@ -50,13 +50,13 @@ Add four new features to jussaw.com to signal both engineering craft and distinc
 - Title: "jussaw.com"
 - Short description: "This site — designed, built, and self-hosted"
 - 4–5 bullet highlights:
-  - 28-theme design system via CSS custom properties
+  - 27-theme design system via CSS custom properties
   - Self-hosted on Raspberry Pi via Docker + Docker Compose
   - Standalone Next.js build optimized for minimal production artifact
   - Scroll-triggered animations with Intersection Observer API
   - Full test coverage with Vitest + React Testing Library
 - Tech stack badge row: Next.js 16, TypeScript, Tailwind CSS 4, Docker, Raspberry Pi
-- Links: Live site (jussaw.com), GitHub repo
+- Links: Live site (jussaw.com), GitHub repo — both URLs stored in `src/data/content.ts` under the project entry, not hardcoded in the component
 
 **Implementation:**
 - New `Projects` section component at `src/components/sections/Projects.tsx`
@@ -79,7 +79,7 @@ Add four new features to jussaw.com to signal both engineering craft and distinc
 
 **Implementation:**
 - New `SetupDrawer` component at `src/components/ui/SetupDrawer.tsx`
-- Drawer state managed in the root page or a shared context
+- Drawer open/close state managed in `src/app/page.tsx` (root page) — passed as props to Footer (trigger) and SetupDrawer; no context provider needed given the shallow prop chain
 - Footer updated to include the trigger link
 - Content driven by existing kit data in `src/data/content.ts`
 
@@ -107,7 +107,7 @@ Add four new features to jussaw.com to signal both engineering craft and distinc
 
 **Implementation:**
 - New `Terminal` component at `src/components/ui/Terminal.tsx`
-- Global `keydown` listener registered in the root layout or a custom hook
+- Global `keydown` listener registered via a custom hook — must guard against firing when focus is inside any input/textarea element
 - Terminal content/responses driven by a command map — easy to extend
 - No external dependencies
 
