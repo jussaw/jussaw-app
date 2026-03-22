@@ -6,7 +6,7 @@ interface FooterProps {
 }
 
 export default function Footer({ id }: FooterProps = {}) {
-  const { person } = siteContent;
+  const { person, hostingNote } = siteContent;
 
   return (
     <footer
@@ -54,7 +54,7 @@ export default function Footer({ id }: FooterProps = {}) {
           </div>
         </div>
         <p className="text-xs" style={{ color: "var(--color-text-secondary)" }}>
-          {person.hostingNote}
+          {hostingNote}
         </p>
       </div>
     </footer>
