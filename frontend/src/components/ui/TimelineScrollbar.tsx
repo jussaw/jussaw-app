@@ -54,8 +54,11 @@ export default function TimelineScrollbar() {
   const duration = reducedMotion ? '0ms' : '0.35s';
   const spring = `cubic-bezier(0.34, 1.56, 0.64, 1)`;
 
-  const firstDotCenter = dotY[0] + dotSize[0] / 2;
-  const lastDotCenter = dotY[SECTIONS.length - 1] + dotSize[SECTIONS.length - 1] / 2;
+  // dotY[i] is already the center of each dot row (translateY(-50%) centers the row on dotY[i]).
+  // Add 20 to account for the 20px gap at the top created by alignItems:'flex-end' on the outer container.
+  const dotYOffset = 20;
+  const firstDotCenter = dotY[0] + dotYOffset;
+  const lastDotCenter = dotY[SECTIONS.length - 1] + dotYOffset;
 
   return (
     <div
@@ -109,18 +112,19 @@ export default function TimelineScrollbar() {
               {section.label}
             </span>
 
-            {/* Dot */}
-            <div
-              style={{
-                width: `${dotSize[i]}px`,
-                height: `${dotSize[i]}px`,
-                borderRadius: '50%',
-                background: i === activeIndex ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                opacity: i === activeIndex ? 1 : 0.3 + 0.5 * weights[i],
-                flexShrink: 0,
-                transition: `width ${duration} ${spring}, height ${duration} ${spring}, background 0.3s ease, opacity 0.3s ease`,
-              }}
-            />
+            {/* Dot — fixed-width wrapper keeps all dot centers on the same x axis as the line */}
+            <div style={{ width: '14px', height: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <div
+                style={{
+                  width: `${dotSize[i]}px`,
+                  height: `${dotSize[i]}px`,
+                  borderRadius: '50%',
+                  background: i === activeIndex ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                  opacity: i === activeIndex ? 1 : 0.3 + 0.5 * weights[i],
+                  transition: `width ${duration} ${spring}, height ${duration} ${spring}, background 0.3s ease, opacity 0.3s ease`,
+                }}
+              />
+            </div>
           </div>
         ))}
       </div>
