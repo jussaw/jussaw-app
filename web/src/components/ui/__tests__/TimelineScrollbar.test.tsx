@@ -28,6 +28,7 @@ describe('TimelineScrollbar', () => {
     expect(screen.getByText('jussaw')).toBeInTheDocument();
     expect(screen.getByText('Skills')).toBeInTheDocument();
     expect(screen.getByText('Experience')).toBeInTheDocument();
+    expect(screen.getByText('Projects')).toBeInTheDocument();
     expect(screen.getByText('Hobbies')).toBeInTheDocument();
   });
 

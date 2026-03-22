@@ -1,13 +1,12 @@
 [data-theme="warm-brass"] {
-  --color-bg: #000000;
-  --color-surface: #0f0e0d;
-  --color-accent: #c4a0b2;
-  --color-accent-2: #b09040;
-  --color-accent-3: #8090a8;
-  --color-accent-muted: #887080;
-  --color-text-primary: #f0eeec;
-  --color-text-secondary: #848288;
-  --color-border: #201e1c;
+  --color-bg: #fffcf0;
+  --color-surface: #f8f0d0;
+  --color-accent: #6e5006;
+  --color-accent-2: #6e5006;
+  --color-accent-muted: #9a7020;
+  --color-text-primary: #181200;
+  --color-text-secondary: #786020;
+  --color-border: #e8d898;
   --heading-font: var(--font-sans);
   --card-radius: 0.5rem;
 }

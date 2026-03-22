@@ -1,18 +1,36 @@
 @import "tailwindcss";
 @import "../styles/themes/baby-blue-3.css";
+@import "../styles/themes/baby-blue-1.css";
+@import "../styles/themes/baby-blue-2.css";
+@import "../styles/themes/ballet-pink.css";
+@import "../styles/themes/cool-seafoam.css";
+@import "../styles/themes/cool-steel.css";
+@import "../styles/themes/cool-teal.css";
+@import "../styles/themes/dusty-mauve.css";
+@import "../styles/themes/frosted-rose.css";
+@import "../styles/themes/mauve-gold.css";
+@import "../styles/themes/mauve-periwinkle.css";
+@import "../styles/themes/mauve-pure.css";
+@import "../styles/themes/mauve-sage.css";
+@import "../styles/themes/mauve-tricolor.css";
+@import "../styles/themes/powder-petal.css";
+@import "../styles/themes/rose-mist.css";
+@import "../styles/themes/swapped-blue-1.css";
+@import "../styles/themes/swapped-blue-2.css";
+@import "../styles/themes/swapped-blue-3.css";
+@import "../styles/themes/tri-amber-slate.css";
+@import "../styles/themes/tri-lavender-rose.css";
+@import "../styles/themes/tri-periwinkle-champagne.css";
+@import "../styles/themes/tri-sage-gold.css";
+@import "../styles/themes/tri-teal-blush.css";
+@import "../styles/themes/warm-brass.css";
+@import "../styles/themes/warm-copper.css";
+@import "../styles/themes/warm-coral.css";
 
 @theme {
   --font-sans: var(--font-inter);
   --font-serif: var(--font-lora);
   --font-mono: var(--font-jbmono);
-
-  --color-bg: #faf8f2;
-  --color-surface: #f2ede0;
-  --color-accent: #d4956a;
-  --color-accent-muted: #f0cba8;
-  --color-text-primary: #2d2016;
-  --color-text-secondary: #7a6248;
-  --color-border: #e8ddd0;
 }
 
 * {

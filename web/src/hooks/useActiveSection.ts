@@ -6,7 +6,8 @@ export const SECTIONS = [
   { id: "hero", label: "jussaw" },
   { id: "skills", label: "Skills" },
   { id: "experience", label: "Experience" },
-  { id: "hobbies", label: "Hobbies" },
+  { id: "projects",   label: "Projects"   },
+  { id: "hobbies",    label: "Hobbies"    },
 ] as const;
 
 export function useActiveSection(): number {

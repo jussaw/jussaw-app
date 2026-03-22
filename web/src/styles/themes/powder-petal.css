@@ -1,11 +1,11 @@
 [data-theme="powder-petal"] {
-  --color-bg: #000000;
-  --color-surface: #0d0d0d;
-  --color-accent: #f5dde4;
-  --color-accent-muted: #b89098;
-  --color-text-primary: #faf6f7;
-  --color-text-secondary: #9c9294;
-  --color-border: #1a1a1a;
+  --color-bg: #fef8f9;
+  --color-surface: #f8eff2;
+  --color-accent: #c04070;
+  --color-accent-muted: #d07090;
+  --color-text-primary: #280c14;
+  --color-text-secondary: #745060;
+  --color-border: #ead8e0;
   --heading-font: var(--font-sans);
   --card-radius: 0.5rem;
 }
