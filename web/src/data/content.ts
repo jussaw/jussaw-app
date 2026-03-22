@@ -24,6 +24,7 @@ export interface SiteContent {
     email: string;
     github: string;
     linkedin: string;
+    hostingNote: string;
   };
   skills: Skill[];
   experience: ExperienceEntry[];
@@ -38,6 +39,7 @@ export const siteContent: SiteContent = {
     email: "jtsaw36@gmail.com",
     github: "https://github.com/jussaw",
     linkedin: "https://linkedin.com/in/jussaw",
+    hostingNote: "Hosted with ❤️ on my Raspberry Pi",
   },
   skills: [
     { name: "React", category: "frontend" },
@@ -73,8 +75,8 @@ export const siteContent: SiteContent = {
       period: "2023 – 2025",
       location: "Denver, Colorado",
       bullets: [
-        "Collaborated with an Agile team to develop a time tracking application with ReactJS frontend and Spring Boot backend in a microservice architecture",
-        "Developed a voting system application with Spring Boot backend and ReactJS frontend, implementing RESTful APIs and PostgreSQL for database management",
+        "Built a time tracking application using ReactJS and Spring Boot in a microservice architecture, working within an Agile team",
+        "Developed a full-stack voting system with RESTful APIs and PostgreSQL, building on the same React/Spring Boot stack",
         "Assisted the Scrum Master with sprint management and writing stories",
       ],
     },
@@ -86,7 +88,7 @@ export const siteContent: SiteContent = {
       bullets: [
         "Collaborated with the L3/Base Application development team weekly to identify and design root-cause fixes, reducing ticket intake by 25%",
         "Triaged tickets with the team in daily Agile stand-ups, assigning specific issues to appropriate departments",
-        "Developed solutions for root-cause fixes while managing weekly tickets in an Agile environment",
+        "Delivered fixes across the codebase while staying current with the team's ongoing ticket backlog",
       ],
     },
     {
@@ -96,7 +98,7 @@ export const siteContent: SiteContent = {
       location: "Remote",
       bullets: [
         "Collaborated with a distributed team to develop scalable microservices supporting T-Mobile's device and accessory supply chain",
-        "Designed and implemented backend microservices using Java Spring and Swagger API definitions within a BDD Agile environment",
+        "Defined backend service contracts using Java Spring and Swagger API specifications within a BDD Agile environment",
         "Enhanced T-Mobile's internal application by creating a new Angular-based page enabling business teams to search and update SKU-specific store information for the BOPIS sales model",
       ],
     },
@@ -107,7 +109,7 @@ export const siteContent: SiteContent = {
       location: "Atlanta Metropolitan Area",
       bullets: [
         "Developed scalable software solutions for advanced automated warehouses using Python, Java, and PL/SQL within a Linux environment",
-        "Implemented software solutions on-site at warehouses worldwide across the United States, Canada, South America, and Europe",
+        "Deployed and configured systems on-site at facilities worldwide, spanning the United States, Canada, South America, and Europe",
         "Partnered directly with clients to customize and optimize software to their unique operational requirements",
       ],
     },
