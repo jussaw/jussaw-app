@@ -65,11 +65,7 @@ export const siteContent: SiteContent = {
       role: "Software Engineer II",
       period: "2025 – Present",
       location: "Atlanta, Georgia",
-      bullets: [
-        "Collaborated with an Agile team to develop a time tracking application with ReactJS frontend and Spring Boot backend in a microservice architecture",
-        "Developed a voting system application with Spring Boot backend and ReactJS frontend, implementing RESTful APIs and PostgreSQL for database management",
-        "Assisted the Scrum Master with sprint management and writing stories",
-      ],
+      bullets: [],
     },
     {
       company: "Raytheon",
