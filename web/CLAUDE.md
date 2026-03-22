@@ -9,7 +9,7 @@ This is **not** the Next.js you know from training data. APIs, conventions, and 
 ## Stack
 - **Framework**: Next.js 16 (App Router, `output: "standalone"`)
 - **Language**: TypeScript (strict mode, `@/*` → `./src/*` alias)
-- **Styling**: Tailwind CSS 4.x + 28 CSS theme files in `src/styles/themes/`
+- **Styling**: Tailwind CSS 4.x + 27 CSS theme files in `src/styles/themes/`
 - **Testing**: Vitest 4 + jsdom + @testing-library/react
 - **Package manager**: pnpm
 - **Deployment**: Docker / Docker Compose (port 23412)
@@ -30,11 +30,11 @@ web/
   src/
     app/            # App Router (layout.tsx, page.tsx, globals.css)
     components/
-      sections/     # Page sections: Hero, Skills, Experience, Hobbies, Footer
-      ui/           # Reusable UI: SectionWrapper, SkillBadge, ExperienceCard, TimelineScrollbar
+      sections/     # Page sections: Hero, Skills, Experience, Projects, Hobbies, Footer
+      ui/           # Reusable UI: SectionWrapper, SkillBadge, ExperienceCard, TimelineScrollbar, ThemeSwitcher, ProjectCard, SetupDrawer, Terminal
     hooks/          # useScrollReveal, useActiveSection
-    data/           # content.ts — all portfolio content lives here
-    styles/themes/  # 28 CSS theme files
+    data/           # content.ts — all portfolio content lives here; themes.ts — theme list with swatch colors
+    styles/themes/  # 27 CSS theme files
     test/           # Vitest setup (setup.ts)
 ```
 

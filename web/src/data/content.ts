@@ -88,15 +88,15 @@ export const siteContent: SiteContent = {
     {
       company: "Cargill",
       role: "Software Engineer II",
-      period: "2025 – Present",
-      location: "Atlanta, Georgia",
+      period: "2025 - Present",
+      location: "Atlanta, GA",
       bullets: [],
     },
     {
       company: "Raytheon",
       role: "Software Engineer II",
-      period: "2023 – 2025",
-      location: "Denver, Colorado",
+      period: "2023 - 2025",
+      location: "Denver, CO",
       bullets: [
         "Engineered a full-stack time tracking application using React and Spring Boot within a microservices architecture",
         "Designed and implemented an internal voting system with RESTful APIs and a PostgreSQL backend",
@@ -106,7 +106,7 @@ export const siteContent: SiteContent = {
     {
       company: "Benchmark Analytics",
       role: "Full Stack Developer",
-      period: "2022 – 2023",
+      period: "2022 - 2023",
       location: "Remote",
       bullets: [
         "Partnered with the L3/Base Application team to identify and resolve root-cause defects, reducing ticket intake by 25%",
@@ -117,7 +117,7 @@ export const siteContent: SiteContent = {
     {
       company: "T-Mobile",
       role: "Software Engineer",
-      period: "2021 – 2022",
+      period: "2021 - 2022",
       location: "Remote",
       bullets: [
         "Developed scalable microservices supporting T-Mobile's device and accessory supply chain within a distributed Agile team",
@@ -128,8 +128,8 @@ export const siteContent: SiteContent = {
     {
       company: "KNAPP",
       role: "Software Systems Engineer",
-      period: "2019 – 2020",
-      location: "Atlanta Metropolitan Area",
+      period: "2019 - 2020",
+      location: "Atlanta, GA",
       bullets: [
         "Developed software solutions for automated warehouse systems using Python, Java, and PL/SQL in a Linux environment",
         "Deployed and configured systems on-site at facilities worldwide, spanning the United States, Canada, South America, and Europe",
@@ -156,7 +156,13 @@ export const siteContent: SiteContent = {
         "Scroll-triggered animations with Intersection Observer API",
         "Full test coverage with Vitest + React Testing Library",
       ],
-      stack: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Docker", "Raspberry Pi"],
+      stack: [
+        "Next.js 16",
+        "TypeScript",
+        "Tailwind CSS 4",
+        "Docker",
+        "Raspberry Pi",
+      ],
       liveUrl: "https://jussaw.com",
       githubUrl: "https://github.com/jussaw/jussaw-app",
     },
