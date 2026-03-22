@@ -5,7 +5,7 @@ export default function Hobbies() {
   const { hobbies } = siteContent;
 
   return (
-    <SectionWrapper id="hobbies">
+    <SectionWrapper id="hobbies" className="mb-24">
       <h2
         className="text-3xl font-semibold mb-4"
         style={{
@@ -15,7 +15,10 @@ export default function Hobbies() {
       >
         Outside of Work
       </h2>
-      <p className="text-base mb-8" style={{ color: "var(--color-text-secondary)" }}>
+      <p
+        className="text-base mb-8"
+        style={{ color: "var(--color-text-secondary)" }}
+      >
         A few things that keep me grounded when I'm not writing code.
       </p>
       <div className="flex flex-wrap gap-3">
@@ -29,7 +32,10 @@ export default function Hobbies() {
             }}
           >
             <span className="text-xl">{h.emoji}</span>
-            <span className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+            <span
+              className="text-sm font-medium"
+              style={{ color: "var(--color-text-primary)" }}
+            >
               {h.label}
             </span>
           </div>

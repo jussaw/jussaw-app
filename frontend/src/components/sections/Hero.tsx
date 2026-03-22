@@ -5,11 +5,12 @@ import { siteContent } from "@/data/content";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface HeroProps {
+  id?: string;
   layout?: "centered" | "left-aligned";
   headingStyle?: "serif-elegant" | "bold-sans" | "mono-minimal";
 }
 
-export default function Hero({ layout = "centered", headingStyle = "serif-elegant" }: HeroProps) {
+export default function Hero({ id, layout = "centered", headingStyle = "serif-elegant" }: HeroProps) {
   const { person } = siteContent;
   const ref = useRef<HTMLDivElement>(null);
   useScrollReveal(ref);
@@ -28,7 +29,8 @@ export default function Hero({ layout = "centered", headingStyle = "serif-elegan
 
   return (
     <section
-      className={`px-6 pt-32 pb-24 max-w-4xl mx-auto w-full ${isCenter ? "text-center" : "text-left"}`}
+      id={id}
+      className={`px-6 pt-[40vh] pb-24 max-w-4xl mx-auto w-full ${isCenter ? "text-center" : "text-left"}`}
     >
       <div
         ref={ref}
