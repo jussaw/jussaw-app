@@ -111,7 +111,7 @@ export default function Terminal({ open, onClose }: TerminalProps) {
     >
       {/* Toolbar */}
       <div style={{ padding: '0.5rem 1rem', borderBottom: '1px solid #21262d', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span aria-hidden="true" style={{ color: '#8b949e', fontSize: '0.75rem' }}>jussaw — terminal</span>
+        <span aria-hidden="true" style={{ color: '#8b949e', fontSize: '0.75rem' }}>justin@jussaw — terminal</span>
         <button
           onClick={onClose}
           aria-label="Close terminal"
@@ -127,8 +127,8 @@ export default function Terminal({ open, onClose }: TerminalProps) {
           <div key={i} style={{ marginBottom: '0.25rem', lineHeight: 1.6 }}>
             {line.type === 'input' ? (
               <div>
-                <span aria-hidden="true" style={{ color: '#58a6ff' }}>~</span>
-                <span aria-hidden="true" style={{ color: '#8b949e' }}>$ </span>
+                <span aria-hidden="true" style={{ color: '#58a6ff' }}>justin@jussaw</span>
+                <span aria-hidden="true" style={{ color: '#8b949e' }}>:~$ </span>
                 <span>{line.text}</span>
               </div>
             ) : (
@@ -141,8 +141,8 @@ export default function Terminal({ open, onClose }: TerminalProps) {
 
       {/* Input */}
       <div style={{ padding: '0 1rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <span aria-hidden="true" style={{ color: '#58a6ff' }}>~</span>
-        <span aria-hidden="true" style={{ color: '#8b949e' }}>$</span>
+        <span aria-hidden="true" style={{ color: '#58a6ff' }}>justin@jussaw</span>
+        <span aria-hidden="true" style={{ color: '#8b949e' }}>:~$</span>
         <input
           role="textbox"
           aria-label="Terminal input"

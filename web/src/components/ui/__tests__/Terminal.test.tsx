@@ -37,7 +37,7 @@ describe('Terminal', () => {
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'whoami' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(screen.getByText(/justin/i)).toBeInTheDocument();
+    expect(screen.getByText(/justin sawyer/i)).toBeInTheDocument();
   });
 
   it('shows error for unknown commands', () => {
