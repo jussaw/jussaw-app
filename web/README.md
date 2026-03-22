@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Personal portfolio site for [jussaw.com](https://jussaw.com/), built with [Next.js](https://nextjs.org).
 
 ## Getting Started
 
@@ -17,13 +17,13 @@ The app uses `output: "standalone"` in `next.config.ts`, which produces a minima
 ### Build the image
 
 ```bash
-docker build -t jussaw-frontend .
+docker build -t jussaw-web .
 ```
 
 ### Run the container
 
 ```bash
-docker run -p 3000:3000 jussaw-frontend
+docker run -p 3000:3000 jussaw-web
 ```
 
 The app will be available at [http://localhost:3000](http://localhost:3000).
@@ -35,7 +35,7 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 ```bash
 docker build \
   --build-arg NEXT_PUBLIC_API_URL=https://api.example.com \
-  -t jussaw-frontend .
+  -t jussaw-web .
 ```
 
 Server-only variables (no `NEXT_PUBLIC_` prefix) can be injected at **run time**:
@@ -44,13 +44,13 @@ Server-only variables (no `NEXT_PUBLIC_` prefix) can be injected at **run time**
 docker run -p 3000:3000 \
   -e DATABASE_URL=postgres://... \
   -e SECRET_KEY=... \
-  jussaw-frontend
+  jussaw-web
 ```
 
 ### Custom port or hostname
 
 ```bash
-docker run -p 8080:8080 -e PORT=8080 -e HOSTNAME=0.0.0.0 jussaw-frontend
+docker run -p 8080:8080 -e PORT=8080 -e HOSTNAME=0.0.0.0 jussaw-web
 ```
 
 ### Docker Compose
@@ -77,7 +77,7 @@ Add environment variables in `docker-compose.yml` under the `environment` key, o
 
 ```yaml
 services:
-  frontend:
+  web:
     env_file:
       - .env.local
 ```
@@ -92,5 +92,5 @@ openssl rand -base64 32
 
 docker run -p 3000:3000 \
   -e NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=<your-base64-key> \
-  jussaw-frontend
+  jussaw-web
 ```

@@ -1,6 +1,6 @@
 services:
-  frontend:
-    container_name: jussaw-frontend
+  web:
+    container_name: jussaw-web
     build: .
     ports:
       - "23412:3000"

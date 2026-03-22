@@ -7,6 +7,6 @@ echo "==> Pulling latest changes..."
 git -C "$REPO_DIR" pull
 
 echo "==> Building and starting containers..."
-docker compose -f "$REPO_DIR/frontend/docker-compose.yml" up --build -d
+docker compose -f "$REPO_DIR/web/docker-compose.yml" up --build -d
 
 echo "==> Done."
