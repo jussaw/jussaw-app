@@ -37,20 +37,8 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
         className="reveal"
         style={{ transitionDelay: '150ms' }}
       >
-        <div className="mb-4">
-          <span
-            className="text-sm font-medium uppercase tracking-widest px-3 py-1 rounded-full border"
-            style={{
-              color: "var(--color-accent)",
-              borderColor: "var(--color-accent-2, var(--color-accent-muted))",
-              background: "var(--color-surface)",
-            }}
-          >
-            {person.title}
-          </span>
-        </div>
         <h1
-          className="text-6xl md:text-7xl mb-6 leading-tight"
+          className="text-6xl md:text-7xl mb-1 leading-tight"
           style={{
             fontFamily: headingFont,
             fontWeight: headingWeight,
@@ -59,6 +47,16 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
         >
           {person.name}
         </h1>
+        <div className="mb-6">
+          <span
+            className="text-sm font-medium uppercase tracking-widest"
+            style={{
+              color: "var(--color-accent)",
+            }}
+          >
+            {person.title}
+          </span>
+        </div>
         <p
           className={`text-xl leading-relaxed max-w-2xl ${isCenter ? "mx-auto" : ""}`}
           style={{ color: "var(--color-text-secondary)" }}
