@@ -34,8 +34,8 @@ export const siteContent: SiteContent = {
   person: {
     name: "Justin Sawyer",
     title: "Software Engineer",
-    tagline: "I build things for the web — from the database to the browser.",
-    email: "hello@jussaw.com",
+    tagline: "I care about how it works, how it feels, and who it's for.",
+    email: "jtsaw36@gmail.com",
     github: "https://github.com/jussaw",
     linkedin: "https://linkedin.com/in/jussaw",
   },

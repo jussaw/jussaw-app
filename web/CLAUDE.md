@@ -26,7 +26,7 @@ pnpm test:watch   # Vitest (watch mode)
 
 ## Directory Layout
 ```
-frontend/
+web/
   src/
     app/            # App Router (layout.tsx, page.tsx, globals.css)
     components/

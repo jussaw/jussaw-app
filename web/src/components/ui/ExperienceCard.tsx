@@ -55,7 +55,7 @@ export default function ExperienceCard({ entry, displayMode = "cards" }: Experie
         <ul className="space-y-1.5">
           {entry.bullets.map((b, i) => (
             <li key={i} className="flex gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
-              <span style={{ color: "var(--color-accent)" }} className="mt-0.5 shrink-0">→</span>
+              <span style={{ color: "var(--color-accent)" }} className="shrink-0">•</span>
               {b}
             </li>
           ))}
@@ -119,7 +119,7 @@ export default function ExperienceCard({ entry, displayMode = "cards" }: Experie
       <ul className="space-y-1.5">
         {entry.bullets.map((b, i) => (
           <li key={i} className="flex gap-2 text-sm" style={{ color: "var(--color-text-secondary)" }}>
-            <span style={{ color: "var(--color-accent)" }} className="mt-0.5 shrink-0">▸</span>
+            <span style={{ color: "var(--color-accent)" }} className="shrink-0">•</span>
             {b}
           </li>
         ))}
