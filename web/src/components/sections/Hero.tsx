@@ -55,7 +55,12 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
               ['--stagger-delay' as string]: '100ms',
             }}
           >
-            {person.title}
+            {person.title.split(' | ').map((part, i) => (
+              <span key={i}>
+                {i > 0 && <><span className="hidden sm:inline"> | </span><br className="sm:hidden" /></>}
+                {part}
+              </span>
+            ))}
           </span>
         </div>
         <p

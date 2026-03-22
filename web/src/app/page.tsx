@@ -1,3 +1,4 @@
+import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import Skills from "@/components/sections/Skills";
 import Experience from "@/components/sections/Experience";
@@ -6,7 +7,8 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen" style={{ background: "var(--color-bg)" }}>
+    <main className="min-h-screen pt-12" style={{ background: "var(--color-bg)" }}>
+      <Header />
       <Hero id="hero" layout="left-aligned" headingStyle="bold-sans" />
       <Skills displayMode="grouped" />
       <Experience displayMode="timeline" />

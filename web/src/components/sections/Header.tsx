@@ -1,45 +1,60 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Mail, Github, Linkedin } from 'lucide-react';
 import { siteContent } from "@/data/content";
 
 export default function Header() {
   const { person } = siteContent;
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
+    <>
+    <div
+      className="fixed top-0 left-0 right-0 pointer-events-none"
+      style={{ zIndex: 9, height: "160px", background: "linear-gradient(to bottom, var(--color-bg) 30%, transparent 100%)" }}
+    />
     <header
-      className="fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 border-b"
+      className="fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 transition-all duration-300"
       style={{
-        background: "var(--color-bg)",
-        borderColor: "var(--color-border)",
+        background: scrolled ? "var(--color-bg)" : "transparent",
       }}
     >
       <a
         href={`mailto:${person.email}`}
-        className="flex items-center gap-1.5 text-sm hover:opacity-70 transition-opacity"
+        aria-label="Email"
+        className="flex items-center hover:opacity-70 transition-opacity"
         style={{ color: "var(--color-text-secondary)" }}
       >
-        <Mail size={15} />
-        Email
+        <Mail size={18} />
       </a>
       <a
         href={person.github}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-1.5 text-sm hover:opacity-70 transition-opacity"
+        aria-label="GitHub"
+        className="flex items-center hover:opacity-70 transition-opacity"
         style={{ color: "var(--color-text-secondary)" }}
       >
-        <Github size={15} />
-        GitHub
+        <Github size={18} />
       </a>
       <a
         href={person.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-1.5 text-sm hover:opacity-70 transition-opacity"
+        aria-label="LinkedIn"
+        className="flex items-center hover:opacity-70 transition-opacity"
         style={{ color: "var(--color-text-secondary)" }}
       >
-        <Linkedin size={15} />
-        LinkedIn
+        <Linkedin size={18} />
       </a>
     </header>
+    </>
   );
 }
