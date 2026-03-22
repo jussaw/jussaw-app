@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Mail, Github, Linkedin } from 'lucide-react';
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import { siteContent } from "@/data/content";
 
 export default function Header() {
@@ -16,45 +16,50 @@ export default function Header() {
 
   return (
     <>
-    <div
-      className="fixed top-0 left-0 right-0 pointer-events-none"
-      style={{ zIndex: 9, height: "160px", background: "linear-gradient(to bottom, var(--color-bg) 30%, transparent 100%)" }}
-    />
-    <header
-      className="fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 transition-all duration-300"
-      style={{
-        background: scrolled ? "var(--color-bg)" : "transparent",
-      }}
-    >
-      <a
-        href={`mailto:${person.email}`}
-        aria-label="Email"
-        className="flex items-center hover:opacity-70 transition-opacity"
-        style={{ color: "var(--color-text-secondary)" }}
+      <div
+        className="fixed top-0 left-0 right-0 pointer-events-none"
+        style={{
+          zIndex: 9,
+          height: "120px",
+          background:
+            "linear-gradient(to bottom, var(--color-bg) 30%, transparent 100%)",
+        }}
+      />
+      <header
+        className="fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 transition-all duration-300"
+        style={{
+          background: scrolled ? "var(--color-bg)" : "transparent",
+        }}
       >
-        <Mail size={18} />
-      </a>
-      <a
-        href={person.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-        className="flex items-center hover:opacity-70 transition-opacity"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
-        <Github size={18} />
-      </a>
-      <a
-        href={person.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn"
-        className="flex items-center hover:opacity-70 transition-opacity"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
-        <Linkedin size={18} />
-      </a>
-    </header>
+        <a
+          href={`mailto:${person.email}`}
+          aria-label="Email"
+          className="flex items-center hover:opacity-70 transition-opacity"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
+          <FaEnvelope size={18} />
+        </a>
+        <a
+          href={person.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          className="flex items-center hover:opacity-70 transition-opacity"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
+          <FaLinkedin size={18} />
+        </a>
+        <a
+          href={person.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          className="flex items-center hover:opacity-70 transition-opacity"
+          style={{ color: "var(--color-text-secondary)" }}
+        >
+          <FaGithub size={18} />
+        </a>
+      </header>
     </>
   );
 }

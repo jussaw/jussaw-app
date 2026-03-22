@@ -1,9 +1,10 @@
-import { Keyboard, Server, Gamepad2, Footprints, MountainSnow, type LucideIcon } from 'lucide-react';
+import { FaKeyboard, FaServer, FaGamepad, FaHiking, FaMountain } from 'react-icons/fa';
+import { type IconType } from 'react-icons';
 import { siteContent } from "@/data/content";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
-const hobbyIcons: Record<string, LucideIcon> = {
-  Keyboard, Server, Gamepad2, Footprints, MountainSnow,
+const hobbyIcons: Record<string, IconType> = {
+  FaKeyboard, FaServer, FaGamepad, FaHiking, FaMountain,
 };
 
 export default function Hobbies() {
