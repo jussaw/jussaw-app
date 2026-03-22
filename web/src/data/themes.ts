@@ -1,3 +1,4 @@
+// Must be kept in sync with src/styles/themes/*.css — one entry per CSS file.
 export interface ThemeEntry {
   key: string;
   color1: string; // --color-accent

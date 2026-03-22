@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ThemeSwitcher from '../ThemeSwitcher';
+import { themes } from '@/data/themes';
 
 describe('ThemeSwitcher', () => {
   beforeEach(() => {
@@ -17,7 +18,7 @@ describe('ThemeSwitcher', () => {
     const btn = screen.getByRole('button', { name: /theme/i });
     fireEvent.click(btn);
     const swatches = screen.getAllByRole('button', { name: /switch to/i });
-    expect(swatches.length).toBe(27);
+    expect(swatches.length).toBe(themes.length);
   });
 
   it('closes the popover when pressing Escape', () => {
