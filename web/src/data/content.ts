@@ -13,7 +13,7 @@ export interface ExperienceEntry {
 
 export interface HobbyEntry {
   label: string;
-  emoji: string;
+  icon: string;
 }
 
 export interface KitItem {
@@ -121,11 +121,11 @@ export const siteContent: SiteContent = {
     },
   ],
   hobbies: [
-    { label: "Ergonomic Keyboards", emoji: "⌨️" },
-    { label: "Home Lab", emoji: "🖥️" },
-    { label: "Gaming", emoji: "🎮" },
-    { label: "Hiking", emoji: "🥾" },
-    { label: "Snowboarding", emoji: "🏂" },
+    { label: "Ergonomic Keyboards", icon: "Keyboard" },
+    { label: "Home Lab",            icon: "Server" },
+    { label: "Gaming",              icon: "Gamepad2" },
+    { label: "Hiking",              icon: "Footprints" },
+    { label: "Snowboarding",        icon: "MountainSnow" },
   ],
   kit: [
     { label: "keyboard", value: "Corne LP w/ nice!nano" },
