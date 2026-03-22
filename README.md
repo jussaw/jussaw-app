@@ -20,7 +20,3 @@ jussaw-app/
 ├── web/      # Next.js application → see web/README.md for setup & deployment
 └── devops/   # Deployment scripts
 ```
-
-## License
-
-MIT
