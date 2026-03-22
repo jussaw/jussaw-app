@@ -10,12 +10,15 @@ export default function Footer({ id }: FooterProps = {}) {
   return (
     <footer
       id={id}
-      className="px-6 py-12 border-t"
+      className="px-6 pt-12 pb-4 border-t"
       style={{ borderColor: "var(--color-border)" }}
     >
-      <div className="max-w-4xl mx-auto flex flex-col items-center gap-4">
+      <div className="max-w-4xl mx-auto flex flex-col items-center gap-8">
         <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4">
-          <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>
+          <p
+            className="text-sm"
+            style={{ color: "var(--color-text-secondary)" }}
+          >
             © {new Date().getFullYear()} {person.name}
           </p>
           <div className="flex items-center gap-6">
