@@ -60,6 +60,11 @@ body {
   transform: translateY(0);
 }
 
+.reveal.no-transition,
+.reveal.no-transition .reveal-stagger {
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
