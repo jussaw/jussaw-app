@@ -35,38 +35,39 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
       <div
         ref={ref}
         className="reveal"
-        style={{ transitionDelay: '150ms' }}
       >
         <h1
-          className="text-6xl md:text-7xl mb-1 leading-tight"
+          className="reveal-stagger text-6xl md:text-7xl mb-1 leading-tight"
           style={{
             fontFamily: headingFont,
             fontWeight: headingWeight,
             color: "var(--color-text-primary)",
+            ['--stagger-delay' as string]: '0ms',
           }}
         >
           {person.name}
         </h1>
         <div className="mb-6">
           <span
-            className="text-sm font-medium uppercase tracking-widest"
+            className="reveal-stagger text-sm font-medium uppercase tracking-widest"
             style={{
               color: "var(--color-accent)",
+              ['--stagger-delay' as string]: '100ms',
             }}
           >
             {person.title}
           </span>
         </div>
         <p
-          className={`text-xl leading-relaxed max-w-2xl ${isCenter ? "mx-auto" : ""}`}
-          style={{ color: "var(--color-text-secondary)" }}
+          className={`reveal-stagger text-xl leading-relaxed max-w-2xl ${isCenter ? "mx-auto" : ""}`}
+          style={{ color: "var(--color-text-secondary)", ['--stagger-delay' as string]: '200ms' }}
         >
           {person.tagline}
         </p>
         {kit.length > 0 && (
           <div
-            className="mt-8 pt-8 border-t inline-block"
-            style={{ borderColor: "var(--color-border)" }}
+            className="reveal-stagger mt-8 pt-8 border-t inline-block"
+            style={{ borderColor: "var(--color-border)", ['--stagger-delay' as string]: '340ms' }}
           >
             <dl className="flex flex-col gap-1.5">
               {kit.map((item) => (

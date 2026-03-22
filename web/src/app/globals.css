@@ -47,8 +47,26 @@ body {
   transform: translateY(0);
 }
 
+/* Staggered child reveals — triggered when parent .reveal becomes .visible */
+.reveal-stagger {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+.reveal.visible .reveal-stagger {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reveal-stagger {
     opacity: 1;
     transform: none;
     transition: none;

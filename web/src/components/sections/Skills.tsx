@@ -21,21 +21,26 @@ export default function Skills({ displayMode = "grid" }: SkillsProps) {
   return (
     <SectionWrapper id="skills">
       <h2
-        className="text-3xl font-semibold mb-10"
+        className="reveal-stagger text-3xl font-semibold mb-10"
         style={{
           fontFamily: "var(--heading-font, var(--font-sans))",
           color: "var(--color-text-primary)",
+          ['--stagger-delay' as string]: '0ms',
         }}
       >
         Skills
       </h2>
       {displayMode === "grouped" ? (
         <div className="space-y-6">
-          {categories.map((cat) => {
+          {categories.map((cat, i) => {
             const catSkills = skills.filter((s) => s.category === cat);
             if (!catSkills.length) return null;
             return (
-              <div key={cat}>
+              <div
+                key={cat}
+                className="reveal-stagger"
+                style={{ ['--stagger-delay' as string]: `${100 + i * 120}ms` }}
+              >
                 <p className="text-xs uppercase tracking-widest mb-3" style={{ color: "var(--color-accent-3, var(--color-accent-2, var(--color-text-secondary)))" }}>
                   {categoryLabels[cat]}
                 </p>
@@ -49,7 +54,10 @@ export default function Skills({ displayMode = "grid" }: SkillsProps) {
           })}
         </div>
       ) : (
-        <div className="flex flex-wrap gap-2.5">
+        <div
+          className="reveal-stagger flex flex-wrap gap-2.5"
+          style={{ ['--stagger-delay' as string]: '100ms' }}
+        >
           {skills.map((s) => (
             <SkillBadge key={s.name} skill={s} />
           ))}
