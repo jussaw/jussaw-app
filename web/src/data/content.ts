@@ -75,9 +75,9 @@ export const siteContent: SiteContent = {
       period: "2023 – 2025",
       location: "Denver, Colorado",
       bullets: [
-        "Built a time tracking application using ReactJS and Spring Boot in a microservice architecture, working within an Agile team",
-        "Developed a full-stack voting system with RESTful APIs and PostgreSQL, building on the same React/Spring Boot stack",
-        "Assisted the Scrum Master with sprint management and writing stories",
+        "Engineered a full-stack time tracking application using React and Spring Boot within a microservices architecture",
+        "Designed and implemented an internal voting system with RESTful APIs and a PostgreSQL backend",
+        "Partnered with the Scrum Master to facilitate sprint ceremonies and author user stories",
       ],
     },
     {
@@ -86,9 +86,9 @@ export const siteContent: SiteContent = {
       period: "2022 – 2023",
       location: "Remote",
       bullets: [
-        "Collaborated with the L3/Base Application development team weekly to identify and design root-cause fixes, reducing ticket intake by 25%",
-        "Triaged tickets with the team in daily Agile stand-ups, assigning specific issues to appropriate departments",
-        "Delivered fixes across the codebase while staying current with the team's ongoing ticket backlog",
+        "Partnered with the L3/Base Application team to identify and resolve root-cause defects, reducing ticket intake by 25%",
+        "Triaged and routed incoming issues during daily Agile stand-ups, directing tickets to the appropriate engineering departments",
+        "Sustained consistent delivery of bug fixes across the codebase while managing a high-volume ticket backlog",
       ],
     },
     {
@@ -97,9 +97,9 @@ export const siteContent: SiteContent = {
       period: "2021 – 2022",
       location: "Remote",
       bullets: [
-        "Collaborated with a distributed team to develop scalable microservices supporting T-Mobile's device and accessory supply chain",
+        "Developed scalable microservices supporting T-Mobile's device and accessory supply chain within a distributed Agile team",
         "Defined backend service contracts using Java Spring and Swagger API specifications within a BDD Agile environment",
-        "Enhanced T-Mobile's internal application by creating a new Angular-based page enabling business teams to search and update SKU-specific store information for the BOPIS sales model",
+        "Built a new Angular feature page enabling business teams to search and update SKU-level store data for the BOPIS sales model",
       ],
     },
     {
@@ -108,7 +108,7 @@ export const siteContent: SiteContent = {
       period: "2019 – 2020",
       location: "Atlanta Metropolitan Area",
       bullets: [
-        "Developed scalable software solutions for advanced automated warehouses using Python, Java, and PL/SQL within a Linux environment",
+        "Developed software solutions for automated warehouse systems using Python, Java, and PL/SQL in a Linux environment",
         "Deployed and configured systems on-site at facilities worldwide, spanning the United States, Canada, South America, and Europe",
         "Partnered directly with clients to customize and optimize software to their unique operational requirements",
       ],
