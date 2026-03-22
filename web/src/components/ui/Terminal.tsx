@@ -144,7 +144,6 @@ export default function Terminal({ open, onClose }: TerminalProps) {
         <span aria-hidden="true" style={{ color: '#58a6ff' }}>justin@jussaw</span>
         <span aria-hidden="true" style={{ color: '#8b949e' }}>:~$</span>
         <input
-          role="textbox"
           aria-label="Terminal input"
           autoFocus
           value={input}
