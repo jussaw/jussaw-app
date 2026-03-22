@@ -1,4 +1,5 @@
 import Header from "@/components/sections/Header";
+import TimelineScrollbar from "@/components/ui/TimelineScrollbar";
 import Hero from "@/components/sections/Hero";
 import Skills from "@/components/sections/Skills";
 import Experience from "@/components/sections/Experience";
@@ -14,6 +15,7 @@ export default function Home() {
       <Experience displayMode="timeline" />
       <Hobbies />
       <Footer id="footer" />
+      <TimelineScrollbar />
     </main>
   );
 }
