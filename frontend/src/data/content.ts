@@ -32,7 +32,7 @@ export interface SiteContent {
 
 export const siteContent: SiteContent = {
   person: {
-    name: "jussaw",
+    name: "Justin Sawyer",
     title: "Software Engineer",
     tagline: "I build things for the web — from the database to the browser.",
     email: "hello@jussaw.com",

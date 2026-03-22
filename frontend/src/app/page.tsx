@@ -7,11 +7,11 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <main className="min-h-screen" style={{ background: "var(--color-bg)" }}>
-      <Hero layout="left-aligned" headingStyle="bold-sans" />
+      <Hero id="hero" layout="left-aligned" headingStyle="bold-sans" />
       <Skills displayMode="grouped" />
       <Experience displayMode="timeline" />
       <Hobbies />
-      <Footer />
+      <Footer id="footer" />
     </main>
   );
 }

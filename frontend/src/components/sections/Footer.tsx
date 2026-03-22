@@ -1,10 +1,15 @@
 import { siteContent } from "@/data/content";
 
-export default function Footer() {
+interface FooterProps {
+  id?: string;
+}
+
+export default function Footer({ id }: FooterProps = {}) {
   const { person } = siteContent;
 
   return (
     <footer
+      id={id}
       className="px-6 py-12 border-t"
       style={{ borderColor: "var(--color-border)" }}
     >

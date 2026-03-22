@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Lora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import TimelineScrollbar from "@/components/ui/TimelineScrollbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +39,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${lora.variable} ${jetbrainsMono.variable}`}
     >
-      <body data-theme="baby-blue-3">{children}</body>
+      <body data-theme="baby-blue-3">
+        {children}
+        <TimelineScrollbar />
+      </body>
     </html>
   );
 }
