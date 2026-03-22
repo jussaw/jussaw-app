@@ -1,7 +1,7 @@
 services:
   frontend:
     container_name: jussaw-frontend
-    image: ghcr.io/jussaw/jussaw-app-frontend:latest
+    build: .
     ports:
       - "23412:3000"
     environment:
