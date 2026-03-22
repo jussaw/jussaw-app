@@ -11,7 +11,7 @@ interface HeroProps {
 }
 
 export default function Hero({ id, layout = "centered", headingStyle = "serif-elegant" }: HeroProps) {
-  const { person } = siteContent;
+  const { person, kit } = siteContent;
   const ref = useRef<HTMLDivElement>(null);
   useScrollReveal(ref);
 
@@ -63,31 +63,28 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
         >
           {person.tagline}
         </p>
-        <div className={`mt-10 flex gap-4 ${isCenter ? "justify-center" : "justify-start"}`}>
-          <a
-            href={`mailto:${person.email}`}
-            className="px-5 py-2.5 rounded-full text-sm font-medium transition-opacity hover:opacity-80"
-            style={{
-              background: "var(--color-accent)",
-              color: "#fff",
-            }}
+        {kit.length > 0 && (
+          <div
+            className="mt-8 pt-8 border-t inline-block"
+            style={{ borderColor: "var(--color-border)" }}
           >
-            Get in touch
-          </a>
-          <a
-            href={person.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-full text-sm font-medium border transition-colors hover:opacity-80"
-            style={{
-              borderColor: "var(--color-border)",
-              color: "var(--color-text-primary)",
-              background: "var(--color-surface)",
-            }}
-          >
-            GitHub
-          </a>
-        </div>
+            <dl className="flex flex-col gap-1.5">
+              {kit.map((item) => (
+                <div key={item.label} className="flex items-baseline gap-3">
+                  <dt
+                    className="text-xs uppercase tracking-widest w-24 shrink-0"
+                    style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent-muted, var(--color-accent))" }}
+                  >
+                    {item.label}
+                  </dt>
+                  <dd className="text-sm" style={{ color: "var(--color-text-primary)" }}>
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- dark outer circle -->
+  <circle cx="32" cy="32" r="32" fill="#0a0a0a"/>
+  <!-- mauve inner dot -->
+  <circle cx="32" cy="32" r="16" fill="#c4a0b2"/>
+  <!-- J centered on the dot -->
+  <text
+    x="32" y="32"
+    dominant-baseline="central"
+    text-anchor="middle"
+    font-family="Inter, -apple-system, sans-serif"
+    font-weight="800"
+    font-size="16"
+    fill="#000000"
+  >J</text>
+</svg>
