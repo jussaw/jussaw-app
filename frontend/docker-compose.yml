@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "23412:3000"
+    environment:
+      - NODE_ENV=production
+      # Server-only runtime vars (add as needed):
+      # - DATABASE_URL=postgres://...
+      # - SECRET_KEY=...
+      # - NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=...
+    restart: unless-stopped
