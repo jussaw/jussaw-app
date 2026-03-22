@@ -14,13 +14,32 @@ export function useScrollReveal(
     const el = ref.current;
     if (!el) return;
 
+    const showInstant = () => {
+      el.classList.add('no-transition', 'visible');
+      requestAnimationFrame(() => el.classList.remove('no-transition'));
+    };
+
+    const hideInstant = () => {
+      el.classList.add('no-transition');
+      el.classList.remove('visible');
+      requestAnimationFrame(() => el.classList.remove('no-transition'));
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const fromBottom = entry.boundingClientRect.top >= 0;
           if (entry.isIntersecting) {
-            el.classList.add('visible');
+            if (fromBottom) {
+              el.classList.add('visible'); // scrolling down — animate
+            } else {
+              showInstant(); // scrolling up — show without animation
+            }
           } else {
-            el.classList.remove('visible');
+            if (fromBottom) {
+              hideInstant(); // scrolled back up past it — reset for re-animation
+            }
+            // scrolled down past it — leave visible
           }
         });
       },
