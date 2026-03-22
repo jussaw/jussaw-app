@@ -31,12 +31,13 @@ function computeMetrics(activeIndex: number, totalHeight: number) {
 
 export default function TimelineScrollbar() {
   const activeIndex = useActiveSection();
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   const [totalHeight, setTotalHeight] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
