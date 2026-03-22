@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const SECTIONS = [
-  { id: 'hero',       label: 'Me' },
-  { id: 'skills',     label: 'Skills' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'hobbies',    label: 'Hobbies' },
+  { id: "hero", label: "jussaw" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "hobbies", label: "Hobbies" },
 ] as const;
 
 export function useActiveSection(): number {
@@ -30,8 +30,8 @@ export function useActiveSection(): number {
     const onScroll = () => setActiveIndex(getActive());
 
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return activeIndex;
