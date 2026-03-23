@@ -82,7 +82,6 @@ export default function ThemeSwitcher() {
     document.body.setAttribute('data-theme', key);
     localStorage.setItem(STORAGE_KEY, key);
     setActiveTheme(key);
-    setOpen(false);
   };
 
   const previewTheme = (key: string) => {
