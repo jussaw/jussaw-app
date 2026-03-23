@@ -14,11 +14,16 @@ const COMMANDS: Record<string, () => string> = {
   help: () =>
     'available: cat <file>, clear, date, echo <text>, ls, pwd, uname, uptime, vim, whoami',
   whoami: () => `${siteContent.person.name} — ${siteContent.person.title}`,
-  ls: () => 'skills.txt  experience.txt  hobbies/  setup.txt',
+  ls: () => 'skills.txt  experience.txt  projects.txt  hobbies.txt  setup.txt',
   'cat skills.txt': () => siteContent.skills.map((s) => s.name).join(', '),
   'cat experience.txt': () =>
     siteContent.experience
       .map((e) => `${e.role} @ ${e.company} (${e.period})`)
+      .join('\n'),
+  'cat hobbies.txt': () => siteContent.hobbies.map((h) => h.label).join(', '),
+  'cat projects.txt': () =>
+    siteContent.projects
+      .map((p) => `${p.title} — ${p.description} [${p.stack.join(', ')}]`)
       .join('\n'),
   'cat setup.txt': () =>
     siteContent.kit.map((k) => `${k.label}: ${k.value}`).join('\n'),
@@ -33,6 +38,8 @@ const COMMANDS: Record<string, () => string> = {
 const COMPLETABLE = [
   'cat',
   'cat experience.txt',
+  'cat hobbies.txt',
+  'cat projects.txt',
   'cat setup.txt',
   'cat skills.txt',
   'clear',
@@ -56,6 +63,7 @@ export default function Terminal() {
   const [lines, setLines] = useState<Line[]>([WELCOME]);
   const [input, setInput] = useState('');
   const outputRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { complete, reset } = useTabCompletion({ commands: COMPLETABLE });
 
   useEffect(() => {
@@ -97,7 +105,7 @@ export default function Terminal() {
 
   return (
     <SectionWrapper id="terminal">
-      <div className={styles.container}>
+      <div className={styles.container} onClick={() => inputRef.current?.focus()}>
         {/* Static top bar */}
         <div className={styles.header}>
           ~ terminal
@@ -124,35 +132,36 @@ export default function Terminal() {
               )}
             </div>
           ))}
+          <div className={styles.line}>
+            <div className={styles.activeInputLine}>
+              <span aria-hidden="true" className={styles.prompt}>
+                jussaw@server
+              </span>
+              <span aria-hidden="true" className={styles.promptPath}>
+                :~${' '}
+              </span>
+              <input
+                ref={inputRef}
+                aria-label="Terminal input"
+                value={input}
+                onChange={(e) => {
+                  reset();
+                  setInput(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Tab') {
+                    e.preventDefault();
+                    setInput(complete(input));
+                  } else if (e.key === 'Enter') {
+                    runCommand(input);
+                  }
+                }}
+                className={styles.inputField}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Input row */}
-        <div className={styles.inputRow}>
-          <span aria-hidden="true" className={styles.prompt}>
-            jussaw@server
-          </span>
-          <span aria-hidden="true" className={styles.promptPath}>
-            :~$
-          </span>
-          <input
-            aria-label="Terminal input"
-            placeholder="type a command..."
-            value={input}
-            onChange={(e) => {
-              reset();
-              setInput(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Tab') {
-                e.preventDefault();
-                setInput(complete(input));
-              } else if (e.key === 'Enter') {
-                runCommand(input);
-              }
-            }}
-            className={styles.inputField}
-          />
-        </div>
       </div>
     </SectionWrapper>
   );
