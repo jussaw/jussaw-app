@@ -1,0 +1,88 @@
+.container {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: var(--font-jbmono, monospace);
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
+}
+
+.output {
+  height: 420px;
+  overflow-y: auto;
+  padding: 1rem;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-muted) var(--color-surface);
+}
+
+.output::-webkit-scrollbar {
+  width: 5px;
+}
+
+.output::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+.output::-webkit-scrollbar-thumb {
+  background: var(--color-accent-muted);
+  border-radius: 3px;
+}
+
+.output::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+.header {
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-jbmono, monospace);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.inputRow {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.inputField {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-text-primary);
+  caret-color: var(--color-accent);
+}
+
+.inputField::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.prompt {
+  color: var(--color-accent);
+}
+
+.promptPath {
+  color: var(--color-text-secondary);
+}
+
+.line {
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+}
+
+.lineOutput {
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+}
