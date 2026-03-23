@@ -16,9 +16,9 @@ export default function Home() {
       <Header />
       <Hero id="hero" layout="left-aligned" headingStyle="bold-sans" />
       <Skills displayMode="grouped" />
-      <Terminal />
       <Experience displayMode="timeline" />
       <Projects />
+      <Terminal />
       <Hobbies />
       <Footer id="footer" />
       <TimelineScrollbar />
