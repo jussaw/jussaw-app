@@ -132,4 +132,19 @@ describe('Terminal (section)', () => {
       expect(screen.queryByText(/available/i)).not.toBeInTheDocument();
     });
   });
+
+  describe('CSS module classes', () => {
+    it('applies container class to the outer wrapper', () => {
+      const { container } = render(<Terminal />);
+      // The outermost div inside SectionWrapper should have the container class
+      const wrapper = container.querySelector('[class*="container"]');
+      expect(wrapper).toBeInTheDocument();
+    });
+
+    it('applies output class to the scrollable area', () => {
+      const { container } = render(<Terminal />);
+      const output = container.querySelector('[class*="output"]');
+      expect(output).toBeInTheDocument();
+    });
+  });
 });
