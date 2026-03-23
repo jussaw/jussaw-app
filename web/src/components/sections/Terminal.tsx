@@ -10,7 +10,8 @@ type Line = { type: 'input' | 'output'; text: string };
 const DESTRUCTIVE = /^(sudo|rm|kill|shutdown|reboot|mkfs|dd\s)/i;
 
 const COMMANDS: Record<string, () => string> = {
-  help: () => 'available: whoami, ls, cat <file>, uptime, clear, exit',
+  help: () =>
+    'available: cat <file>, clear, date, echo <text>, ls, pwd, uname, uptime, vim, whoami',
   whoami: () => `${siteContent.person.name} — ${siteContent.person.title}`,
   ls: () => 'skills.txt  experience.txt  hobbies/  setup.txt',
   'cat skills.txt': () => siteContent.skills.map((s) => s.name).join(', '),
@@ -20,7 +21,12 @@ const COMMANDS: Record<string, () => string> = {
       .join('\n'),
   'cat setup.txt': () =>
     siteContent.kit.map((k) => `${k.label}: ${k.value}`).join('\n'),
-  uptime: () => 'up 847 days — still going',
+  pwd: () => '/Users/justin/brain',
+  uptime: () => 'up 31 years, load average: coffee, music, deadlines',
+  date: () => new Date().toDateString(),
+  uname: () => 'justOS 25.0.0 arm64 APPLESILICON',
+  vim: () => "Entering vim...\nYou're trapped. Type :q! to escape.\nHint: it won't work here.",
+  exit: () => 'this terminal is embedded — nowhere to exit to',
 };
 
 const COMPLETABLE = [
@@ -29,10 +35,14 @@ const COMPLETABLE = [
   'cat setup.txt',
   'cat skills.txt',
   'clear',
-  'exit',
+  'date',
+  'echo',
   'help',
   'ls',
+  'pwd',
+  'uname',
   'uptime',
+  'vim',
   'whoami',
 ];
 
@@ -63,19 +73,13 @@ export default function Terminal() {
       return;
     }
 
-    if (cmd === 'exit') {
-      setLines((prev) => [
-        ...prev,
-        inputLine,
-        { type: 'output', text: 'this terminal is embedded — nowhere to exit to' },
-      ]);
-      setInput('');
-      return;
-    }
-
-    let response: string;
-    if (DESTRUCTIVE.test(cmd)) {
+let response: string;
+    if (cmd === 'sudo make me a sandwich') {
+      response = 'okay.';
+    } else if (DESTRUCTIVE.test(cmd)) {
       response = 'Permission denied. Nice try.';
+    } else if (cmd.startsWith('echo ')) {
+      response = raw.trim().slice(5).trim();
     } else if (COMMANDS[cmd]) {
       response = COMMANDS[cmd]();
     } else {
