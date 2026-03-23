@@ -6,12 +6,11 @@ import { themes, DEFAULT_THEME } from '@/data/themes';
 
 const STORAGE_KEY = 'theme';
 
-function ThemeSwatch({ t, active, onApply, onPreview, onCancelPreview }: {
+function ThemeSwatch({ t, active, onApply, onPreview }: {
   t: typeof themes[0];
   active: boolean;
   onApply: () => void;
   onPreview: () => void;
-  onCancelPreview: () => void;
 }) {
   return (
     <button
@@ -19,11 +18,10 @@ function ThemeSwatch({ t, active, onApply, onPreview, onCancelPreview }: {
       title={t.label}
       onClick={onApply}
       onMouseEnter={onPreview}
-      onMouseLeave={onCancelPreview}
       style={{
         width: 28,
         height: 28,
-        borderRadius: '50%',
+        borderRadius: '4px',
         border: 'none',
         cursor: 'pointer',
         padding: 0,
@@ -128,6 +126,7 @@ export default function ThemeSwitcher() {
           role="dialog"
           aria-label="Theme picker"
           aria-modal="true"
+          onMouseLeave={cancelPreview}
           style={{
             position: 'absolute',
             top: 'calc(100% + 10px)',
@@ -152,7 +151,6 @@ export default function ThemeSwitcher() {
                 active={t.key === activeTheme}
                 onApply={() => applyTheme(t.key)}
                 onPreview={() => previewTheme(t.key)}
-                onCancelPreview={cancelPreview}
               />
             ))}
           </div>
@@ -166,7 +164,6 @@ export default function ThemeSwitcher() {
                 active={t.key === activeTheme}
                 onApply={() => applyTheme(t.key)}
                 onPreview={() => previewTheme(t.key)}
-                onCancelPreview={cancelPreview}
               />
             ))}
           </div>
