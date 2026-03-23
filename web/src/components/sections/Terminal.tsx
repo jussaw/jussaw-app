@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { siteContent } from '@/data/content';
 import SectionWrapper from '@/components/ui/SectionWrapper';
+import { useTabCompletion } from '@/hooks/useTabCompletion';
 
 type Line = { type: 'input' | 'output'; text: string };
 
@@ -22,6 +23,19 @@ const COMMANDS: Record<string, () => string> = {
   uptime: () => 'up 847 days — still going',
 };
 
+const COMPLETABLE = [
+  'cat',
+  'cat experience.txt',
+  'cat setup.txt',
+  'cat skills.txt',
+  'clear',
+  'exit',
+  'help',
+  'ls',
+  'uptime',
+  'whoami',
+];
+
 const WELCOME: Line = {
   type: 'output',
   text: "Welcome. Type 'help' to get started.",
@@ -31,6 +45,7 @@ export default function Terminal() {
   const [lines, setLines] = useState<Line[]>([WELCOME]);
   const [input, setInput] = useState('');
   const outputRef = useRef<HTMLDivElement>(null);
+  const { complete, reset } = useTabCompletion({ commands: COMPLETABLE });
 
   useEffect(() => {
     if (outputRef.current) {
@@ -145,9 +160,17 @@ export default function Terminal() {
           <input
             aria-label="Terminal input"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              reset();
+              setInput(e.target.value);
+            }}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') runCommand(input);
+              if (e.key === 'Tab') {
+                e.preventDefault();
+                setInput(complete(input));
+              } else if (e.key === 'Enter') {
+                runCommand(input);
+              }
             }}
             style={{
               flex: 1,
