@@ -1,6 +1,7 @@
+name: jussaw-app
 services:
   web:
-    container_name: jussaw-web
+    container_name: jussaw-app-web
     build: .
     ports:
       - "23412:3000"
