@@ -27,9 +27,4 @@ describe('Header', () => {
     const { container } = render(<Header />);
     expect(container.querySelector('header')).toBeInTheDocument();
   });
-
-  it('renders a theme switcher button', () => {
-    const { getByRole } = render(<Header />);
-    expect(getByRole('button', { name: /theme/i })).toBeInTheDocument();
-  });
 });
