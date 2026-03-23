@@ -30,10 +30,12 @@ const WELCOME: Line = {
 export default function Terminal() {
   const [lines, setLines] = useState<Line[]>([WELCOME]);
   const [input, setInput] = useState('');
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (outputRef.current) {
+      outputRef.current.scrollTop = outputRef.current.scrollHeight;
+    }
   }, [lines]);
 
   const runCommand = (raw: string) => {
@@ -87,7 +89,7 @@ export default function Terminal() {
         }}
       >
         {/* Scrollable output */}
-        <div style={{ overflowY: 'auto', padding: '1rem', maxHeight: '300px' }}>
+        <div ref={outputRef} style={{ overflowY: 'auto', padding: '1rem', maxHeight: '300px' }}>
           {/* Inline label — no separate toolbar */}
           <div
             style={{
@@ -122,7 +124,6 @@ export default function Terminal() {
               )}
             </div>
           ))}
-          <div ref={bottomRef} />
         </div>
 
         {/* Input row */}
