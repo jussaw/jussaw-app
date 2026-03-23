@@ -7,10 +7,8 @@ const COMMANDS = [
   'cat setup.txt',
   'cat skills.txt',
   'clear',
-  'exit',
   'help',
   'ls',
-  'uptime',
   'whoami',
 ];
 
