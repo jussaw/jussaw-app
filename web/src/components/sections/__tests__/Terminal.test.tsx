@@ -143,6 +143,9 @@ describe('Terminal (section)', () => {
 
     it('applies output class to the scrollable area', () => {
       const { container } = render(<Terminal />);
+      // Substring match needed because Vite hashes CSS module class names (_output_abc123).
+      // .output renders before any .lineOutput divs in the DOM, so this correctly
+      // matches the scrollable container.
       const output = container.querySelector('[class*="output"]');
       expect(output).toBeInTheDocument();
     });
