@@ -8,7 +8,7 @@ export default function Projects() {
   return (
     <SectionWrapper id="projects">
       <h2
-        className="text-3xl font-semibold mb-4"
+        className="text-3xl font-semibold mb-8"
         style={{
           fontFamily: 'var(--heading-font, var(--font-sans))',
           color: 'var(--color-text-primary)',
@@ -16,12 +16,6 @@ export default function Projects() {
       >
         Projects
       </h2>
-      <p
-        className="text-base mb-8"
-        style={{ color: 'var(--color-text-secondary)' }}
-      >
-        Things I&apos;ve built and shipped.
-      </p>
       <div className="flex flex-col gap-6">
         {projects.map((project) => (
           <ProjectCard key={project.title} project={project} />
