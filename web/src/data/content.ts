@@ -26,7 +26,7 @@ export interface ProjectEntry {
   description: string;
   highlights: string[];
   stack: string[];
-  liveUrl: string;
+  liveUrl?: string;
   githubUrl: string;
 }
 
@@ -165,6 +165,30 @@ export const siteContent: SiteContent = {
       ],
       liveUrl: "https://jussaw.com",
       githubUrl: "https://github.com/jussaw/jussaw-app",
+    },
+    {
+      title: "zmk-config-corne",
+      description: "ZMK wireless firmware config for Corne split keyboard",
+      highlights: [
+        "Colemak-DHm layout with home row mods (A/R/S/T and N/E/I/O)",
+        "8 layers: Windows, Mac, Lower, Upper, Adjust, Settings, Game",
+        "Bluetooth multi-device support and mouse/pointer layer",
+        "Hyper key macro and SOCD behavior for Game layer",
+      ],
+      stack: ["ZMK Firmware", "Devicetree", "GitHub Actions"],
+      githubUrl: "https://github.com/jussaw/zmk-config-corne",
+    },
+    {
+      title: "qmk-config-corne",
+      description: "QMK wired firmware config for Corne split keyboard",
+      highlights: [
+        "Colemak-DHm layout with home row mods (A/R/S/T and N/E/I/O)",
+        "8 layers: Default, Mac, Lower, Upper, Adjust, Settings, Game",
+        "Mouse keys, scroll wheel, and media controls on Adjust layer",
+        "SOCD handling in Game layer",
+      ],
+      stack: ["QMK Firmware", "C", "Make"],
+      githubUrl: "https://github.com/jussaw/qmk_firmware",
     },
   ],
 };

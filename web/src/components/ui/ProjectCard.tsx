@@ -52,16 +52,18 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       <div className="flex gap-4">
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm hover:opacity-70 transition-opacity"
-          aria-label={`Live site for ${project.title}`}
-          style={{ color: 'var(--color-accent)' }}
-        >
-          ↗ Live site
-        </a>
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm hover:opacity-70 transition-opacity"
+            aria-label={`Live site for ${project.title}`}
+            style={{ color: 'var(--color-accent)' }}
+          >
+            ↗ Live site
+          </a>
+        )}
         <a
           href={project.githubUrl}
           target="_blank"
