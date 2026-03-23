@@ -18,8 +18,8 @@ export default function Home() {
       <Skills displayMode="grouped" />
       <Experience displayMode="timeline" />
       <Projects />
-      <Terminal />
       <Hobbies />
+      <Terminal />
       <Footer id="footer" />
       <TimelineScrollbar />
     </main>

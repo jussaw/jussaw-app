@@ -104,7 +104,7 @@ export default function Terminal() {
   };
 
   return (
-    <SectionWrapper id="terminal">
+    <SectionWrapper id="terminal" className="mb-36">
       <div className={styles.container} onClick={() => inputRef.current?.focus()}>
         {/* Static top bar */}
         <div className={styles.header}>

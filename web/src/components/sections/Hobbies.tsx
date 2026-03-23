@@ -11,7 +11,7 @@ export default function Hobbies() {
   const { hobbies } = siteContent;
 
   return (
-    <SectionWrapper id="hobbies" className="mb-36">
+    <SectionWrapper id="hobbies">
       <h2
         className="reveal-stagger text-3xl font-semibold mb-4"
         style={{
