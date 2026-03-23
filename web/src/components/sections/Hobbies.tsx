@@ -22,13 +22,7 @@ export default function Hobbies() {
       >
         Outside of Work
       </h2>
-      <p
-        className="reveal-stagger text-base mb-8"
-        style={{ color: "var(--color-text-secondary)", ['--stagger-delay' as string]: '100ms' }}
-      >
-        A few things that keep me grounded when I&apos;m not writing code.
-      </p>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 mt-8">
         {hobbies.map((h, i) => {
           const Icon = hobbyIcons[h.icon];
           return (
