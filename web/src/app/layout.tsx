@@ -54,7 +54,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${lora.variable} ${jetbrainsMono.variable}`}
     >
-      <body data-theme="baby-blue-3">
+      <body>
         {children}
       </body>
     </html>

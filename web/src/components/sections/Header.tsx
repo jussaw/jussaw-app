@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import { siteContent } from "@/data/content";
-import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
-
 export default function Header() {
   const { person } = siteContent;
   const [scrolled, setScrolled] = useState(false);
@@ -32,7 +30,6 @@ export default function Header() {
           background: scrolled ? "var(--color-bg)" : "transparent",
         }}
       >
-        <ThemeSwitcher />
         <a
           href={`mailto:${person.email}`}
           aria-label="Email"

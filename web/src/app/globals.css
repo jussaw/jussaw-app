@@ -1,40 +1,18 @@
 @import "tailwindcss";
-@import "../styles/themes/baby-blue-3.css";
-@import "../styles/themes/dusty-mauve.css";
-@import "../styles/themes/mauve-pure.css";
-@import "../styles/themes/ember-noir.css";
-@import "../styles/themes/arctic-pulse.css";
-@import "../styles/themes/crimson-noir.css";
-@import "../styles/themes/forest-specter.css";
-@import "../styles/themes/neon-dusk.css";
-@import "../styles/themes/golden-obsidian.css";
-@import "../styles/themes/amethyst-night.css";
-@import "../styles/themes/jade-abyss.css";
-@import "../styles/themes/iron-rose.css";
-@import "../styles/themes/copper-circuit.css";
-@import "../styles/themes/sapphire-deep.css";
-@import "../styles/themes/coral-abyss.css";
-@import "../styles/themes/moonstone.css";
-@import "../styles/themes/chlorophyll.css";
-@import "../styles/themes/plasma.css";
-@import "../styles/themes/sage-cream.css";
-@import "../styles/themes/blush-porcelain.css";
-@import "../styles/themes/sky-linen.css";
-@import "../styles/themes/honey-stone.css";
-@import "../styles/themes/lavender-field.css";
-@import "../styles/themes/mint-clay.css";
-@import "../styles/themes/seafoam-glass.css";
-@import "../styles/themes/peach-marble.css";
-@import "../styles/themes/indigo-parchment.css";
-@import "../styles/themes/cherry-blossom.css";
-@import "../styles/themes/forest-mist.css";
-@import "../styles/themes/gold-dust.css";
-@import "../styles/themes/azure-shore.css";
-@import "../styles/themes/rose-quartz.css";
-@import "../styles/themes/citrus-zest.css";
-@import "../styles/themes/violet-dusk.css";
-@import "../styles/themes/nordic-ice.css";
-@import "../styles/themes/papaya-cream.css";
+
+:root {
+  --color-bg: #000000;
+  --color-surface: #0f0e0d;
+  --color-accent: #c4a0b2;
+  --color-accent-2: #a0c4e0;
+  --color-accent-3: #8090a8;
+  --color-accent-muted: #887080;
+  --color-text-primary: #f0eeec;
+  --color-text-secondary: #848288;
+  --color-border: #201e1c;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}
 
 @theme {
   --font-sans: var(--font-inter);
