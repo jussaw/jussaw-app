@@ -1,0 +1,13 @@
+[data-theme="nordic-ice"] {
+  --color-bg: #f4f6f8;
+  --color-surface: #e8ecf2;
+  --color-accent: #485870;
+  --color-accent-2: #384858;
+  --color-accent-3: #283848;
+  --color-accent-muted: #7898b0;
+  --color-text-primary: #080c10;
+  --color-text-secondary: #404c58;
+  --color-border: #c0ccd8;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

@@ -1,0 +1,13 @@
+[data-theme="indigo-parchment"] {
+  --color-bg: #faf8f4;
+  --color-surface: #f2eee8;
+  --color-accent: #4848a0;
+  --color-accent-2: #303078;
+  --color-accent-3: #282860;
+  --color-accent-muted: #8080c8;
+  --color-text-primary: #080818;
+  --color-text-secondary: #484880;
+  --color-border: #d0c8b8;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

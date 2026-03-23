@@ -1,0 +1,13 @@
+[data-theme="iron-rose"] {
+  --color-bg: #0e080a;
+  --color-surface: #1c1014;
+  --color-accent: #d06080;
+  --color-accent-2: #e8a0b8;
+  --color-accent-3: #a84060;
+  --color-accent-muted: #a04060;
+  --color-text-primary: #f0eeec;
+  --color-text-secondary: #848288;
+  --color-border: #281820;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

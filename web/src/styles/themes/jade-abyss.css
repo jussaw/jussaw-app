@@ -1,0 +1,13 @@
+[data-theme="jade-abyss"] {
+  --color-bg: #040e10;
+  --color-surface: #081a1e;
+  --color-accent: #3ab890;
+  --color-accent-2: #60d8b8;
+  --color-accent-3: #208060;
+  --color-accent-muted: #289068;
+  --color-text-primary: #f0eeec;
+  --color-text-secondary: #848288;
+  --color-border: #102830;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}
