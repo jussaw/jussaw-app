@@ -89,7 +89,7 @@ export default function Terminal() {
         }}
       >
         {/* Scrollable output */}
-        <div ref={outputRef} style={{ overflowY: 'auto', padding: '1rem', maxHeight: '300px' }}>
+        <div ref={outputRef} style={{ overflowY: 'auto', padding: '1rem', height: '420px' }}>
           {/* Inline label — no separate toolbar */}
           <div
             style={{

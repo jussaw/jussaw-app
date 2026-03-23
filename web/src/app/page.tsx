@@ -15,8 +15,8 @@ export default function Home() {
     <main className="min-h-screen pt-12" style={{ background: "var(--color-bg)" }}>
       <Header />
       <Hero id="hero" layout="left-aligned" headingStyle="bold-sans" />
-      <Terminal />
       <Skills displayMode="grouped" />
+      <Terminal />
       <Experience displayMode="timeline" />
       <Projects />
       <Hobbies />
