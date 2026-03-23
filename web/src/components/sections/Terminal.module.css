@@ -41,8 +41,7 @@
   text-transform: uppercase;
   font-family: var(--font-jbmono, monospace);
   border-bottom: 1px solid var(--color-border);
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
 }
 
 .inputRow {

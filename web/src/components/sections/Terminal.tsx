@@ -98,12 +98,13 @@ export default function Terminal() {
   return (
     <SectionWrapper id="terminal">
       <div className={styles.container}>
+        {/* Static top bar */}
+        <div className={styles.header}>
+          ~ terminal
+        </div>
+
         {/* Scrollable output */}
         <div ref={outputRef} className={styles.output}>
-          {/* Inline label — no separate toolbar */}
-          <div className={styles.header}>
-            ~ terminal
-          </div>
           {lines.map((line, i) => (
             <div key={i} className={styles.line}>
               {line.type === 'input' ? (
