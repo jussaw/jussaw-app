@@ -26,6 +26,9 @@ export function useActiveSection(): number {
         const top = el.getBoundingClientRect().top + window.scrollY;
         if (top <= triggerLine) active = i;
       });
+      const atBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (atBottom) active = SECTIONS.length - 1;
       return active;
     };
 
