@@ -1,0 +1,13 @@
+[data-theme="crimson-noir"] {
+  --color-bg: #080003;
+  --color-surface: #130008;
+  --color-accent: #c83050;
+  --color-accent-2: #e8907a;
+  --color-accent-3: #901830;
+  --color-accent-muted: #901830;
+  --color-text-primary: #f0eeec;
+  --color-text-secondary: #848288;
+  --color-border: #200010;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

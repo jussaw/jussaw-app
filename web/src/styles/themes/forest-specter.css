@@ -1,0 +1,13 @@
+[data-theme="forest-specter"] {
+  --color-bg: #050c08;
+  --color-surface: #0c1a10;
+  --color-accent: #58a868;
+  --color-accent-2: #8cc870;
+  --color-accent-3: #407840;
+  --color-accent-muted: #408050;
+  --color-text-primary: #f0eeec;
+  --color-text-secondary: #848288;
+  --color-border: #142418;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}

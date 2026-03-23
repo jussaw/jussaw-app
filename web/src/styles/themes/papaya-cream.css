@@ -1,0 +1,13 @@
+[data-theme="papaya-cream"] {
+  --color-bg: #fff8f2;
+  --color-surface: #faeee4;
+  --color-accent: #e07840;
+  --color-accent-2: #c05828;
+  --color-accent-3: #a04010;
+  --color-accent-muted: #f0a060;
+  --color-text-primary: #180c00;
+  --color-text-secondary: #805828;
+  --color-border: #e8c8a8;
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}
