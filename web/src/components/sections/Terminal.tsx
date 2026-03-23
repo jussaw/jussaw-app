@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { siteContent } from '@/data/content';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import { useTabCompletion } from '@/hooks/useTabCompletion';
+import styles from './Terminal.module.css';
 
 type Line = { type: 'input' | 'output'; text: string };
 
@@ -96,48 +97,27 @@ let response: string;
 
   return (
     <SectionWrapper id="terminal">
-      <div
-        style={{
-          background: '#0d1117',
-          border: '1px solid #30363d',
-          borderRadius: '10px',
-          overflow: 'hidden',
-          fontFamily: 'var(--font-jbmono, monospace)',
-          fontSize: '0.85rem',
-          color: '#c9d1d9',
-        }}
-      >
+      <div className={styles.container}>
         {/* Scrollable output */}
-        <div ref={outputRef} style={{ overflowY: 'auto', padding: '1rem', height: '420px' }}>
+        <div ref={outputRef} className={styles.output}>
           {/* Inline label — no separate toolbar */}
-          <div
-            style={{
-              color: 'var(--color-accent)',
-              fontSize: '0.7rem',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              fontFamily: 'var(--font-jbmono, monospace)',
-              borderBottom: '1px solid #21262d',
-              paddingBottom: '0.5rem',
-              marginBottom: '0.75rem',
-            }}
-          >
+          <div className={styles.header}>
             ~ terminal
           </div>
           {lines.map((line, i) => (
-            <div key={i} style={{ marginBottom: '0.25rem', lineHeight: 1.6 }}>
+            <div key={i} className={styles.line}>
               {line.type === 'input' ? (
                 <div>
-                  <span aria-hidden="true" style={{ color: '#58a6ff' }}>
+                  <span aria-hidden="true" className={styles.prompt}>
                     jussaw@server
                   </span>
-                  <span aria-hidden="true" style={{ color: '#8b949e' }}>
+                  <span aria-hidden="true" className={styles.promptPath}>
                     :~${' '}
                   </span>
                   <span>{line.text}</span>
                 </div>
               ) : (
-                <div style={{ color: '#8b949e', whiteSpace: 'pre-wrap' }}>
+                <div className={styles.lineOutput}>
                   {line.text}
                 </div>
               )}
@@ -146,23 +126,16 @@ let response: string;
         </div>
 
         {/* Input row */}
-        <div
-          style={{
-            padding: '0.5rem 1rem',
-            borderTop: '1px solid #21262d',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <span aria-hidden="true" style={{ color: '#58a6ff' }}>
+        <div className={styles.inputRow}>
+          <span aria-hidden="true" className={styles.prompt}>
             jussaw@server
           </span>
-          <span aria-hidden="true" style={{ color: '#8b949e' }}>
+          <span aria-hidden="true" className={styles.promptPath}>
             :~$
           </span>
           <input
             aria-label="Terminal input"
+            placeholder="type a command..."
             value={input}
             onChange={(e) => {
               reset();
@@ -176,15 +149,7 @@ let response: string;
                 runCommand(input);
               }
             }}
-            style={{
-              flex: 1,
-              background: 'transparent',
-              border: 'none',
-              outline: 'none',
-              color: '#c9d1d9',
-              fontFamily: 'inherit',
-              fontSize: 'inherit',
-            }}
+            className={styles.inputField}
           />
         </div>
       </div>
