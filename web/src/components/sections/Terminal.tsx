@@ -74,7 +74,7 @@ export default function Terminal() {
       return;
     }
 
-let response: string;
+    let response: string;
     if (cmd === 'sudo make me a sandwich') {
       response = 'okay.';
     } else if (DESTRUCTIVE.test(cmd)) {
