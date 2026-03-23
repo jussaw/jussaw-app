@@ -179,7 +179,7 @@ export const siteContent: SiteContent = {
       githubUrl: "https://github.com/jussaw/zmk-config-corne",
     },
     {
-      title: "qmk-config-corne",
+      title: "qmk_firmware",
       description: "QMK wired firmware config for Corne split keyboard",
       highlights: [
         "Colemak-DHm layout with home row mods (A/R/S/T and N/E/I/O)",
