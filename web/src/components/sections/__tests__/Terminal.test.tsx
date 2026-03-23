@@ -74,4 +74,62 @@ describe('Terminal (section)', () => {
     render(<Terminal />);
     expect(screen.getByLabelText('Terminal input')).toBeInTheDocument();
   });
+
+  describe('tab completion', () => {
+    it('completes an unambiguous prefix on Tab', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'wh' } });
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(input).toHaveValue('whoami');
+    });
+
+    it('does not change input when Tab is pressed with no matching prefix', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'xyz' } });
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(input).toHaveValue('xyz');
+    });
+
+    it('cycles to next match when Tab is pressed a second time without typing', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'cat ' } });
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(input).toHaveValue('cat experience.txt');
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(input).toHaveValue('cat setup.txt');
+    });
+
+    it('resets cycle when user types between Tab presses', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'cat ' } });
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(input).toHaveValue('cat experience.txt');
+      // User types — triggers onChange → reset()
+      fireEvent.change(input, { target: { value: 'cat e' } });
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(input).toHaveValue('cat experience.txt');
+    });
+
+    it('Tab on an exact single match leaves value unchanged', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'whoami' } });
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(input).toHaveValue('whoami');
+    });
+
+    it('Tab does not submit the command', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'help' } });
+      // No output lines yet (only welcome message)
+      expect(screen.queryByText(/available/i)).not.toBeInTheDocument();
+      fireEvent.keyDown(input, { key: 'Tab' });
+      expect(screen.queryByText(/available/i)).not.toBeInTheDocument();
+    });
+  });
 });
