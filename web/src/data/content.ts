@@ -150,7 +150,6 @@ export const siteContent: SiteContent = {
       title: "jussaw.com",
       description: "This site — designed, built, and self-hosted",
       highlights: [
-        "27-theme design system via CSS custom properties",
         "Self-hosted on Raspberry Pi via Docker + Docker Compose",
         "Standalone Next.js build optimized for minimal production artifact",
         "Scroll-triggered animations with Intersection Observer API",

@@ -9,7 +9,7 @@ This is **not** the Next.js you know from training data. APIs, conventions, and 
 ## Stack
 - **Framework**: Next.js 16 (App Router, `output: "standalone"`)
 - **Language**: TypeScript (strict mode, `@/*` → `./src/*` alias)
-- **Styling**: Tailwind CSS 4.x + 27 CSS theme files in `src/styles/themes/`
+- **Styling**: Tailwind CSS 4.x
 - **Testing**: Vitest 4 + jsdom + @testing-library/react
 - **Package manager**: pnpm
 - **Deployment**: Docker / Docker Compose (port 23412)
@@ -31,16 +31,14 @@ web/
     app/            # App Router (layout.tsx, page.tsx, globals.css)
     components/
       sections/     # Page sections: Hero, Skills, Experience, Projects, Hobbies, Footer
-      ui/           # Reusable UI: SectionWrapper, SkillBadge, ExperienceCard, TimelineScrollbar, ThemeSwitcher, ProjectCard, SetupDrawer, Terminal
+      ui/           # Reusable UI: SectionWrapper, SkillBadge, ExperienceCard, TimelineScrollbar, ProjectCard, SetupDrawer, Terminal
     hooks/          # useScrollReveal, useActiveSection
-    data/           # content.ts — all portfolio content lives here; themes.ts — theme list with swatch colors
-    styles/themes/  # 27 CSS theme files
+    data/           # content.ts — all portfolio content lives here
     test/           # Vitest setup (setup.ts)
 ```
 
 ## Conventions
 - **Content changes**: Edit `src/data/content.ts` — never hardcode text in components.
-- **Theming**: Active theme is set via `data-theme` on `<body>` in `src/app/layout.tsx`. Theme CSS files follow `--color-*` CSS variable naming.
 - **Tests**: Colocated in `__tests__/` directories next to the files they test.
 - **Section IDs**: Sections that need scroll tracking must have an `id` prop passed from `page.tsx`.
 - **Path alias**: Always use `@/` imports, never relative paths that traverse directories.
