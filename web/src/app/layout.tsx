@@ -42,6 +42,21 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: "https://jussaw.com",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Justin Sawyer",
+  url: "https://jussaw.com",
+  jobTitle: "Software Engineer",
+  sameAs: [
+    "https://github.com/jussaw",
+    "https://linkedin.com/in/jussaw",
+  ],
 };
 
 export default function RootLayout({
@@ -54,6 +69,12 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${lora.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         {children}
       </body>

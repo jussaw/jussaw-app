@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const SECTIONS = [
   { id: "hero", label: "jussaw" },
@@ -13,6 +13,7 @@ export const SECTIONS = [
 
 export function useActiveSection(): number {
   const [activeIndex, setActiveIndex] = useState(0);
+  const rafRef = useRef(0);
 
   useEffect(() => {
     const getActive = (): number => {
@@ -32,11 +33,19 @@ export function useActiveSection(): number {
       return active;
     };
 
-    const onScroll = () => setActiveIndex(getActive());
+    const onScroll = () => {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        setActiveIndex(getActive());
+      });
+    };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   return activeIndex;

@@ -31,6 +31,13 @@ function computeMetrics(activeIndex: number, totalHeight: number) {
   return { dotSize, labelOpacity, dotY, weights };
 }
 
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
 export default function TimelineScrollbar() {
   const activeIndex = useActiveSection();
   const [reducedMotion, setReducedMotion] = useState(
@@ -39,6 +46,7 @@ export default function TimelineScrollbar() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
   const [totalHeight, setTotalHeight] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -65,11 +73,11 @@ export default function TimelineScrollbar() {
   const lastDotCenter = dotY[SECTIONS.length - 1] + dotYOffset;
 
   return (
-    <div
-      aria-hidden="true"
+    <nav
+      aria-label="Page sections"
       className="fixed right-6 top-1/2 -translate-y-1/2 hidden md:flex"
       style={{
-        pointerEvents: "none",
+        zIndex: 8,
         width: "100px",
         alignItems: "flex-end",
         height: `${totalHeight + 20}px`,
@@ -77,6 +85,7 @@ export default function TimelineScrollbar() {
     >
       {/* Vertical connecting line */}
       <div
+        aria-hidden="true"
         style={{
           position: "absolute",
           right: "7px",
@@ -97,8 +106,11 @@ export default function TimelineScrollbar() {
         }}
       >
         {SECTIONS.map((section, i) => (
-          <div
+          <button
             key={section.id}
+            onClick={() => scrollToSection(section.id)}
+            aria-label={`Scroll to ${section.label}`}
+            className="bg-transparent border-none p-0"
             style={{
               position: "absolute",
               top: `${dotY[i]}px`,
@@ -108,12 +120,15 @@ export default function TimelineScrollbar() {
               gap: "8px",
               transform: "translateY(-50%)",
               transition: `top ${duration} ${spring}`,
+              cursor: "pointer",
             }}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
             {/* Label */}
             <span
               style={{
-                opacity: i === activeIndex ? 1 : 0,
+                opacity: i === activeIndex || i === hoveredIndex ? 1 : 0,
                 transition: `opacity 0.3s ease`,
                 fontSize: "10px",
                 letterSpacing: "0.06em",
@@ -143,8 +158,8 @@ export default function TimelineScrollbar() {
             >
               <div
                 style={{
-                  width: `${dotSize[i]}px`,
-                  height: `${dotSize[i]}px`,
+                  width: `${i === hoveredIndex && i !== activeIndex ? dotSize[i] + 3 : dotSize[i]}px`,
+                  height: `${i === hoveredIndex && i !== activeIndex ? dotSize[i] + 3 : dotSize[i]}px`,
                   borderRadius: "50%",
                   background:
                     i === activeIndex
@@ -155,9 +170,9 @@ export default function TimelineScrollbar() {
                 }}
               />
             </div>
-          </div>
+          </button>
         ))}
       </div>
-    </div>
+    </nav>
   );
 }

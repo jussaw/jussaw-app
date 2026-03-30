@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { siteContent } from "@/data/content";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { getFontFamily, HeadingStyle } from '@/utils/fonts';
@@ -15,6 +15,7 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
   const { person, kit } = siteContent;
   const ref = useRef<HTMLDivElement>(null);
   useScrollReveal(ref);
+  const [showScroll, setShowScroll] = useState(false);
 
   const headingFont = getFontFamily(headingStyle);
 
@@ -22,6 +23,11 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
     headingStyle === "bold-sans" ? "800" : "600";
 
   const isCenter = layout === "centered";
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowScroll(true), 3600);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section
@@ -59,12 +65,6 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
             ))}
           </span>
         </div>
-        <p
-          className={`reveal-stagger text-xl leading-relaxed max-w-2xl ${isCenter ? "mx-auto" : ""}`}
-          style={{ color: "var(--color-text-secondary)", ['--stagger-delay' as string]: '200ms' }}
-        >
-          {person.tagline}
-        </p>
         {kit.length > 0 && (
           <div
             className="reveal-stagger mt-8 pt-8 border-t inline-block"
@@ -87,6 +87,16 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
             </dl>
           </div>
         )}
+
+        {/* Scroll-down indicator */}
+        <div
+          className={`scroll-indicator mt-14 ${showScroll ? "show" : ""}`}
+          style={{ color: "var(--color-text-secondary)" }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 10l5 5 5-5" />
+          </svg>
+        </div>
       </div>
     </section>
   );

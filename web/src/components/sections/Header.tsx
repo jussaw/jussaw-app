@@ -13,6 +13,9 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const linkClass =
+    "flex items-center transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm hover:-translate-y-0.5";
+
   return (
     <>
       <div
@@ -27,14 +30,23 @@ export default function Header() {
       <header
         className="fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 transition-all duration-300"
         style={{
-          background: scrolled ? "var(--color-bg)" : "transparent",
+          background: scrolled
+            ? "rgba(0, 0, 0, 0.6)"
+            : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled
+            ? "1px solid rgba(255, 255, 255, 0.05)"
+            : "1px solid transparent",
         }}
       >
         <a
           href={`mailto:${person.email}`}
           aria-label="Email"
-          className="flex items-center hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm"
+          className={linkClass}
           style={{ color: "var(--color-text-secondary)" }}
+          onMouseEnter={(e) => e.currentTarget.style.color = "var(--color-accent)"}
+          onMouseLeave={(e) => e.currentTarget.style.color = "var(--color-text-secondary)"}
         >
           <FaEnvelope size={18} />
         </a>
@@ -43,8 +55,10 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
-          className="flex items-center hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm"
+          className={linkClass}
           style={{ color: "var(--color-text-secondary)" }}
+          onMouseEnter={(e) => e.currentTarget.style.color = "var(--color-accent)"}
+          onMouseLeave={(e) => e.currentTarget.style.color = "var(--color-text-secondary)"}
         >
           <FaLinkedin size={18} />
         </a>
@@ -53,8 +67,10 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          className="flex items-center hover:opacity-70 transition-opacity focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:outline-none rounded-sm"
+          className={linkClass}
           style={{ color: "var(--color-text-secondary)" }}
+          onMouseEnter={(e) => e.currentTarget.style.color = "var(--color-accent)"}
+          onMouseLeave={(e) => e.currentTarget.style.color = "var(--color-text-secondary)"}
         >
           <FaGithub size={18} />
         </a>

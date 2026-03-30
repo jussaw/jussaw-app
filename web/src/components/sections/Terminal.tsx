@@ -62,9 +62,14 @@ const WELCOME: Line = {
 export default function Terminal() {
   const [lines, setLines] = useState<Line[]>([WELCOME]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { complete, reset } = useTabCompletion({ commands: COMPLETABLE });
+  const historyRef = useRef<string[]>([]);
+  const historyIndexRef = useRef(-1);
+  const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (outputRef.current) {
@@ -72,9 +77,21 @@ export default function Terminal() {
     }
   }, [lines]);
 
+  useEffect(() => {
+    return () => {
+      if (typingTimerRef.current !== null) clearTimeout(typingTimerRef.current);
+    };
+  }, []);
+
   const runCommand = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
     const inputLine: Line = { type: 'input', text: raw.trim() };
+
+    // Add to history
+    if (raw.trim()) {
+      historyRef.current.push(raw.trim());
+    }
+    historyIndexRef.current = -1;
 
     if (cmd === 'clear') {
       setLines([]);
@@ -101,6 +118,34 @@ export default function Terminal() {
       { type: 'output', text: response },
     ]);
     setInput('');
+    if (typingTimerRef.current !== null) {
+      clearTimeout(typingTimerRef.current);
+      typingTimerRef.current = null;
+    }
+    setIsTyping(false);
+  };
+
+  const handleHistoryNav = (direction: 'up' | 'down') => {
+    const history = historyRef.current;
+    if (history.length === 0) return;
+
+    if (direction === 'up') {
+      const newIndex = historyIndexRef.current === -1
+        ? history.length - 1
+        : Math.max(0, historyIndexRef.current - 1);
+      historyIndexRef.current = newIndex;
+      setInput(history[newIndex]);
+    } else {
+      if (historyIndexRef.current === -1) return;
+      const newIndex = historyIndexRef.current + 1;
+      if (newIndex >= history.length) {
+        historyIndexRef.current = -1;
+        setInput('');
+      } else {
+        historyIndexRef.current = newIndex;
+        setInput(history[newIndex]);
+      }
+    }
   };
 
   return (
@@ -121,7 +166,7 @@ export default function Terminal() {
                     jussaw@server
                   </span>
                   <span aria-hidden="true" className={styles.promptPath}>
-                    :~${' '}
+                    :~{' '}
                   </span>
                   <span>{line.text}</span>
                 </div>
@@ -138,26 +183,49 @@ export default function Terminal() {
                 jussaw@server
               </span>
               <span aria-hidden="true" className={styles.promptPath}>
-                :~${' '}
+                :~{' '}
               </span>
-              <input
-                ref={inputRef}
-                aria-label="Terminal input"
-                value={input}
-                onChange={(e) => {
-                  reset();
-                  setInput(e.target.value);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Tab') {
-                    e.preventDefault();
-                    setInput(complete(input));
-                  } else if (e.key === 'Enter') {
-                    runCommand(input);
-                  }
-                }}
-                className={styles.inputField}
-              />
+              <div className={styles.inputWrapper}>
+                <input
+                  ref={inputRef}
+                  aria-label="Terminal input"
+                  value={input}
+                  spellCheck={false}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  onChange={(e) => {
+                    reset();
+                    historyIndexRef.current = -1;
+                    setInput(e.target.value);
+                    setIsTyping(true);
+                    if (typingTimerRef.current !== null) clearTimeout(typingTimerRef.current);
+                    typingTimerRef.current = setTimeout(() => setIsTyping(false), 600);
+                  }}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => setIsFocused(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Tab') {
+                      e.preventDefault();
+                      setInput(complete(input));
+                    } else if (e.key === 'Enter') {
+                      runCommand(input);
+                    } else if (e.key === 'ArrowUp') {
+                      e.preventDefault();
+                      handleHistoryNav('up');
+                    } else if (e.key === 'ArrowDown') {
+                      e.preventDefault();
+                      handleHistoryNav('down');
+                    }
+                  }}
+                  className={styles.inputField}
+                />
+                <span aria-hidden="true" className={styles.inputMirror}>{input}</span>
+                <span
+                  aria-hidden="true"
+                  className={`${styles.cursor} ${isFocused && !isTyping ? styles.cursorBlink : styles.cursorSolid}`}
+                />
+              </div>
             </div>
           </div>
         </div>

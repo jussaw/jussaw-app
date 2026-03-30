@@ -17,10 +17,11 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 describe('TimelineScrollbar', () => {
-  it('renders with aria-hidden', () => {
+  it('renders as a nav with aria-label', () => {
     const { container } = render(<TimelineScrollbar />);
     const el = container.firstChild as HTMLElement;
-    expect(el).toHaveAttribute('aria-hidden', 'true');
+    expect(el.tagName).toBe('NAV');
+    expect(el).toHaveAttribute('aria-label', 'Page sections');
   });
 
   it('renders a dot for each section', () => {
@@ -32,9 +33,13 @@ describe('TimelineScrollbar', () => {
     expect(screen.getByText('Hobbies')).toBeInTheDocument();
   });
 
-  it('has pointer-events: none on the container', () => {
-    const { container } = render(<TimelineScrollbar />);
-    const el = container.firstChild as HTMLElement;
-    expect(el.style.pointerEvents).toBe('none');
+  it('renders clickable buttons for each section', () => {
+    render(<TimelineScrollbar />);
+    expect(screen.getByLabelText('Scroll to jussaw')).toBeInTheDocument();
+    expect(screen.getByLabelText('Scroll to Skills')).toBeInTheDocument();
+    expect(screen.getByLabelText('Scroll to Experience')).toBeInTheDocument();
+    expect(screen.getByLabelText('Scroll to Projects')).toBeInTheDocument();
+    expect(screen.getByLabelText('Scroll to Hobbies')).toBeInTheDocument();
+    expect(screen.getByLabelText('Scroll to Terminal')).toBeInTheDocument();
   });
 });

@@ -99,7 +99,7 @@ describe('Terminal (section)', () => {
       fireEvent.keyDown(input, { key: 'Tab' });
       expect(input).toHaveValue('cat experience.txt');
       fireEvent.keyDown(input, { key: 'Tab' });
-      expect(input).toHaveValue('cat setup.txt');
+      expect(input).toHaveValue('cat hobbies.txt');
     });
 
     it('resets cycle when user types between Tab presses', () => {
@@ -130,6 +130,32 @@ describe('Terminal (section)', () => {
       expect(screen.queryByText(/available/i)).not.toBeInTheDocument();
       fireEvent.keyDown(input, { key: 'Tab' });
       expect(screen.queryByText(/available/i)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('custom cursor', () => {
+    it('renders the cursor element', () => {
+      const { container } = render(<Terminal />);
+      expect(container.querySelector('[class*="cursor"]')).toBeInTheDocument();
+    });
+
+    it('renders the text mirror element', () => {
+      const { container } = render(<Terminal />);
+      expect(container.querySelector('[class*="inputMirror"]')).toBeInTheDocument();
+    });
+
+    it('mirror reflects typed text', () => {
+      const { container } = render(<Terminal />);
+      fireEvent.change(screen.getByLabelText('Terminal input'), { target: { value: 'ls' } });
+      expect(container.querySelector('[class*="inputMirror"]')?.textContent).toBe('ls');
+    });
+
+    it('mirror clears after command submission', () => {
+      const { container } = render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'ls' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(container.querySelector('[class*="inputMirror"]')?.textContent).toBe('');
     });
   });
 

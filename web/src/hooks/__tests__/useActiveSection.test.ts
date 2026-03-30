@@ -24,28 +24,37 @@ function createSectionEl(id: string, absoluteTop: number): HTMLElement {
   return el;
 }
 
+// Flush requestAnimationFrame by running all queued callbacks
+function flushRAF() {
+  vi.advanceTimersByTime(16);
+}
+
 describe('useActiveSection', () => {
   let sectionEls: HTMLElement[];
 
   beforeEach(() => {
+    vi.useFakeTimers();
     vi.clearAllMocks();
-    // Place sections at fixed absolute positions (scrollY = 0).
-    // getBoundingClientRect().top == absolute top when scrollY == 0.
+    // Place sections at fixed absolute positions matching the actual SECTIONS order:
+    // hero, skills, experience, projects, hobbies, terminal
     sectionEls = [
       createSectionEl('hero',       0),
-      createSectionEl('terminal',   400),
-      createSectionEl('skills',     800),
-      createSectionEl('experience', 1600),
-      createSectionEl('projects',   2400),
-      createSectionEl('hobbies',    3200),
+      createSectionEl('skills',     400),
+      createSectionEl('experience', 800),
+      createSectionEl('projects',   1600),
+      createSectionEl('hobbies',    2400),
+      createSectionEl('terminal',   3200),
     ];
 
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true });
     Object.defineProperty(window, 'innerHeight', { value: 900, writable: true, configurable: true });
+    // Set scrollHeight so the "at bottom" check doesn't always trigger in jsdom (defaults to 0)
+    Object.defineProperty(document.documentElement, 'scrollHeight', { value: 5000, writable: true, configurable: true });
   });
 
   afterEach(() => {
     sectionEls.forEach((el) => el.remove());
+    vi.useRealTimers();
   });
 
   it('returns 0 (Me/Hero) by default on mount', () => {
@@ -53,44 +62,49 @@ describe('useActiveSection', () => {
     expect(result.current).toBe(0);
   });
 
-  it('returns 1 (Terminal) when scrolled past the terminal trigger line', () => {
+  it('returns 1 (Skills) when scrolled past the skills trigger line', () => {
     // triggerLine = scrollY + innerHeight * 0.4 = 100 + 360 = 460
-    // terminal top (absolute) = 400; 400 <= 460 → terminal active
+    // skills top (absolute) = 400; 400 <= 460 → skills active
     Object.defineProperty(window, 'scrollY', { value: 100 });
 
     const { result } = renderHook(() => useActiveSection());
+    act(() => { flushRAF(); });
     expect(result.current).toBe(1);
   });
 
-  it('returns 2 (Skills) when scrolled past the skills trigger line', () => {
-    // triggerLine = 500 + 360 = 860; skills top = 800 <= 860 → skills active
+  it('returns 2 (Experience) when scrolled past the experience trigger line', () => {
+    // triggerLine = 500 + 360 = 860; experience top = 800 <= 860 → experience active
     Object.defineProperty(window, 'scrollY', { value: 500 });
 
     const { result } = renderHook(() => useActiveSection());
+    act(() => { flushRAF(); });
     expect(result.current).toBe(2);
   });
 
-  it('returns 3 (Experience) when scrolled past the experience trigger line', () => {
-    // triggerLine = 1300 + 360 = 1660; experience top = 1600 <= 1660 → experience active
+  it('returns 3 (Projects) when scrolled past the projects trigger line', () => {
+    // triggerLine = 1300 + 360 = 1660; projects top = 1600 <= 1660 → projects active
     Object.defineProperty(window, 'scrollY', { value: 1300 });
 
     const { result } = renderHook(() => useActiveSection());
+    act(() => { flushRAF(); });
     expect(result.current).toBe(3);
   });
 
-  it('returns 4 (Projects) when scrolled past the projects trigger line', () => {
-    // triggerLine = 2100 + 360 = 2460; projects top = 2400 <= 2460 → projects active
+  it('returns 4 (Hobbies) when scrolled past the hobbies trigger line', () => {
+    // triggerLine = 2100 + 360 = 2460; hobbies top = 2400 <= 2460 → hobbies active
     Object.defineProperty(window, 'scrollY', { value: 2100 });
 
     const { result } = renderHook(() => useActiveSection());
+    act(() => { flushRAF(); });
     expect(result.current).toBe(4);
   });
 
-  it('returns 5 (Hobbies) when scrolled past the hobbies trigger line', () => {
-    // triggerLine = 2900 + 360 = 3260; hobbies top = 3200 <= 3260 → hobbies active
+  it('returns 5 (Terminal) when scrolled past the terminal trigger line', () => {
+    // triggerLine = 2900 + 360 = 3260; terminal top = 3200 <= 3260 → terminal active
     Object.defineProperty(window, 'scrollY', { value: 2900 });
 
     const { result } = renderHook(() => useActiveSection());
+    act(() => { flushRAF(); });
     expect(result.current).toBe(5);
   });
 
@@ -102,6 +116,7 @@ describe('useActiveSection', () => {
     act(() => {
       Object.defineProperty(window, 'scrollY', { value: 100 });
       window.dispatchEvent(new Event('scroll'));
+      flushRAF();
     });
     expect(result.current).toBe(1);
   });
@@ -123,10 +138,10 @@ describe('useActiveSection', () => {
   it('has 6 entries in SECTIONS', () => {
     expect(SECTIONS).toHaveLength(6);
     expect(SECTIONS[0].id).toBe('hero');
-    expect(SECTIONS[1].id).toBe('terminal');
-    expect(SECTIONS[2].id).toBe('skills');
-    expect(SECTIONS[3].id).toBe('experience');
-    expect(SECTIONS[4].id).toBe('projects');
-    expect(SECTIONS[5].id).toBe('hobbies');
+    expect(SECTIONS[1].id).toBe('skills');
+    expect(SECTIONS[2].id).toBe('experience');
+    expect(SECTIONS[3].id).toBe('projects');
+    expect(SECTIONS[4].id).toBe('hobbies');
+    expect(SECTIONS[5].id).toBe('terminal');
   });
 });
