@@ -34,7 +34,6 @@ export interface SiteContent {
   person: {
     name: string;
     title: string;
-    tagline: string;
     email: string;
     linkedin: string;
     github: string;
@@ -51,7 +50,6 @@ export const siteContent: SiteContent = {
   person: {
     name: "Justin Sawyer",
     title: "Software Engineer | Ergo Keyboard Enthusiast",
-    tagline: "My keyboard has more layers than my code.",
     email: "jtsaw36@gmail.com",
     github: "https://github.com/jussaw",
     linkedin: "https://linkedin.com/in/jussaw",

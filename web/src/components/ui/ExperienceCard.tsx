@@ -90,10 +90,16 @@ function CardsCard({ entry }: { entry: ExperienceEntry }) {
   return (
     <div
       ref={ref}
-      className="reveal p-6 rounded-[var(--card-radius,0.75rem)] border"
+      className="reveal p-6 rounded-[var(--card-radius,0.75rem)] border transition-all duration-300 hover:-translate-y-0.5"
       style={{
         background: "var(--color-surface)",
         borderColor: "var(--color-border)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 4px 20px rgba(196, 160, 178, 0.1)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = 'none';
       }}
     >
       <div className="mb-1 flex flex-wrap items-baseline gap-x-3 gap-y-0.5">

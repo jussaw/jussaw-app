@@ -7,8 +7,18 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div
-      className="rounded-[var(--card-radius,0.5rem)] border p-6"
-      style={{ background: 'var(--color-surface)', borderColor: 'var(--color-border)' }}
+      className="rounded-[var(--card-radius,0.5rem)] border p-6 transition-all duration-300 hover:-translate-y-0.5"
+      style={{
+        background: 'var(--color-surface)',
+        borderColor: 'var(--color-border)',
+        borderLeft: '2px solid var(--color-accent)',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 4px 20px rgba(196, 160, 178, 0.1)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = 'none';
+      }}
     >
       <h3
         className="text-xl font-semibold mb-1"

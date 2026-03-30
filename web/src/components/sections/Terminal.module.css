@@ -51,24 +51,76 @@
   gap: 0.5rem;
 }
 
-.inputField {
+.inputWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.inputField {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: transparent;
   border: none;
   outline: none;
   font-family: inherit;
   font-size: inherit;
-  color: var(--color-text-primary);
-  caret-color: var(--color-accent);
+  color: transparent;
+  caret-color: transparent;
+  z-index: 1;
 }
 
 .inputField:focus-visible {
   outline: none;
 }
 
-.inputField::placeholder {
-  color: var(--color-text-secondary);
-  opacity: 0.5;
+.inputMirror {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-text-primary);
+  white-space: pre;
+  pointer-events: none;
+  line-height: inherit;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  background-color: var(--color-accent);
+  vertical-align: text-bottom;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* xterm timing: 600ms on / 300ms off = 66.7% / 33.3% of 900ms total */
+.cursorBlink {
+  animation: terminalCursorBlink 0.9s steps(1) infinite;
+}
+
+@keyframes terminalCursorBlink {
+  0%,
+  66.6% { opacity: 1; }
+  66.7%,
+  99.9% { opacity: 0; }
+}
+
+.cursorSolid {
+  opacity: 1;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursorBlink {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 .prompt {
