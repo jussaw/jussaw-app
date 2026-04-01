@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
+
 import { useActiveSection, SECTIONS } from '../useActiveSection';
 
 // absoluteTop is the element's position in document coordinates.
@@ -38,18 +39,26 @@ describe('useActiveSection', () => {
     // Place sections at fixed absolute positions matching the actual SECTIONS order:
     // hero, skills, experience, projects, hobbies, terminal
     sectionEls = [
-      createSectionEl('hero',       0),
-      createSectionEl('skills',     400),
+      createSectionEl('hero', 0),
+      createSectionEl('skills', 400),
       createSectionEl('experience', 800),
-      createSectionEl('projects',   1600),
-      createSectionEl('hobbies',    2400),
-      createSectionEl('terminal',   3200),
+      createSectionEl('projects', 1600),
+      createSectionEl('hobbies', 2400),
+      createSectionEl('terminal', 3200),
     ];
 
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true });
-    Object.defineProperty(window, 'innerHeight', { value: 900, writable: true, configurable: true });
+    Object.defineProperty(window, 'innerHeight', {
+      value: 900,
+      writable: true,
+      configurable: true,
+    });
     // Set scrollHeight so the "at bottom" check doesn't always trigger in jsdom (defaults to 0)
-    Object.defineProperty(document.documentElement, 'scrollHeight', { value: 5000, writable: true, configurable: true });
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      value: 5000,
+      writable: true,
+      configurable: true,
+    });
   });
 
   afterEach(() => {
@@ -68,7 +77,9 @@ describe('useActiveSection', () => {
     Object.defineProperty(window, 'scrollY', { value: 100 });
 
     const { result } = renderHook(() => useActiveSection());
-    act(() => { flushRAF(); });
+    act(() => {
+      flushRAF();
+    });
     expect(result.current).toBe(1);
   });
 
@@ -77,7 +88,9 @@ describe('useActiveSection', () => {
     Object.defineProperty(window, 'scrollY', { value: 500 });
 
     const { result } = renderHook(() => useActiveSection());
-    act(() => { flushRAF(); });
+    act(() => {
+      flushRAF();
+    });
     expect(result.current).toBe(2);
   });
 
@@ -86,7 +99,9 @@ describe('useActiveSection', () => {
     Object.defineProperty(window, 'scrollY', { value: 1300 });
 
     const { result } = renderHook(() => useActiveSection());
-    act(() => { flushRAF(); });
+    act(() => {
+      flushRAF();
+    });
     expect(result.current).toBe(3);
   });
 
@@ -95,7 +110,9 @@ describe('useActiveSection', () => {
     Object.defineProperty(window, 'scrollY', { value: 2100 });
 
     const { result } = renderHook(() => useActiveSection());
-    act(() => { flushRAF(); });
+    act(() => {
+      flushRAF();
+    });
     expect(result.current).toBe(4);
   });
 
@@ -104,7 +121,9 @@ describe('useActiveSection', () => {
     Object.defineProperty(window, 'scrollY', { value: 2900 });
 
     const { result } = renderHook(() => useActiveSection());
-    act(() => { flushRAF(); });
+    act(() => {
+      flushRAF();
+    });
     expect(result.current).toBe(5);
   });
 

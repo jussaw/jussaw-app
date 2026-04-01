@@ -1,6 +1,6 @@
-import { siteContent } from '@/data/content';
-import SectionWrapper from '@/components/ui/SectionWrapper';
 import ProjectCard from '@/components/ui/ProjectCard';
+import SectionWrapper from '@/components/ui/SectionWrapper';
+import { siteContent } from '@/data/content';
 
 export default function Projects() {
   const { projects } = siteContent;

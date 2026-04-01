@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+
 import { useTabCompletion } from '../useTabCompletion';
 
 const COMMANDS = [
@@ -35,7 +36,7 @@ describe('useTabCompletion', () => {
 
   it('cycles through argument matches on repeated Tab presses', () => {
     const { result } = renderHook(() => useTabCompletion({ commands: COMMANDS }));
-    result.current.complete('cat ');                         // → cat experience.txt
+    result.current.complete('cat '); // → cat experience.txt
     expect(result.current.complete('cat experience.txt')).toBe('cat setup.txt');
     expect(result.current.complete('cat setup.txt')).toBe('cat skills.txt');
   });

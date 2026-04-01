@@ -1,10 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import Projects from '../Projects';
+
 import { siteContent } from '@/data/content';
 
-vi.stubGlobal('IntersectionObserver', vi.fn(function () {
-  return { observe: vi.fn(), disconnect: vi.fn() };
-}));
+import Projects from '../Projects';
+
+vi.stubGlobal(
+  'IntersectionObserver',
+  // eslint-disable-next-line prefer-arrow-callback
+  vi.fn(function () {
+    return { observe: vi.fn(), disconnect: vi.fn() };
+  }),
+);
 
 describe('Projects', () => {
   it('renders a section heading', () => {

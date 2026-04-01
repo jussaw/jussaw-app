@@ -1,21 +1,21 @@
-import { siteContent } from "@/data/content";
-import SkillBadge from "@/components/ui/SkillBadge";
-import SectionWrapper from "@/components/ui/SectionWrapper";
+import SectionWrapper from '@/components/ui/SectionWrapper';
+import SkillBadge from '@/components/ui/SkillBadge';
+import { siteContent } from '@/data/content';
 
 interface SkillsProps {
-  displayMode?: "grid" | "grouped";
+  displayMode?: 'grid' | 'grouped';
 }
 
-export default function Skills({ displayMode = "grid" }: SkillsProps) {
+export default function Skills({ displayMode = 'grid' }: SkillsProps) {
   const { skills } = siteContent;
 
-  const categories = ["frontend", "backend", "language", "database", "devops"] as const;
+  const categories = ['frontend', 'backend', 'language', 'database', 'devops'] as const;
   const categoryLabels: Record<string, string> = {
-    frontend: "Frontend",
-    backend: "Backend",
-    language: "Languages",
-    database: "Databases",
-    devops: "DevOps & Infra",
+    frontend: 'Frontend',
+    backend: 'Backend',
+    language: 'Languages',
+    database: 'Databases',
+    devops: 'DevOps & Infra',
   };
 
   return (
@@ -23,14 +23,14 @@ export default function Skills({ displayMode = "grid" }: SkillsProps) {
       <h2
         className="reveal-stagger text-3xl font-semibold mb-10"
         style={{
-          fontFamily: "var(--heading-font, var(--font-sans))",
-          color: "var(--color-text-primary)",
+          fontFamily: 'var(--heading-font, var(--font-sans))',
+          color: 'var(--color-text-primary)',
           ['--stagger-delay' as string]: '0ms',
         }}
       >
         Skills
       </h2>
-      {displayMode === "grouped" ? (
+      {displayMode === 'grouped' ? (
         <div className="space-y-6">
           {categories.map((cat, i) => {
             const catSkills = skills.filter((s) => s.category === cat);
@@ -41,7 +41,13 @@ export default function Skills({ displayMode = "grid" }: SkillsProps) {
                 className="reveal-stagger"
                 style={{ ['--stagger-delay' as string]: `${100 + i * 120}ms` }}
               >
-                <p className="text-xs uppercase tracking-widest mb-3" style={{ color: "var(--color-accent-3, var(--color-accent-2, var(--color-text-secondary)))" }}>
+                <p
+                  className="text-xs uppercase tracking-widest mb-3"
+                  style={{
+                    color:
+                      'var(--color-accent-3, var(--color-accent-2, var(--color-text-secondary)))',
+                  }}
+                >
                   {categoryLabels[cat]}
                 </p>
                 <div className="flex flex-wrap gap-2">

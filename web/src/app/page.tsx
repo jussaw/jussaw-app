@@ -1,16 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Header from "@/components/sections/Header";
-import TimelineScrollbar from "@/components/ui/TimelineScrollbar";
-import Hero from "@/components/sections/Hero";
-import Terminal from "@/components/sections/Terminal";
-import Skills from "@/components/sections/Skills";
-import Experience from "@/components/sections/Experience";
-import Projects from "@/components/sections/Projects";
-import Hobbies from "@/components/sections/Hobbies";
-import Footer from "@/components/sections/Footer";
-import { useKonamiCode } from "@/hooks/useKonamiCode";
+
+import Experience from '@/components/sections/Experience';
+import Footer from '@/components/sections/Footer';
+import Header from '@/components/sections/Header';
+import Hero from '@/components/sections/Hero';
+import Hobbies from '@/components/sections/Hobbies';
+import Projects from '@/components/sections/Projects';
+import Skills from '@/components/sections/Skills';
+import Terminal from '@/components/sections/Terminal';
+import TimelineScrollbar from '@/components/ui/TimelineScrollbar';
+import { useKonamiCode } from '@/hooks/useKonamiCode';
 
 interface Particle {
   angle: number;
@@ -34,8 +35,8 @@ function generateParticles(): Particle[] {
       hue: Math.random() * 360,
       delay: Math.random() * 0.3,
       isRound: Math.random() > 0.5,
-      x: `${Math.cos(angle * Math.PI / 180) * distance}px`,
-      y: `${Math.sin(angle * Math.PI / 180) * distance}px`,
+      x: `${Math.cos((angle * Math.PI) / 180) * distance}px`,
+      y: `${Math.sin((angle * Math.PI) / 180) * distance}px`,
     };
   });
 }
@@ -48,13 +49,13 @@ export default function Home() {
   const showEasterEgg = konamiActivated && !dismissed;
 
   useEffect(() => {
-    if (!konamiActivated) return;
+    if (!konamiActivated) return undefined;
     const timer = setTimeout(() => setDismissed(true), 4000);
     return () => clearTimeout(timer);
   }, [konamiActivated]);
 
   return (
-    <main className="min-h-screen pt-12" style={{ background: "var(--color-bg)" }}>
+    <main className="min-h-screen pt-12" style={{ background: 'var(--color-bg)' }}>
       <Header />
       <Hero id="hero" layout="left-aligned" headingStyle="bold-sans" />
       <Skills displayMode="grouped" />

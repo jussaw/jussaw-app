@@ -1,13 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import Hobbies from '../Hobbies';
+
 import { siteContent } from '@/data/content';
 
-vi.stubGlobal('IntersectionObserver', vi.fn(function () {
-  return {
-    observe: vi.fn(),
-    disconnect: vi.fn(),
-  };
-}));
+import Hobbies from '../Hobbies';
+
+vi.stubGlobal(
+  'IntersectionObserver',
+  // eslint-disable-next-line prefer-arrow-callback
+  vi.fn(function () {
+    return { observe: vi.fn(), disconnect: vi.fn() };
+  }),
+);
 
 describe('Hobbies', () => {
   it('renders the section heading', () => {

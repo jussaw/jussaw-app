@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { useRef } from 'react';
+
 import { useScrollReveal } from '../useScrollReveal';
 
 // IntersectionObserver does not exist in jsdom — mock it globally
@@ -13,14 +14,23 @@ const mockObserver = {
 
 vi.stubGlobal(
   'IntersectionObserver',
+  // eslint-disable-next-line prefer-arrow-callback
   vi.fn(function (cb: IOCallback) {
     capturedCallback = cb;
     return mockObserver;
-  })
+  }),
 );
 
-function makeEntry(isIntersecting: boolean, target: Element, boundingTop = 1): IntersectionObserverEntry {
-  return { isIntersecting, target, boundingClientRect: { top: boundingTop } } as unknown as IntersectionObserverEntry;
+function makeEntry(
+  isIntersecting: boolean,
+  target: Element,
+  boundingTop = 1,
+): IntersectionObserverEntry {
+  return {
+    isIntersecting,
+    target,
+    boundingClientRect: { top: boundingTop },
+  } as unknown as IntersectionObserverEntry;
 }
 
 describe('useScrollReveal', () => {
@@ -83,7 +93,7 @@ describe('useScrollReveal', () => {
 
     expect(IntersectionObserver).toHaveBeenCalledWith(
       expect.any(Function),
-      expect.objectContaining({ threshold: 0.5 })
+      expect.objectContaining({ threshold: 0.5 }),
     );
   });
 });

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface SectionWrapperProps {
@@ -9,7 +10,7 @@ interface SectionWrapperProps {
   className?: string;
 }
 
-export default function SectionWrapper({ id, children, className = "" }: SectionWrapperProps) {
+export default function SectionWrapper({ id, children, className = '' }: SectionWrapperProps) {
   const ref = useRef<HTMLElement>(null);
   useScrollReveal(ref);
 

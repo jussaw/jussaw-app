@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 
 export const SECTIONS = [
-  { id: "hero", label: "jussaw" },
-  { id: "skills", label: "Skills" },
-  { id: "experience", label: "Experience" },
-  { id: "projects",   label: "Projects"   },
-  { id: "hobbies",    label: "Hobbies"    },
-  { id: "terminal", label: "Terminal" },
+  { id: 'hero', label: 'jussaw' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'hobbies', label: 'Hobbies' },
+  { id: 'terminal', label: 'Terminal' },
 ] as const;
 
 export function useActiveSection(): number {
@@ -41,9 +41,9 @@ export function useActiveSection(): number {
     };
 
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);

@@ -1,14 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import ProjectCard from '../ProjectCard';
+
 import type { ProjectEntry } from '@/data/content';
 
+import ProjectCard from '../ProjectCard';
+
 const mockProject: ProjectEntry = {
-  title: "test-project",
-  description: "A test project",
-  highlights: ["Feature A", "Feature B"],
-  stack: ["React", "TypeScript"],
-  liveUrl: "https://example.com",
-  githubUrl: "https://github.com/example/test",
+  title: 'test-project',
+  description: 'A test project',
+  highlights: ['Feature A', 'Feature B'],
+  stack: ['React', 'TypeScript'],
+  liveUrl: 'https://example.com',
+  githubUrl: 'https://github.com/example/test',
 };
 
 describe('ProjectCard', () => {

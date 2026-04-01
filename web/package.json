@@ -7,8 +7,24 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,mjs,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,mjs,css,json}\"",
+    "prepare": "cd .. && git config core.hooksPath web/.husky",
     "test": "vitest run",
     "test:watch": "vitest"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{js,mjs}": [
+      "prettier --write"
+    ],
+    "*.{css,json,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "next": "16.2.1",
@@ -27,9 +43,23 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.1",
+    "@eslint/eslintrc": "^3.3.5",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
     "eslint": "^9",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-next": "16.2.1",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-import-resolver-typescript": "^3.10.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.0.0",
     "jsdom": "^25.0.1",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.0"

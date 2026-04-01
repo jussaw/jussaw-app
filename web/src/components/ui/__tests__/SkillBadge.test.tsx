@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import SkillBadge from '../SkillBadge';
+
 import type { Skill } from '@/data/content';
+
+import SkillBadge from '../SkillBadge';
 
 describe('SkillBadge', () => {
   it('renders the skill name', () => {

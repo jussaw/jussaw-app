@@ -1,9 +1,11 @@
 import { render, screen } from '@testing-library/react';
+
 import TimelineScrollbar from '../TimelineScrollbar';
 
-vi.stubGlobal('IntersectionObserver', vi.fn(function () {
-  return { observe: vi.fn(), disconnect: vi.fn() };
-}));
+vi.stubGlobal(
+  'IntersectionObserver',
+  vi.fn(() => ({ observe: vi.fn(), disconnect: vi.fn() })),
+);
 
 // matchMedia not available in jsdom
 Object.defineProperty(window, 'matchMedia', {

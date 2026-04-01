@@ -3,11 +3,16 @@
 import { useEffect, useRef, useState } from 'react';
 
 const KONAMI_SEQUENCE = [
-  'ArrowUp', 'ArrowUp',
-  'ArrowDown', 'ArrowDown',
-  'ArrowLeft', 'ArrowRight',
-  'ArrowLeft', 'ArrowRight',
-  'b', 'a',
+  'ArrowUp',
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowDown',
+  'ArrowLeft',
+  'ArrowRight',
+  'ArrowLeft',
+  'ArrowRight',
+  'b',
+  'a',
 ];
 
 export function useKonamiCode(): boolean {
@@ -20,7 +25,7 @@ export function useKonamiCode(): boolean {
 
       const expected = KONAMI_SEQUENCE[indexRef.current];
       if (e.key === expected || e.key.toLowerCase() === expected) {
-        indexRef.current++;
+        indexRef.current += 1;
         if (indexRef.current === KONAMI_SEQUENCE.length) {
           setActivated(true);
           indexRef.current = 0;
@@ -36,4 +41,3 @@ export function useKonamiCode(): boolean {
 
   return activated;
 }
-

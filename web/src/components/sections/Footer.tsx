@@ -1,4 +1,4 @@
-import { siteContent } from "@/data/content";
+import { siteContent } from '@/data/content';
 
 interface FooterProps {
   id?: string;
@@ -12,11 +12,11 @@ export default function Footer({ id }: FooterProps = {}) {
       id={id}
       className="px-6 py-8 border-t"
       style={{
-        borderColor: "color-mix(in srgb, var(--color-border) 80%, transparent)",
+        borderColor: 'color-mix(in srgb, var(--color-border) 80%, transparent)',
       }}
     >
       <div className="max-w-4xl mx-auto flex justify-center w-full">
-        <p className="text-xs" style={{ color: "var(--color-text-secondary)" }}>
+        <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
           {hostingNote}
         </p>
       </div>

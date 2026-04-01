@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Footer from '../Footer';
+
 import { siteContent } from '@/data/content';
+
+import Footer from '../Footer';
 
 describe('Footer', () => {
   it('renders the hosting note text from content', () => {
@@ -24,5 +26,4 @@ describe('Footer', () => {
     expect(footer).toBeInTheDocument();
     expect(footer).not.toHaveAttribute('id');
   });
-
 });

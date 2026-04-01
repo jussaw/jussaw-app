@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { siteContent } from '@/data/content';
+
 import SectionWrapper from '@/components/ui/SectionWrapper';
+import { siteContent } from '@/data/content';
 import { useTabCompletion } from '@/hooks/useTabCompletion';
+
 import styles from './Terminal.module.css';
 
 type Line = { type: 'input' | 'output'; text: string };
@@ -17,16 +19,13 @@ const COMMANDS: Record<string, () => string> = {
   ls: () => 'skills.txt  experience.txt  projects.txt  hobbies.txt  setup.txt',
   'cat skills.txt': () => siteContent.skills.map((s) => s.name).join(', '),
   'cat experience.txt': () =>
-    siteContent.experience
-      .map((e) => `${e.role} @ ${e.company} (${e.period})`)
-      .join('\n'),
+    siteContent.experience.map((e) => `${e.role} @ ${e.company} (${e.period})`).join('\n'),
   'cat hobbies.txt': () => siteContent.hobbies.map((h) => h.label).join(', '),
   'cat projects.txt': () =>
     siteContent.projects
       .map((p) => `${p.title} — ${p.description} [${p.stack.join(', ')}]`)
       .join('\n'),
-  'cat setup.txt': () =>
-    siteContent.kit.map((k) => `${k.label}: ${k.value}`).join('\n'),
+  'cat setup.txt': () => siteContent.kit.map((k) => `${k.label}: ${k.value}`).join('\n'),
   pwd: () => '/Users/justin/brain',
   uptime: () => 'up 31 years, load average: coffee, music, deadlines',
   date: () => new Date().toDateString(),
@@ -77,11 +76,12 @@ export default function Terminal() {
     }
   }, [lines]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (typingTimerRef.current !== null) clearTimeout(typingTimerRef.current);
-    };
-  }, []);
+    },
+    [],
+  );
 
   const runCommand = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
@@ -112,11 +112,7 @@ export default function Terminal() {
       response = `command not found: ${cmd}. try 'help'`;
     }
 
-    setLines((prev) => [
-      ...prev,
-      inputLine,
-      { type: 'output', text: response },
-    ]);
+    setLines((prev) => [...prev, inputLine, { type: 'output', text: response }]);
     setInput('');
     if (typingTimerRef.current !== null) {
       clearTimeout(typingTimerRef.current);
@@ -130,9 +126,10 @@ export default function Terminal() {
     if (history.length === 0) return;
 
     if (direction === 'up') {
-      const newIndex = historyIndexRef.current === -1
-        ? history.length - 1
-        : Math.max(0, historyIndexRef.current - 1);
+      const newIndex =
+        historyIndexRef.current === -1
+          ? history.length - 1
+          : Math.max(0, historyIndexRef.current - 1);
       historyIndexRef.current = newIndex;
       setInput(history[newIndex]);
     } else {
@@ -150,11 +147,10 @@ export default function Terminal() {
 
   return (
     <SectionWrapper id="terminal" className="mb-36">
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div className={styles.container} onClick={() => inputRef.current?.focus()}>
         {/* Static top bar */}
-        <div className={styles.header}>
-          ~ terminal
-        </div>
+        <div className={styles.header}>~ terminal</div>
 
         {/* Scrollable output */}
         <div ref={outputRef} className={styles.output}>
@@ -171,9 +167,7 @@ export default function Terminal() {
                   <span>{line.text}</span>
                 </div>
               ) : (
-                <div className={styles.lineOutput}>
-                  {line.text}
-                </div>
+                <div className={styles.lineOutput}>{line.text}</div>
               )}
             </div>
           ))}
@@ -220,7 +214,9 @@ export default function Terminal() {
                   }}
                   className={styles.inputField}
                 />
-                <span aria-hidden="true" className={styles.inputMirror}>{input}</span>
+                <span aria-hidden="true" className={styles.inputMirror}>
+                  {input}
+                </span>
                 <span
                   aria-hidden="true"
                   className={`${styles.cursor} ${isFocused && !isTyping ? styles.cursorBlink : styles.cursorSolid}`}
@@ -229,7 +225,6 @@ export default function Terminal() {
             </div>
           </div>
         </div>
-
       </div>
     </SectionWrapper>
   );
