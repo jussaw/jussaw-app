@@ -55,7 +55,7 @@ export default function Home() {
   }, [konamiActivated]);
 
   return (
-    <main className="min-h-screen pt-12" style={{ background: 'var(--color-bg)' }}>
+    <main className="min-h-screen pt-12 bg-bg">
       <Header />
       <Hero id="hero" layout="left-aligned" headingStyle="bold-sans" />
       <Skills displayMode="grouped" />
@@ -95,32 +95,13 @@ export default function Home() {
 
           {/* Message */}
           <div
-            style={{
-              textAlign: 'center',
-              animation: 'konami-text 3s ease-out forwards',
-              fontFamily: 'var(--font-mono)',
-            }}
+            className="text-center font-mono"
+            style={{ animation: 'konami-text 3s ease-out forwards' }}
           >
-            <p
-              style={{
-                fontSize: '0.7rem',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: 'var(--color-accent)',
-                marginBottom: '8px',
-              }}
-            >
+            <p className="text-[0.7rem] tracking-[0.2em] uppercase text-accent mb-2">
               Achievement Unlocked
             </p>
-            <p
-              style={{
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                color: 'var(--color-text-primary)',
-              }}
-            >
-              ↑↑↓↓←→←→BA
-            </p>
+            <p className="text-2xl font-bold text-text-primary">↑↑↓↓←→←→BA</p>
           </div>
         </div>
       )}

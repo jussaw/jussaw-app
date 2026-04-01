@@ -8,11 +8,8 @@ export default function Projects() {
   return (
     <SectionWrapper id="projects">
       <h2
-        className="text-3xl font-semibold mb-8"
-        style={{
-          fontFamily: 'var(--heading-font, var(--font-sans))',
-          color: 'var(--color-text-primary)',
-        }}
+        className="text-3xl font-semibold mb-8 text-text-primary"
+        style={{ fontFamily: 'var(--heading-font, var(--font-sans))' }}
       >
         Projects
       </h2>

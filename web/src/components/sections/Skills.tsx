@@ -21,10 +21,9 @@ export default function Skills({ displayMode = 'grid' }: SkillsProps) {
   return (
     <SectionWrapper id="skills">
       <h2
-        className="reveal-stagger text-3xl font-semibold mb-10"
+        className="reveal-stagger text-3xl font-semibold mb-10 text-text-primary"
         style={{
           fontFamily: 'var(--heading-font, var(--font-sans))',
-          color: 'var(--color-text-primary)',
           ['--stagger-delay' as string]: '0ms',
         }}
       >
