@@ -12,11 +12,8 @@ export default function Experience({ displayMode = 'cards' }: ExperienceProps) {
   return (
     <SectionWrapper id="experience">
       <h2
-        className="text-3xl font-semibold mb-10"
-        style={{
-          fontFamily: 'var(--heading-font, var(--font-sans))',
-          color: 'var(--color-text-primary)',
-        }}
+        className="text-3xl font-semibold mb-10 text-text-primary"
+        style={{ fontFamily: 'var(--heading-font, var(--font-sans))' }}
       >
         Experience
       </h2>

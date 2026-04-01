@@ -1,6 +1,14 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
+  --heading-font: var(--font-sans);
+  --card-radius: 0.5rem;
+}
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-lora);
+  --font-mono: var(--font-jbmono);
   --color-bg: #000000;
   --color-surface: #0f0e0d;
   --color-accent: #c4a0b2;
@@ -10,14 +18,44 @@
   --color-text-primary: #f0eeec;
   --color-text-secondary: #848288;
   --color-border: #201e1c;
-  --heading-font: var(--font-sans);
-  --card-radius: 0.5rem;
 }
 
-@theme {
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-lora);
-  --font-mono: var(--font-jbmono);
+/* Custom color utilities — @theme alone doesn't generate these under Turbopack */
+@utility text-accent {
+  color: var(--color-accent);
+}
+@utility text-accent-2 {
+  color: var(--color-accent-2);
+}
+@utility text-accent-muted {
+  color: var(--color-accent-muted);
+}
+@utility text-text-primary {
+  color: var(--color-text-primary);
+}
+@utility text-text-secondary {
+  color: var(--color-text-secondary);
+}
+@utility bg-bg {
+  background-color: var(--color-bg);
+}
+@utility bg-surface {
+  background-color: var(--color-surface);
+}
+@utility bg-border {
+  background-color: var(--color-border);
+}
+@utility bg-accent {
+  background-color: var(--color-accent);
+}
+@utility border-border {
+  border-color: var(--color-border);
+}
+@utility border-accent {
+  border-color: var(--color-accent);
+}
+@utility border-l-accent {
+  border-left-color: var(--color-accent);
 }
 
 * {
@@ -44,7 +82,9 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
 }
 
 .reveal.visible {
@@ -56,7 +96,9 @@ body {
 .reveal-stagger {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
   transition-delay: var(--stagger-delay, 0ms);
 }
 
@@ -93,13 +135,22 @@ body {
 
 /* Typing animation for hero tagline */
 @keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes blink-caret {
-  0%, 100% { border-color: var(--color-accent); }
-  50% { border-color: transparent; }
+  0%,
+  100% {
+    border-color: var(--color-accent);
+  }
+  50% {
+    border-color: transparent;
+  }
 }
 
 .typing-animate {
@@ -114,9 +165,19 @@ body {
 
 /* Scroll-down indicator bounce */
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(8px); }
-  60% { transform: translateY(4px); }
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(8px);
+  }
+  60% {
+    transform: translateY(4px);
+  }
 }
 
 .scroll-indicator {
@@ -132,8 +193,13 @@ body {
 
 /* Terminal cursor blink */
 @keyframes blink-cursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .terminal-cursor {
@@ -148,7 +214,7 @@ body {
   position: relative;
 }
 .noise::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;

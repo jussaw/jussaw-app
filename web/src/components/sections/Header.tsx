@@ -21,33 +21,18 @@ export default function Header() {
   return (
     <>
       <div
-        className="fixed top-0 left-0 right-0 pointer-events-none"
+        className="fixed top-0 left-0 right-0 pointer-events-none z-[9] h-[120px]"
         style={{
-          zIndex: 9,
-          height: '120px',
           background: 'linear-gradient(to bottom, var(--color-bg) 30%, transparent 100%)',
         }}
       />
       <header
-        className="fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 transition-all duration-300"
-        style={{
-          background: scrolled ? 'rgba(0, 0, 0, 0.6)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(12px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.05)' : '1px solid transparent',
-        }}
+        className={`fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 transition-all duration-300 border-b ${scrolled ? 'bg-black/60 backdrop-blur-md border-white/5' : 'border-transparent'}`}
       >
         <a
           href={`mailto:${person.email}`}
           aria-label="Email"
-          className={linkClass}
-          style={{ color: 'var(--color-text-secondary)' }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'var(--color-accent)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'var(--color-text-secondary)';
-          }}
+          className={`${linkClass} text-text-secondary hover:text-accent`}
         >
           <FaEnvelope size={18} />
         </a>
@@ -56,14 +41,7 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
-          className={linkClass}
-          style={{ color: 'var(--color-text-secondary)' }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'var(--color-accent)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'var(--color-text-secondary)';
-          }}
+          className={`${linkClass} text-text-secondary hover:text-accent`}
         >
           <FaLinkedin size={18} />
         </a>
@@ -72,14 +50,7 @@ export default function Header() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          className={linkClass}
-          style={{ color: 'var(--color-text-secondary)' }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'var(--color-accent)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'var(--color-text-secondary)';
-          }}
+          className={`${linkClass} text-text-secondary hover:text-accent`}
         >
           <FaGithub size={18} />
         </a>

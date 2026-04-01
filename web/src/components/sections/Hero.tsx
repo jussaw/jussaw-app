@@ -40,11 +40,10 @@ export default function Hero({
     >
       <div ref={ref} className="reveal">
         <h1
-          className="reveal-stagger text-6xl md:text-7xl mb-1 leading-tight"
+          className="reveal-stagger text-6xl md:text-7xl mb-1 leading-tight text-text-primary"
           style={{
             fontFamily: headingFont,
             fontWeight: headingWeight,
-            color: 'var(--color-text-primary)',
             ['--stagger-delay' as string]: '0ms',
           }}
         >
@@ -52,11 +51,8 @@ export default function Hero({
         </h1>
         <div className="mb-6">
           <span
-            className="reveal-stagger text-sm font-medium uppercase tracking-widest"
-            style={{
-              color: 'var(--color-accent)',
-              ['--stagger-delay' as string]: '100ms',
-            }}
+            className="reveal-stagger text-sm font-medium uppercase tracking-widest text-accent"
+            style={{ ['--stagger-delay' as string]: '100ms' }}
           >
             {person.title.split(' | ').map((part, i) => (
               <span key={i}>
@@ -73,24 +69,21 @@ export default function Hero({
         </div>
         {kit.length > 0 && (
           <div
-            className="reveal-stagger mt-8 pt-8 border-t inline-block"
-            style={{ borderColor: 'var(--color-border)', ['--stagger-delay' as string]: '340ms' }}
+            className="reveal-stagger mt-8 pt-8 border-t border-border inline-block"
+            style={{ ['--stagger-delay' as string]: '340ms' }}
           >
             <dl className="flex flex-col gap-1.5">
               {kit.map((item) => (
                 <div key={item.label} className="flex items-baseline gap-3">
                   <dt
-                    className="text-xs uppercase tracking-widest w-24 shrink-0"
+                    className="text-xs uppercase tracking-widest w-24 shrink-0 font-mono"
                     style={{
-                      fontFamily: 'var(--font-mono)',
                       color: 'var(--color-accent-muted, var(--color-accent))',
                     }}
                   >
                     {item.label}
                   </dt>
-                  <dd className="text-sm" style={{ color: 'var(--color-text-primary)' }}>
-                    {item.value}
-                  </dd>
+                  <dd className="text-sm text-text-primary">{item.value}</dd>
                 </div>
               ))}
             </dl>
@@ -98,10 +91,7 @@ export default function Hero({
         )}
 
         {/* Scroll-down indicator */}
-        <div
-          className={`scroll-indicator mt-14 ${showScroll ? 'show' : ''}`}
-          style={{ color: 'var(--color-text-secondary)' }}
-        >
+        <div className={`scroll-indicator mt-14 text-text-secondary ${showScroll ? 'show' : ''}`}>
           <svg
             width="24"
             height="24"

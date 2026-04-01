@@ -16,9 +16,7 @@ export default function Footer({ id }: FooterProps = {}) {
       }}
     >
       <div className="max-w-4xl mx-auto flex justify-center w-full">
-        <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-          {hostingNote}
-        </p>
+        <p className="text-xs text-text-secondary">{hostingNote}</p>
       </div>
     </footer>
   );
