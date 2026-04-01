@@ -1,17 +1,22 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { siteContent } from "@/data/content";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+import { siteContent } from '@/data/content';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { getFontFamily, HeadingStyle } from '@/utils/fonts';
 
 interface HeroProps {
   id?: string;
-  layout?: "centered" | "left-aligned";
+  layout?: 'centered' | 'left-aligned';
   headingStyle?: HeadingStyle;
 }
 
-export default function Hero({ id, layout = "centered", headingStyle = "serif-elegant" }: HeroProps) {
+export default function Hero({
+  id,
+  layout = 'centered',
+  headingStyle = 'serif-elegant',
+}: HeroProps) {
   const { person, kit } = siteContent;
   const ref = useRef<HTMLDivElement>(null);
   useScrollReveal(ref);
@@ -19,10 +24,9 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
 
   const headingFont = getFontFamily(headingStyle);
 
-  const headingWeight =
-    headingStyle === "bold-sans" ? "800" : "600";
+  const headingWeight = headingStyle === 'bold-sans' ? '800' : '600';
 
-  const isCenter = layout === "centered";
+  const isCenter = layout === 'centered';
 
   useEffect(() => {
     const timer = setTimeout(() => setShowScroll(true), 3600);
@@ -32,18 +36,15 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
   return (
     <section
       id={id}
-      className={`px-6 pt-[40vh] pb-24 max-w-4xl mx-auto w-full ${isCenter ? "text-center" : "text-left"}`}
+      className={`px-6 pt-[40vh] pb-24 max-w-4xl mx-auto w-full ${isCenter ? 'text-center' : 'text-left'}`}
     >
-      <div
-        ref={ref}
-        className="reveal"
-      >
+      <div ref={ref} className="reveal">
         <h1
           className="reveal-stagger text-6xl md:text-7xl mb-1 leading-tight"
           style={{
             fontFamily: headingFont,
             fontWeight: headingWeight,
-            color: "var(--color-text-primary)",
+            color: 'var(--color-text-primary)',
             ['--stagger-delay' as string]: '0ms',
           }}
         >
@@ -53,13 +54,18 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
           <span
             className="reveal-stagger text-sm font-medium uppercase tracking-widest"
             style={{
-              color: "var(--color-accent)",
+              color: 'var(--color-accent)',
               ['--stagger-delay' as string]: '100ms',
             }}
           >
             {person.title.split(' | ').map((part, i) => (
               <span key={i}>
-                {i > 0 && <><span className="hidden sm:inline"> | </span><br className="sm:hidden" /></>}
+                {i > 0 && (
+                  <>
+                    <span className="hidden sm:inline"> | </span>
+                    <br className="sm:hidden" />
+                  </>
+                )}
                 {part}
               </span>
             ))}
@@ -68,18 +74,21 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
         {kit.length > 0 && (
           <div
             className="reveal-stagger mt-8 pt-8 border-t inline-block"
-            style={{ borderColor: "var(--color-border)", ['--stagger-delay' as string]: '340ms' }}
+            style={{ borderColor: 'var(--color-border)', ['--stagger-delay' as string]: '340ms' }}
           >
             <dl className="flex flex-col gap-1.5">
               {kit.map((item) => (
                 <div key={item.label} className="flex items-baseline gap-3">
                   <dt
                     className="text-xs uppercase tracking-widest w-24 shrink-0"
-                    style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent-muted, var(--color-accent))" }}
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      color: 'var(--color-accent-muted, var(--color-accent))',
+                    }}
                   >
                     {item.label}
                   </dt>
-                  <dd className="text-sm" style={{ color: "var(--color-text-primary)" }}>
+                  <dd className="text-sm" style={{ color: 'var(--color-text-primary)' }}>
                     {item.value}
                   </dd>
                 </div>
@@ -90,10 +99,19 @@ export default function Hero({ id, layout = "centered", headingStyle = "serif-el
 
         {/* Scroll-down indicator */}
         <div
-          className={`scroll-indicator mt-14 ${showScroll ? "show" : ""}`}
-          style={{ color: "var(--color-text-secondary)" }}
+          className={`scroll-indicator mt-14 ${showScroll ? 'show' : ''}`}
+          style={{ color: 'var(--color-text-secondary)' }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M7 10l5 5 5-5" />
           </svg>
         </div>

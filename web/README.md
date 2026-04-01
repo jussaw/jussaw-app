@@ -10,6 +10,28 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Code Quality
+
+This project uses the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) enforced via ESLint and Prettier.
+
+### Linting
+
+```bash
+pnpm lint          # Check for lint violations
+pnpm lint:fix      # Auto-fix lint violations
+```
+
+### Formatting
+
+```bash
+pnpm format        # Format all source files with Prettier
+pnpm format:check  # Check formatting without writing (used in CI)
+```
+
+### Pre-commit hooks
+
+Husky + lint-staged runs Prettier and ESLint automatically on every `git commit`. Commits that introduce lint errors will be blocked.
+
 ## Production with Docker
 
 The app uses `output: "standalone"` in `next.config.ts`, which produces a minimal production build containing only the files needed to run the server.

@@ -20,16 +20,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         e.currentTarget.style.boxShadow = 'none';
       }}
     >
-      <h3
-        className="text-xl font-semibold mb-1"
-        style={{ color: 'var(--color-text-primary)' }}
-      >
+      <h3 className="text-xl font-semibold mb-1" style={{ color: 'var(--color-text-primary)' }}>
         {project.title}
       </h3>
-      <p
-        className="text-sm mb-4"
-        style={{ color: 'var(--color-text-secondary)' }}
-      >
+      <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>
         {project.description}
       </p>
 

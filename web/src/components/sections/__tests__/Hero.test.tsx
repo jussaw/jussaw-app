@@ -1,12 +1,14 @@
 import { render } from '@testing-library/react';
+
 import Hero from '../Hero';
 
-vi.stubGlobal('IntersectionObserver', vi.fn(function () {
-  return {
-    observe: vi.fn(),
-    disconnect: vi.fn(),
-  };
-}));
+vi.stubGlobal(
+  'IntersectionObserver',
+  // eslint-disable-next-line prefer-arrow-callback
+  vi.fn(function () {
+    return { observe: vi.fn(), disconnect: vi.fn() };
+  }),
+);
 
 describe('Hero', () => {
   it('renders the person name', () => {

@@ -8,11 +8,11 @@ interface ScrollRevealOptions {
 
 export function useScrollReveal(
   ref: RefObject<HTMLElement | null>,
-  { threshold = 0.12 }: ScrollRevealOptions = {}
+  { threshold = 0.12 }: ScrollRevealOptions = {},
 ): void {
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el) return undefined;
 
     const showInstant = () => {
       el.classList.add('no-transition', 'visible');
@@ -35,15 +35,14 @@ export function useScrollReveal(
             } else {
               showInstant(); // scrolling up — show without animation
             }
+          } else if (fromBottom) {
+            hideInstant(); // scrolled back up past it — reset for re-animation
           } else {
-            if (fromBottom) {
-              hideInstant(); // scrolled back up past it — reset for re-animation
-            }
             // scrolled down past it — leave visible
           }
         });
       },
-      { threshold }
+      { threshold },
     );
 
     observer.observe(el);

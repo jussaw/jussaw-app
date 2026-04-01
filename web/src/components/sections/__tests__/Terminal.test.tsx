@@ -1,12 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+
 import Terminal from '../Terminal';
 
-vi.stubGlobal('IntersectionObserver', vi.fn(function () {
-  return {
-    observe: vi.fn(),
-    disconnect: vi.fn(),
-  };
-}));
+vi.stubGlobal(
+  'IntersectionObserver',
+  // eslint-disable-next-line prefer-arrow-callback
+  vi.fn(function () {
+    return { observe: vi.fn(), disconnect: vi.fn() };
+  }),
+);
 
 describe('Terminal (section)', () => {
   it('renders without props', () => {
@@ -56,9 +58,7 @@ describe('Terminal (section)', () => {
     const input = screen.getByLabelText('Terminal input');
     fireEvent.change(input, { target: { value: 'exit' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(
-      screen.getByText('this terminal is embedded — nowhere to exit to')
-    ).toBeInTheDocument();
+    expect(screen.getByText('this terminal is embedded — nowhere to exit to')).toBeInTheDocument();
   });
 
   it('clear command removes output lines', () => {
