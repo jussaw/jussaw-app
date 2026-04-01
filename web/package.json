@@ -10,7 +10,7 @@
     "lint:fix": "eslint --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,mjs,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,mjs,css,json}\"",
-    "prepare": "cd .. && git config core.hooksPath web/.husky",
+    "prepare": "[ -d ../.git ] && cd .. && git config core.hooksPath web/.husky || true",
     "test": "vitest run",
     "test:watch": "vitest"
   },
