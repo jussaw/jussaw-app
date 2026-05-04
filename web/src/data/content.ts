@@ -158,6 +158,20 @@ export const siteContent: SiteContent = {
       githubUrl: 'https://github.com/jussaw/jussaw-app',
     },
     {
+      title: 'HarborStats',
+      description: 'Catan results tracker for a friend group',
+      highlights: [
+        'Full-stack app with Next.js 16 App Router, React 19, and TypeScript',
+        'PostgreSQL 18 with Drizzle ORM for typed schema and migrations',
+        'Password-protected admin panel for game and player data management',
+        'Unit, component, integration, and end-to-end tests with Vitest + Playwright',
+        'Self-hosted on Raspberry Pi via Docker Compose',
+      ],
+      stack: ['Next.js 16', 'React 19', 'TypeScript', 'PostgreSQL', 'Drizzle ORM', 'Docker'],
+      liveUrl: 'https://harborstats.jussaw.com',
+      githubUrl: 'https://github.com/jussaw/harborstats',
+    },
+    {
       title: 'zmk-config-corne',
       description: 'ZMK wireless firmware config for Corne split keyboard',
       highlights: [
