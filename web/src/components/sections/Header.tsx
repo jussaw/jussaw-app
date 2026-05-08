@@ -30,11 +30,13 @@ export default function Header() {
         className={`fixed top-0 left-0 right-0 z-10 flex justify-end items-center gap-6 px-6 py-3 transition-all duration-300 border-b ${scrolled ? 'bg-black/60 backdrop-blur-md border-white/5' : 'border-transparent'}`}
       >
         <a
-          href={`mailto:${person.email}`}
-          aria-label="Email"
+          href={person.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
           className={`${linkClass} text-text-secondary hover:text-accent`}
         >
-          <FaEnvelope size={18} />
+          <FaGithub size={18} />
         </a>
         <a
           href={person.linkedin}
@@ -46,13 +48,11 @@ export default function Header() {
           <FaLinkedin size={18} />
         </a>
         <a
-          href={person.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
+          href={`mailto:${person.email}`}
+          aria-label="Email"
           className={`${linkClass} text-text-secondary hover:text-accent`}
         >
-          <FaGithub size={18} />
+          <FaEnvelope size={18} />
         </a>
       </header>
     </>

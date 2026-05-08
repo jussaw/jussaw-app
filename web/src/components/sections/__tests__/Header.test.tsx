@@ -3,6 +3,14 @@ import { render } from '@testing-library/react';
 import Header from '../Header';
 
 describe('Header', () => {
+  it('renders social links with GitHub before email', () => {
+    const { getAllByRole } = render(<Header />);
+
+    const labels = getAllByRole('link').map((link) => link.getAttribute('aria-label'));
+
+    expect(labels).toEqual(['GitHub', 'LinkedIn', 'Email']);
+  });
+
   it('renders an email link', () => {
     const { getByRole } = render(<Header />);
     const link = getByRole('link', { name: /email/i });
