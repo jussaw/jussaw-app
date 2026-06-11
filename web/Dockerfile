@@ -1,7 +1,7 @@
 FROM node:22-alpine AS base
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install pnpm (version pinned by the packageManager field in package.json)
+RUN corepack enable
 
 # ---- deps stage ----
 FROM base AS deps
