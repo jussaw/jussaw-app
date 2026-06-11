@@ -43,6 +43,3 @@ next-env.d.ts
 # tool directories
 .playwright-mcp/
 .superpowers/
-
-# design screenshots
-*.png
