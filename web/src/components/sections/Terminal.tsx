@@ -104,7 +104,7 @@ export default function Terminal() {
       response = 'okay.';
     } else if (DESTRUCTIVE.test(cmd)) {
       response = 'Permission denied. Nice try.';
-    } else if (cmd.startsWith('echo ')) {
+    } else if (cmd === 'echo' || cmd.startsWith('echo ')) {
       response = raw.trim().slice(5).trim();
     } else if (COMMANDS[cmd]) {
       response = COMMANDS[cmd]();

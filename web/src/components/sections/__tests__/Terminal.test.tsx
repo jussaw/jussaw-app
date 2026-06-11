@@ -37,6 +37,22 @@ describe('Terminal (section)', () => {
     expect(screen.getByText(/justin sawyer/i)).toBeInTheDocument();
   });
 
+  it('echoes its argument', () => {
+    render(<Terminal />);
+    const input = screen.getByLabelText('Terminal input');
+    fireEvent.change(input, { target: { value: 'echo hello world' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(screen.getByText('hello world')).toBeInTheDocument();
+  });
+
+  it('bare echo outputs an empty line instead of command not found', () => {
+    render(<Terminal />);
+    const input = screen.getByLabelText('Terminal input');
+    fireEvent.change(input, { target: { value: 'echo' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(screen.queryByText(/command not found/i)).not.toBeInTheDocument();
+  });
+
   it('shows error for unknown commands', () => {
     render(<Terminal />);
     const input = screen.getByLabelText('Terminal input');
