@@ -106,9 +106,13 @@
 
 @keyframes terminalCursorBlink {
   0%,
-  66.6% { opacity: 1; }
+  66.6% {
+    opacity: 1;
+  }
   66.7%,
-  99.9% { opacity: 0; }
+  99.9% {
+    opacity: 0;
+  }
 }
 
 .cursorSolid {
