@@ -1,8 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 
 import { useActiveSection, SECTIONS } from '@/hooks/useActiveSection';
+
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+function subscribeReducedMotion(callback: () => void) {
+  const mq = window.matchMedia(REDUCED_MOTION_QUERY);
+  mq.addEventListener('change', callback);
+  return () => mq.removeEventListener('change', callback);
+}
+
+const getReducedMotion = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
+// Server snapshot: no media query available — assume motion, corrected on the client.
+const getServerReducedMotion = () => false;
 
 function gaussian(dist: number, sigma = 1.0): number {
   return Math.exp(-(dist * dist) / (2 * sigma * sigma));
@@ -39,20 +51,13 @@ function scrollToSection(id: string) {
 
 export default function TimelineScrollbar() {
   const activeIndex = useActiveSection();
-  const [reducedMotion, setReducedMotion] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  const reducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotion,
+    getServerReducedMotion,
   );
   const [totalHeight, setTotalHeight] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
 
   useEffect(() => {
     const update = () => setTotalHeight(window.innerHeight * 0.5);
