@@ -1,9 +1,10 @@
 // @ts-check
-import { defineConfig, globalIgnores } from 'eslint/config';
-import { FlatCompat } from '@eslint/eslintrc';
-import { fileURLToPath } from 'url';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+import { FlatCompat } from '@eslint/eslintrc';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import prettier from 'eslint-config-prettier';
@@ -66,13 +67,24 @@ const eslintConfig = defineConfig([
 
   // 3. TypeScript parser config
   {
-    // Scope typed linting to src/ — config files like eslint.config.mjs are not in tsconfig.json
-    files: ['src/**/*.ts', 'src/**/*.tsx'],
+    // Scope typed linting to files covered by tsconfig.json (src/ plus root *.ts/*.mts configs)
+    files: ['src/**/*.ts', 'src/**/*.tsx', '*.ts', '*.mts'],
     languageOptions: {
       parserOptions: {
         project: true,
         tsconfigRootDir: __dirname,
       },
+    },
+  },
+
+  // 3b. Plain JS config files (eslint.config.mjs, postcss.config.mjs) are not in tsconfig.json —
+  // no type information exists, so typed @typescript-eslint rules must be disabled for them.
+  {
+    files: ['**/*.{js,mjs,cjs}'],
+    rules: {
+      ...tsPlugin.configs['disable-type-checked'].rules,
+      // CJS/ESM interop globals in config files
+      'no-underscore-dangle': ['error', { allow: ['__filename', '__dirname'] }],
     },
   },
 
@@ -144,6 +156,8 @@ const eslintConfig = defineConfig([
             '**/*.spec.{ts,tsx}',
             '**/vitest.config.*',
             '**/jest.config.*',
+            '**/eslint.config.*',
+            '**/postcss.config.*',
           ],
         },
       ],
