@@ -50,7 +50,7 @@ export const siteContent: SiteContent = {
   person: {
     name: 'Justin Sawyer',
     title: 'Software Engineer | Ergo Keyboard Enthusiast',
-    email: 'jtsaw36@gmail.com',
+    email: 'justin@jussaw.com',
     github: 'https://github.com/jussaw',
     linkedin: 'https://linkedin.com/in/jussaw',
   },
