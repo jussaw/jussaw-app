@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 
 import { siteContent } from '@/data/content';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -20,18 +20,12 @@ export default function Hero({
   const { person, kit } = siteContent;
   const ref = useRef<HTMLDivElement>(null);
   useScrollReveal(ref);
-  const [showScroll, setShowScroll] = useState(false);
 
   const headingFont = getFontFamily(headingStyle);
 
   const headingWeight = headingStyle === 'bold-sans' ? '800' : '600';
 
   const isCenter = layout === 'centered';
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowScroll(true), 3600);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <section
@@ -89,22 +83,6 @@ export default function Hero({
             </dl>
           </div>
         )}
-
-        {/* Scroll-down indicator */}
-        <div className={`scroll-indicator mt-14 text-text-secondary ${showScroll ? 'show' : ''}`}>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M7 10l5 5 5-5" />
-          </svg>
-        </div>
       </div>
     </section>
   );
