@@ -21,13 +21,19 @@ export interface KitItem {
   value: string;
 }
 
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
 export interface ProjectEntry {
   title: string;
   description: string;
   highlights: string[];
   stack: string[];
   liveUrl?: string;
-  githubUrl: string;
+  githubUrl?: string;
+  links?: ProjectLink[];
 }
 
 export interface SiteContent {
@@ -170,6 +176,26 @@ export const siteContent: SiteContent = {
       stack: ['Next.js 16', 'React 19', 'TypeScript', 'PostgreSQL', 'Drizzle ORM', 'Docker'],
       liveUrl: 'https://harborstats.jussaw.com',
       githubUrl: 'https://github.com/jussaw/harborstats',
+    },
+    {
+      title: 'FullHex',
+      description: 'Browser extension for edge-to-edge colonist.io',
+      highlights: [
+        'Manifest V3 extension for Chrome, Edge, Brave, and Firefox',
+        'Removes the blank 165px side and 90px bottom ad-space gutters so the board fills the window',
+        'Triggers the colonist.io native fill-the-window layout by overriding document.fullscreenElement',
+        'Zero dependencies — vanilla JS + CSS, no tracking, accounts, or configuration',
+      ],
+      stack: ['JavaScript', 'CSS', 'Manifest V3', 'Browser Extension'],
+      links: [
+        {
+          label: 'Chrome Web Store',
+          url: 'https://chromewebstore.google.com/detail/fullhex/kaiekkbjpleiknlcldekffadmobdeahd',
+        },
+        { label: 'Firefox Add-on', url: 'https://addons.mozilla.org/en-US/firefox/addon/fullhex/' },
+        { label: 'Privacy Policy', url: 'https://fullhex.jussaw.com/' },
+        { label: 'GitHub', url: 'https://github.com/jussaw/fullhex' },
+      ],
     },
     {
       title: 'zmk-config-corne',
