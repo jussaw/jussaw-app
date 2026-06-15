@@ -44,3 +44,46 @@ describe('ProjectCard', () => {
     expect(ghLink).toHaveAttribute('href', 'https://github.com/example/test');
   });
 });
+
+const mockProjectWithLinks: ProjectEntry = {
+  title: 'links-project',
+  description: 'A project with multiple links',
+  highlights: ['Feature A'],
+  stack: ['JavaScript'],
+  links: [
+    { label: 'Chrome Web Store', url: '#' },
+    { label: 'Firefox Add-on', url: 'https://addons.mozilla.org/firefox/addon/example/' },
+    { label: 'Privacy Policy', url: 'https://example.com/' },
+    { label: 'GitHub', url: 'https://github.com/example/links' },
+  ],
+};
+
+describe('ProjectCard with links', () => {
+  it('renders each link as an anchor with the correct href', () => {
+    render(<ProjectCard project={mockProjectWithLinks} />);
+    expect(screen.getByRole('link', { name: /chrome web store/i })).toHaveAttribute('href', '#');
+    expect(screen.getByRole('link', { name: /firefox add-on/i })).toHaveAttribute(
+      'href',
+      'https://addons.mozilla.org/firefox/addon/example/',
+    );
+    expect(screen.getByRole('link', { name: /privacy policy/i })).toHaveAttribute(
+      'href',
+      'https://example.com/',
+    );
+    expect(screen.getByRole('link', { name: /github/i })).toHaveAttribute(
+      'href',
+      'https://github.com/example/links',
+    );
+  });
+
+  it('renders the links in order', () => {
+    render(<ProjectCard project={mockProjectWithLinks} />);
+    const labels = screen.getAllByRole('link').map((link) => link.textContent?.trim());
+    expect(labels).toEqual([
+      '↗ Chrome Web Store',
+      '↗ Firefox Add-on',
+      '↗ Privacy Policy',
+      '↗ GitHub',
+    ]);
+  });
+});

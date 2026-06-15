@@ -30,27 +30,46 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         ))}
       </div>
 
-      <div className="flex gap-4">
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm hover:opacity-70 transition-opacity text-accent"
-            aria-label={`Live site for ${project.title}`}
-          >
-            ↗ Live site
-          </a>
+      <div className="flex flex-wrap gap-4">
+        {project.links ? (
+          project.links.map((link) => (
+            <a
+              key={link.label}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm hover:opacity-70 transition-opacity text-accent"
+              aria-label={`${link.label} for ${project.title}`}
+            >
+              ↗ {link.label}
+            </a>
+          ))
+        ) : (
+          <>
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm hover:opacity-70 transition-opacity text-accent"
+                aria-label={`Live site for ${project.title}`}
+              >
+                ↗ Live site
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm hover:opacity-70 transition-opacity text-accent"
+                aria-label={`GitHub for ${project.title}`}
+              >
+                ↗ GitHub
+              </a>
+            )}
+          </>
         )}
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm hover:opacity-70 transition-opacity text-accent"
-          aria-label={`GitHub for ${project.title}`}
-        >
-          ↗ GitHub
-        </a>
       </div>
     </div>
   );
