@@ -48,7 +48,6 @@
 .activeInputLine {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
 .inputWrapper {
@@ -133,6 +132,8 @@
 
 .promptPath {
   color: var(--color-text-secondary);
+  /* Preserve the trailing space before the input; flex would otherwise trim it */
+  white-space: pre;
 }
 
 .line {
