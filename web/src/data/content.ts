@@ -193,8 +193,8 @@ export const siteContent: SiteContent = {
           url: 'https://chromewebstore.google.com/detail/fullhex/kaiekkbjpleiknlcldekffadmobdeahd',
         },
         { label: 'Firefox Add-on', url: 'https://addons.mozilla.org/en-US/firefox/addon/fullhex/' },
-        { label: 'Privacy Policy', url: 'https://fullhex.jussaw.com/' },
         { label: 'GitHub', url: 'https://github.com/jussaw/fullhex' },
+        { label: 'Privacy Policy', url: 'https://fullhex.jussaw.com/' },
       ],
     },
     {
