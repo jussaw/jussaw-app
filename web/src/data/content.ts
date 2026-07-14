@@ -198,16 +198,16 @@ export const siteContent: SiteContent = {
       ],
     },
     {
-      title: 'zmk-config-corne',
-      description: 'ZMK wireless firmware config for Corne split keyboard',
+      title: 'zmk-config',
+      description: 'ZMK wireless firmware config for my wireless keyboards',
       highlights: [
-        'Colemak-DHm layout with home row mods (A/R/S/T and N/E/I/O)',
-        '6 layers: Base, Lower, Upper, Adjust, Settings, Game',
-        'Bluetooth multi-device support and mouse/pointer layer',
-        'Hyper key macro and SOCD behavior for Game layer',
+        'Keyboard-agnostic repo — one keymap/conf pair and CI build target per board',
+        'Colemak-DH base with home row mods (A/R/S/T and N/E/I/O) across 6 layers',
+        'Bluetooth multi-device profiles, a mouse/pointer layer, Hyper key, and SOCD cleaning for gaming',
+        'GitHub Actions builds a .uf2 for every board, with ZMK Studio support on the Corne',
       ],
       stack: ['ZMK Firmware', 'Devicetree', 'GitHub Actions'],
-      githubUrl: 'https://github.com/jussaw/zmk-config-corne',
+      githubUrl: 'https://github.com/jussaw/zmk-config',
     },
     {
       title: 'qmk-userspace',
