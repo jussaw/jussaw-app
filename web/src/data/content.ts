@@ -202,7 +202,7 @@ export const siteContent: SiteContent = {
       description: 'ZMK wireless firmware config for Corne split keyboard',
       highlights: [
         'Colemak-DHm layout with home row mods (A/R/S/T and N/E/I/O)',
-        '8 layers: Windows, Mac, Lower, Upper, Adjust, Settings, Game',
+        '6 layers: Base, Lower, Upper, Adjust, Settings, Game',
         'Bluetooth multi-device support and mouse/pointer layer',
         'Hyper key macro and SOCD behavior for Game layer',
       ],
@@ -210,16 +210,16 @@ export const siteContent: SiteContent = {
       githubUrl: 'https://github.com/jussaw/zmk-config-corne',
     },
     {
-      title: 'qmk_firmware',
-      description: 'QMK wired firmware config for Corne split keyboard',
+      title: 'qmk-userspace',
+      description: 'External QMK keymaps for several wired keyboards',
       highlights: [
-        'Colemak-DHm layout with home row mods (A/R/S/T and N/E/I/O)',
-        '8 layers: Default, Mac, Lower, Upper, Adjust, Settings, Game',
-        'Mouse keys, scroll wheel, and media controls on Adjust layer',
-        'SOCD handling in Game layer',
+        'Keymaps for the Corne, Charybdis 3x6, Planck, and Ploopy trackball',
+        'Corne runs Colemak-DHm with home row mods (A/R/S/T and N/E/I/O)',
+        'Charybdis trackball with DPI, sniping, and drag-scroll controls',
+        'GitHub Actions builds firmware without forking upstream QMK',
       ],
-      stack: ['QMK Firmware', 'C', 'Make'],
-      githubUrl: 'https://github.com/jussaw/qmk_firmware',
+      stack: ['QMK Firmware', 'C', 'GitHub Actions'],
+      githubUrl: 'https://github.com/jussaw/qmk-userspace',
     },
   ],
 };
