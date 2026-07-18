@@ -167,6 +167,7 @@ export const siteContent: SiteContent = {
       title: 'HarborStats',
       description: 'Catan results tracker for a friend group',
       highlights: [
+        'Doubles as an automated-development playground for my Hermes agent',
         'Full-stack app with Next.js 16 App Router, React 19, and TypeScript',
         'PostgreSQL 18 with Drizzle ORM for typed schema and migrations',
         'Password-protected admin panel for game and player data management',
