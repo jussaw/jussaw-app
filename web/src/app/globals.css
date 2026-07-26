@@ -64,11 +64,19 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
 }
 
-html::-webkit-scrollbar {
-  display: none; /* Chrome / Safari */
+/* Hide the native scrollbar only where TimelineScrollbar (md+) provides the
+   scroll cue. Below Tailwind's md breakpoint the custom nav is hidden, so keep
+   the native scrollbar visible as the sole scroll/navigation affordance. */
+@media (min-width: 768px) {
+  html {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  html::-webkit-scrollbar {
+    display: none; /* Chrome / Safari */
+  }
 }
 
 body {
