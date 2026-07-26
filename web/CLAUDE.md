@@ -53,9 +53,20 @@ web/
     test/           # Vitest setup (setup.ts)
 ```
 
+## Editing site content
+
+All portfolio copy lives in `src/data/content.ts`. Whenever you change `siteContent`, you must also refresh the freshness metadata in the same commit, so `app/sitemap.ts` reports an honest `lastModified`:
+
+1. Make your content edit(s).
+2. Run `pnpm test src/data/__tests__/content.test.ts`. The `content freshness` test recomputes a SHA-256 fingerprint of `siteContent`; if it changed, the test **fails and prints the new hash**.
+3. Paste that hash into `CONTENT_FINGERPRINT`, and set `CONTENT_LAST_UPDATED` to today's date (`YYYY-MM-DD`).
+4. Re-run the test — it should pass.
+
+The date must stay a **static literal** (never `new Date()`, git metadata, or any runtime source) so the sitemap is deterministic across Docker builds. The fingerprint tripwire is what makes a content change without a date bump fail CI.
+
 ## Conventions
 
-- **Content changes**: Edit `src/data/content.ts` — never hardcode text in components.
+- **Content changes**: Edit `src/data/content.ts` — never hardcode text in components. Bump the freshness metadata (see "Editing site content" above).
 - **Tests**: Colocated in `__tests__/` directories next to the files they test.
 - **Section IDs**: Sections that need scroll tracking must have an `id` prop passed from `page.tsx`.
 - **Path alias**: Always use `@/` imports, never relative paths that traverse directories.
