@@ -32,6 +32,19 @@ pnpm format:check  # Check formatting without writing
 
 Husky + lint-staged runs Prettier and ESLint automatically on every `git commit`. Commits that introduce lint errors will be blocked.
 
+### Continuous integration
+
+`.github/workflows/quality.yml` runs a single `quality` job on every pull request targeting `main` and on every push to `main`. It uses Node 22 and pnpm 11.5.3, and runs these commands from `web/`, stopping at the first failure:
+
+```bash
+pnpm format:check
+pnpm lint
+pnpm test
+pnpm build
+```
+
+`quality` is a required status check, so it must pass before a pull request can merge into `main`. Running those four commands locally from `web/` reproduces CI exactly.
+
 ## Production with Docker
 
 The app uses `output: "standalone"` in `next.config.ts`, which produces a minimal production build containing only the files needed to run the server.

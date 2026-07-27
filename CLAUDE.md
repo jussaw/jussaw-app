@@ -8,9 +8,14 @@ This is a small monorepo for the jussaw.com personal portfolio site:
 
 - `web/` — the Next.js 16 application. **This is where nearly all work happens.** It has its own detailed `web/CLAUDE.md` — read it before touching app code.
 - `devops/` — deployment scripts (`deploy.sh`).
+- `.github/workflows/` — CI (see below).
 - `docs/` — design specs and plans (gitignored; not part of the build).
 
 There is no root `package.json`. All build/lint/test tooling lives in `web/`, so **run pnpm commands from inside `web/`**, not the repo root.
+
+## CI
+
+`.github/workflows/quality.yml` defines one job, `quality`, that runs on pull requests targeting `main` and on pushes to `main`. Using Node 22 and pnpm 11.5.3, it runs `pnpm format:check`, `pnpm lint`, `pnpm test`, then `pnpm build` from `web/`, stopping at the first failure. `quality` is a required status check for merging into `main` — run those four commands from `web/` before pushing.
 
 ## Git Hooks Gotcha
 
