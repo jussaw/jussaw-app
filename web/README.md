@@ -25,7 +25,7 @@ pnpm lint:fix      # Auto-fix lint violations
 
 ```bash
 pnpm format        # Format all source files with Prettier
-pnpm format:check  # Check formatting without writing (used in CI)
+pnpm format:check  # Check formatting without writing
 ```
 
 ### Pre-commit hooks
