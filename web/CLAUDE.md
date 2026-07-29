@@ -78,4 +78,21 @@ The date must stay a **static literal** (never `new Date()`, git metadata, or an
 docker compose up --build   # Build and run locally on port 23412
 ```
 
-Environment variables prefixed `NEXT_PUBLIC_*` must be set at **build time**. Server-only vars can be set at runtime.
+### Public build-time vs. server-only runtime variables
+
+`NEXT_PUBLIC_*` values are inlined into the client bundle by `next build`, so they are **build-time and browser-visible**. They travel through an explicit allowlist — there is no wildcard forwarding:
+
+| Variable               | Default              | Consumed by                                         |
+| ---------------------- | -------------------- | --------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | `https://jussaw.com` | `app/layout.tsx` metadata/JSON-LD, `app/sitemap.ts` |
+
+Adding one means editing all four in the same change:
+
+1. `src/utils/publicEnv.ts` — add to `PUBLIC_ENV_ALLOWLIST` **and** read it as a static `process.env.NEXT_PUBLIC_X` access (a dynamic `process.env[name]` lookup is not inlined by Next and is `undefined` in the browser).
+2. `Dockerfile` — a named `ARG` in the builder stage, before `RUN pnpm build`.
+3. `docker-compose.yml` — a named entry under `build.args`.
+4. `README.md` — the supported-variables table.
+
+`src/utils/__tests__/publicEnvBuildContract.test.ts` fails if those drift apart; `.github/workflows/docker-build-args.yml` proves the value actually reaches the bundle through `docker build`.
+
+Server-only variables (no `NEXT_PUBLIC_` prefix) are runtime container env, are never baked into the image, and are the only place secrets belong. Never put a secret in an `ARG`, a `--build-arg`, or a `NEXT_PUBLIC_` name.

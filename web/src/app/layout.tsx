@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Lora, JetBrains_Mono } from 'next/font/google';
+
+import { SITE_URL } from '@/utils/publicEnv';
+
 import './globals.css';
 
 const inter = Inter({
@@ -18,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://jussaw.com'),
+  metadataBase: new URL(SITE_URL),
   title: 'jussaw — Software Engineer',
   description:
     'Full-stack software engineer. I build things for the web — from the database to the browser.',
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
     title: 'jussaw — Software Engineer',
     description:
       'Full-stack software engineer. I build things for the web — from the database to the browser.',
-    url: 'https://jussaw.com',
+    url: SITE_URL,
     siteName: 'jussaw.com',
   },
   twitter: {
@@ -46,7 +49,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://jussaw.com',
+    canonical: SITE_URL,
   },
 };
 
@@ -54,7 +57,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Justin Sawyer',
-  url: 'https://jussaw.com',
+  url: SITE_URL,
   jobTitle: 'Software Engineer',
   sameAs: ['https://github.com/jussaw', 'https://linkedin.com/in/jussaw'],
 };
