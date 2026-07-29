@@ -64,7 +64,7 @@ export interface SiteContent {
  * and fails on mismatch, forcing content edits and this date to move together.
  * See web/CLAUDE.md → "Editing site content".
  */
-export const CONTENT_LAST_UPDATED = '2026-07-18';
+export const CONTENT_LAST_UPDATED = '2026-07-28';
 
 /**
  * SHA-256 (hex) fingerprint of {@link siteContent} as of
@@ -73,7 +73,7 @@ export const CONTENT_LAST_UPDATED = '2026-07-18';
  * bump {@link CONTENT_LAST_UPDATED} in the same commit.
  */
 export const CONTENT_FINGERPRINT =
-  '91f1ce5458982ae46ecbf7f7866db8e1e64400caf14e96d3d2e678d75c407f39';
+  '3d03fc39767caf794efb78b84202ddb21638e67e119fe893ec3b64c5ab85d7f7';
 
 export const siteContent: SiteContent = {
   person: {
@@ -114,10 +114,16 @@ export const siteContent: SiteContent = {
   experience: [
     {
       company: 'Cargill',
-      role: 'Software Engineer II',
+      role: 'Tech Lead',
       period: '2025 - Present',
       location: 'Atlanta, GA',
-      bullets: [],
+      bullets: [
+        'Technical lead for the application formulators at ground meat plants across North America use to build, cost, and manage product formulations — own architecture, technical direction, and team process while continuing to ship features hands-on.',
+        "Engineering owner of the solver's production behavior — triaging infeasibilities and constraint errors, shipping LP model and penalty-lever changes in partnership with the team's data scientist, and giving formulators tunable control over cost versus inventory position. Built solve traceability (input fingerprinting, MIP-gap capture, archived solver I/O) that cut time-to-diagnose from hours to minutes.",
+        "Cut payload on the application's most-used data view by 90% (15.5 MB → 1.9 MB) and load time from 6.3s to 0.67s; drove a modernization slate to production spanning backend framework and runtime upgrades, frontend build tooling and package manager migration, and decomposition of a monolithic API client into per-controller modules.",
+        'Delivered formulator- and business-facing features end-to-end: a self-service price-forecasting screen for margin planning, a production-planning detail view with constraint and allowable-material editing, plant-configurable solver and business-rule settings that eliminated a deploy cycle per plant, and an analytics dashboard built from requirements sessions I ran directly with stakeholders.',
+        'Built and shipped an internal Claude Code plugin marketplace — slash commands codifying story grooming, adversarial PR review, and the release runbook — adopted by every engineer on the team. Also prototyped a read-only MCP server exposing application data to AI assistants behind a default-deny allowlist.',
+      ],
     },
     {
       company: 'Raytheon',
