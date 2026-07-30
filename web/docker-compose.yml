@@ -2,12 +2,20 @@ name: jussaw-app
 services:
   web:
     container_name: jussaw-app-web
-    build: .
+    build:
+      context: .
+      args:
+        # Public build-time variables only — these are inlined into the client
+        # bundle and are visible to anyone who loads the page. One entry per
+        # PUBLIC_ENV_ALLOWLIST member in src/utils/publicEnv.ts; never add a
+        # secret here, and never forward the shell environment wholesale.
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://jussaw.com}
     ports:
-      - "23412:3000"
+      - '23412:3000'
     environment:
       - NODE_ENV=production
-      # Server-only runtime vars (add as needed):
+      # Server-only runtime vars — never prefixed NEXT_PUBLIC_, never baked
+      # into the image (add as needed):
       # - DATABASE_URL=postgres://...
       # - SECRET_KEY=...
       # - NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=...

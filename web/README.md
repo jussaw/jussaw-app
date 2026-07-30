@@ -65,15 +65,45 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ### Environment variables
 
-`NEXT_PUBLIC_*` variables are baked into the bundle at **build time**. Pass them as build args:
+There are two kinds, injected at different points. Getting them mixed up leaks
+secrets, so the split is enforced rather than assumed.
+
+#### Public build-time variables (browser-visible)
+
+`NEXT_PUBLIC_*` values are inlined into the JavaScript bundle by `next build`, so
+they are public forever and must be supplied at **build time**. Only the
+variables on the allowlist in `src/utils/publicEnv.ts` are wired through; nothing
+else reaches the build. Supported variables:
+
+| Variable               | Default              | Purpose                                                                   |
+| ---------------------- | -------------------- | ------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | `https://jussaw.com` | Public origin for `metadataBase`, canonical link, Open Graph and JSON-LD. |
+
+`NEXT_PUBLIC_SITE_URL` is validated at build time: it must be an origin-only
+`https://` URL (`http://` is accepted for loopback hosts, for local previews),
+with no credentials, path, query or fragment. Anything else falls back to the
+default rather than publishing a bad origin.
 
 ```bash
 docker build \
-  --build-arg NEXT_PUBLIC_API_URL=https://api.example.com \
+  --build-arg NEXT_PUBLIC_SITE_URL=https://staging.jussaw.com \
   -t jussaw-web .
 ```
 
-Server-only variables (no `NEXT_PUBLIC_` prefix) can be injected at **run time**:
+Adding a public variable means updating four places together: the allowlist and
+its static `process.env.<NAME>` read in `src/utils/publicEnv.ts`, the builder-stage
+`ARG` in `Dockerfile`, the `build.args` entry in `docker-compose.yml`, and this
+table. The contract test in `src/utils/__tests__/publicEnvBuildContract.test.ts`
+fails if they drift apart.
+
+**Never** put a secret behind a `NEXT_PUBLIC_` name or in a `--build-arg`: build
+args are recoverable from image history, and the value ships to every visitor.
+
+#### Server-only runtime variables
+
+Variables without the `NEXT_PUBLIC_` prefix are read by the server at **run
+time** only. They are never baked into the image and never sent to the browser,
+so this is where secrets belong:
 
 ```bash
 docker run -p 3000:3000 \
@@ -81,6 +111,9 @@ docker run -p 3000:3000 \
   -e SECRET_KEY=... \
   jussaw-web
 ```
+
+Passing a `NEXT_PUBLIC_*` value with `docker run -e` has no effect — it was
+already resolved during the build.
 
 ### Custom port or hostname
 
@@ -108,7 +141,16 @@ To stop:
 docker compose down
 ```
 
-Add environment variables in `docker-compose.yml` under the `environment` key, or use an env file:
+`docker-compose.yml` declares the public build variables explicitly under
+`build.args`, each defaulting to the production value. Override one for a build
+by exporting it first:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://staging.jussaw.com docker compose build
+```
+
+Server-only runtime variables go under the `environment` key (or an env file) —
+never under `build.args`:
 
 ```yaml
 services:

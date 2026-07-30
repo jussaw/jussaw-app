@@ -1,0 +1,48 @@
+name: Docker build args
+
+# Proves the public build-variable contract end to end: a value passed through
+# the documented `docker build --build-arg` / Compose `build.args` path really is
+# embedded by `pnpm build`, and the documented default holds without it. The
+# unit-level contract lives in web/src/utils/__tests__/publicEnvBuildContract.test.ts;
+# this job is the part that needs a real Docker daemon.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "web/Dockerfile"
+      - "web/docker-compose.yml"
+      - "web/scripts/assert-public-build-args.sh"
+      - "web/src/utils/publicEnv.ts"
+      - "web/src/app/layout.tsx"
+      - "web/src/app/sitemap.ts"
+      - ".github/workflows/docker-build-args.yml"
+  push:
+    branches: [main]
+    paths:
+      - "web/Dockerfile"
+      - "web/docker-compose.yml"
+      - "web/scripts/assert-public-build-args.sh"
+      - "web/src/utils/publicEnv.ts"
+      - "web/src/app/layout.tsx"
+      - "web/src/app/sitemap.ts"
+      - ".github/workflows/docker-build-args.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build-args:
+    name: build-args
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Builds the builder stage only, with no published ports and no registry
+      # push; the injected value is a non-routable .invalid sentinel.
+      - name: Assert public build args reach the bundle
+        run: web/scripts/assert-public-build-args.sh
