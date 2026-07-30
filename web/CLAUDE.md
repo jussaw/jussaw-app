@@ -41,17 +41,27 @@ pnpm test:watch   # Vitest (watch mode)
 
 ## Directory Layout
 
+A curated orientation map, not an exhaustive tree — it names the directories and the
+components/hooks worth knowing up front. Treat the repository as the source of truth and
+list the directory before assuming something does or does not exist.
+
 ```
 web/
   src/
     app/            # App Router (layout.tsx, page.tsx, globals.css)
     components/
-      sections/     # Page sections: Hero, Skills, Experience, Projects, Hobbies, Footer
-      ui/           # Reusable UI: SectionWrapper, SkillBadge, ExperienceCard, TimelineScrollbar, ProjectCard, SetupDrawer, Terminal
-    hooks/          # useScrollReveal, useActiveSection
+      sections/     # Page sections, in render order: Header, Hero, Skills, Experience,
+                    #   Projects, Hobbies, Terminal, Footer
+      ui/           # Reusable UI: SectionWrapper, SkillBadge, ExperienceCard, ProjectCard,
+                    #   TimelineScrollbar, KonamiEasterEgg
+    hooks/          # useActiveSection, useScrollReveal, useKonamiCode, useTabCompletion
     data/           # content.ts — all portfolio content lives here
     test/           # Vitest setup (setup.ts)
 ```
+
+`Terminal` is a page section (`components/sections/Terminal.tsx`, with a colocated
+`Terminal.module.css`), not a reusable UI component. `useTabCompletion` backs the Terminal's
+input; `useKonamiCode` backs `ui/KonamiEasterEgg`.
 
 ## Editing site content
 
