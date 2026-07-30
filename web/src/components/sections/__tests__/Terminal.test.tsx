@@ -149,6 +149,56 @@ describe('Terminal (section)', () => {
     });
   });
 
+  describe('empty submissions', () => {
+    // Substring match needed because Vite hashes CSS module class names (_output_abc123).
+    // .output renders before any .lineOutput divs, so this matches the scrollable container.
+    const scrollback = (container: HTMLElement) =>
+      container.querySelector('[class*="output"]')?.textContent;
+
+    it('bare Enter produces neither an error nor extra output', () => {
+      const { container } = render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      const before = scrollback(container);
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(screen.queryByText(/command not found/i)).not.toBeInTheDocument();
+      expect(scrollback(container)).toBe(before);
+    });
+
+    it('whitespace-only Enter clears the input and adds no output', () => {
+      const { container } = render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      const before = scrollback(container);
+      fireEvent.change(input, { target: { value: '   ' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(input).toHaveValue('');
+      expect(screen.queryByText(/command not found/i)).not.toBeInTheDocument();
+      expect(scrollback(container)).toBe(before);
+    });
+
+    it('repeated blank Enter leaves the scrollback unchanged', () => {
+      const { container } = render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'help' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      const before = scrollback(container);
+      fireEvent.keyDown(input, { key: 'Enter' });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      fireEvent.change(input, { target: { value: '  ' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(scrollback(container)).toBe(before);
+    });
+
+    it('blank Enter does not disturb history recall', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: 'help' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      fireEvent.keyDown(input, { key: 'ArrowUp' });
+      expect(input).toHaveValue('help');
+    });
+  });
+
   describe('long input has a single native text surface (AUD-20260728-01)', () => {
     // Comfortably wider than the terminal at any viewport, so the tail of the value
     // is off-screen and only the input's own scrolling can keep the caret visible.

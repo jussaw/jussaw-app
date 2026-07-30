@@ -8,7 +8,7 @@ import { useTabCompletion } from '@/hooks/useTabCompletion';
 
 import styles from './Terminal.module.css';
 
-type Line = { type: 'input' | 'output'; text: string };
+type Line = { id: number; type: 'input' | 'output'; text: string };
 
 const DESTRUCTIVE = /^(sudo|rm|kill|shutdown|reboot|mkfs|dd\s)/i;
 
@@ -54,11 +54,21 @@ const COMPLETABLE = [
 ];
 
 const WELCOME: Line = {
+  id: 0,
   type: 'output',
   text: "Welcome. Type 'help' to get started.",
 };
 
 export default function Terminal() {
+  // IDs are assigned when a line enters scrollback, rather than from its position or text.
+  // The counter intentionally survives `clear`, so a newly appended duplicate never reuses a
+  // retired line's React identity.
+  const lineIdRef = useRef(WELCOME.id + 1);
+  const makeLine = (type: Line['type'], text: string): Line => {
+    const id = lineIdRef.current;
+    lineIdRef.current += 1;
+    return { id, type, text };
+  };
   const [lines, setLines] = useState<Line[]>([WELCOME]);
   const [input, setInput] = useState('');
   const outputRef = useRef<HTMLDivElement>(null);
@@ -75,7 +85,12 @@ export default function Terminal() {
 
   const runCommand = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
-    const inputLine: Line = { type: 'input', text: raw.trim() };
+
+    // Empty or whitespace-only submit: just clear the input, no echo/output/history.
+    if (!cmd) {
+      setInput('');
+      return;
+    }
 
     // Add to history
     if (raw.trim()) {
@@ -88,6 +103,8 @@ export default function Terminal() {
       setInput('');
       return;
     }
+
+    const inputLine = makeLine('input', raw.trim());
 
     let response: string;
     if (cmd === 'sudo make me a sandwich') {
@@ -102,7 +119,8 @@ export default function Terminal() {
       response = `command not found: ${cmd}. try 'help'`;
     }
 
-    setLines((prev) => [...prev, inputLine, { type: 'output', text: response }]);
+    const outputLine = makeLine('output', response);
+    setLines((prev) => [...prev, inputLine, outputLine]);
     setInput('');
   };
 
@@ -139,8 +157,8 @@ export default function Terminal() {
 
         {/* Scrollable output */}
         <div ref={outputRef} className={styles.output}>
-          {lines.map((line, i) => (
-            <div key={i} className={styles.line}>
+          {lines.map((line) => (
+            <div key={line.id} className={styles.line}>
               {line.type === 'input' ? (
                 <div>
                   <span aria-hidden="true" className={styles.prompt}>
