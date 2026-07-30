@@ -38,8 +38,11 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: 'jussaw.com',
   },
+  // `summary_large_image` to match the 1200×630 card from `twitter-image.tsx`.
+  // The image URL itself comes from that file convention plus `metadataBase` —
+  // don't restate it here.
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'jussaw — Software Engineer',
     description:
       'Full-stack software engineer. I build things for the web — from the database to the browser.',
