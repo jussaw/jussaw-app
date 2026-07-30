@@ -17,6 +17,15 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Public build-time variables, one ARG per entry in PUBLIC_ENV_ALLOWLIST
+# (src/utils/publicEnv.ts). Docker exposes ARGs to the environment of RUN
+# commands in this stage, which is how `next build` inlines them into the
+# client bundle. These values are browser-visible — never declare an ARG here
+# for a secret, and never forward the whole environment. Unset falls back to the
+# default in publicEnv.ts. Server-only values are runtime env on the runner
+# stage instead.
+ARG NEXT_PUBLIC_SITE_URL
+
 RUN pnpm build
 
 # ---- runner stage ----

@@ -25,6 +25,8 @@ The pnpm `prepare` script (in `web/package.json`) points Git's `core.hooksPath` 
 
 `devops/deploy.sh` is the production deploy: it `git pull --ff-only`s, then `docker compose -f web/docker-compose.yml up --build -d`. The container serves on **port 23412** (mapped to the app's internal 3000). The Dockerfile produces a Next.js `output: "standalone"` build, so `NEXT_PUBLIC_*` env vars must be passed as build args, not runtime env.
 
+Public build-time variables go through an explicit allowlist rather than blanket forwarding: `PUBLIC_ENV_ALLOWLIST` in `web/src/utils/publicEnv.ts`, a matching builder-stage `ARG` in `web/Dockerfile`, and a matching `build.args` entry in `web/docker-compose.yml`. Today that is one variable, `NEXT_PUBLIC_SITE_URL` (default `https://jussaw.com`). Its value is browser-visible, so it must never carry a secret — server-only values stay as runtime `environment` entries. See `web/CLAUDE.md` for the procedure when adding one.
+
 ## App Architecture (high level)
 
 See `web/CLAUDE.md` for commands, code style, and conventions. The big picture worth knowing up front:

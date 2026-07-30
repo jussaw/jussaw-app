@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 
 import { CONTENT_LAST_UPDATED } from '@/data/content';
+import { SITE_URL } from '@/utils/publicEnv';
 
 // Derived from the content's own last-updated date so the sitemap stays honest
 // and deterministic (no build-time clock). Bump CONTENT_LAST_UPDATED in
@@ -10,7 +11,7 @@ const LAST_CONTENT_UPDATE = new Date(CONTENT_LAST_UPDATED);
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://jussaw.com',
+      url: SITE_URL,
       lastModified: LAST_CONTENT_UPDATE,
       changeFrequency: 'monthly',
       priority: 1,

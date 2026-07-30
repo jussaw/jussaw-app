@@ -199,29 +199,40 @@ describe('Terminal (section)', () => {
     });
   });
 
-  describe('custom cursor', () => {
-    it('renders the cursor element', () => {
-      const { container } = render(<Terminal />);
-      expect(container.querySelector('[class*="cursor"]')).toBeInTheDocument();
-    });
+  describe('long input has a single native text surface (AUD-20260728-01)', () => {
+    // Comfortably wider than the terminal at any viewport, so the tail of the value
+    // is off-screen and only the input's own scrolling can keep the caret visible.
+    const ARG = 'overflowing-argument-'.repeat(8);
+    const LONG = `echo ${ARG}`;
 
-    it('renders the text mirror element', () => {
-      const { container } = render(<Terminal />);
-      expect(container.querySelector('[class*="inputMirror"]')).toBeInTheDocument();
-    });
-
-    it('mirror reflects typed text', () => {
-      const { container } = render(<Terminal />);
-      fireEvent.change(screen.getByLabelText('Terminal input'), { target: { value: 'ls' } });
-      expect(container.querySelector('[class*="inputMirror"]')?.textContent).toBe('ls');
-    });
-
-    it('mirror clears after command submission', () => {
+    it('keeps a long value in the native input only — no mirror or fake cursor surface', () => {
       const { container } = render(<Terminal />);
       const input = screen.getByLabelText('Terminal input');
-      fireEvent.change(input, { target: { value: 'ls' } });
+      fireEvent.change(input, { target: { value: LONG } });
+
+      expect(input).toHaveValue(LONG);
+      expect(container.querySelector('[class*="inputMirror"]')).toBeNull();
+      expect(container.querySelector('[class*="cursor"]')).toBeNull();
+      // A mirror would duplicate the value as rendered text; the input's value is not text.
+      expect(screen.queryByText(LONG)).not.toBeInTheDocument();
+    });
+
+    it('puts the input directly in the prompt line, with no clipping wrapper', () => {
+      const { container } = render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+
+      expect(input.parentElement?.className).toMatch(/activeInputLine/);
+      expect(container.querySelector('[class*="inputWrapper"]')).toBeNull();
+    });
+
+    it('clears the input and echoes the long command after Enter', () => {
+      render(<Terminal />);
+      const input = screen.getByLabelText('Terminal input');
+      fireEvent.change(input, { target: { value: LONG } });
       fireEvent.keyDown(input, { key: 'Enter' });
-      expect(container.querySelector('[class*="inputMirror"]')?.textContent).toBe('');
+
+      expect(input).toHaveValue('');
+      expect(screen.getByText(ARG)).toBeInTheDocument();
     });
   });
 

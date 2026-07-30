@@ -8,7 +8,7 @@ import { useTabCompletion } from '@/hooks/useTabCompletion';
 
 import styles from './Terminal.module.css';
 
-type Line = { type: 'input' | 'output'; text: string };
+type Line = { id: number; type: 'input' | 'output'; text: string };
 
 const DESTRUCTIVE = /^(sudo|rm|kill|shutdown|reboot|mkfs|dd\s)/i;
 
@@ -54,34 +54,34 @@ const COMPLETABLE = [
 ];
 
 const WELCOME: Line = {
+  id: 0,
   type: 'output',
   text: "Welcome. Type 'help' to get started.",
 };
 
 export default function Terminal() {
+  // IDs are assigned when a line enters scrollback, rather than from its position or text.
+  // The counter intentionally survives `clear`, so a newly appended duplicate never reuses a
+  // retired line's React identity.
+  const lineIdRef = useRef(WELCOME.id + 1);
+  const makeLine = (type: Line['type'], text: string): Line => {
+    const id = lineIdRef.current;
+    lineIdRef.current += 1;
+    return { id, type, text };
+  };
   const [lines, setLines] = useState<Line[]>([WELCOME]);
   const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { complete, reset } = useTabCompletion({ commands: COMPLETABLE });
   const historyRef = useRef<string[]>([]);
   const historyIndexRef = useRef(-1);
-  const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (outputRef.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight;
     }
   }, [lines]);
-
-  useEffect(
-    () => () => {
-      if (typingTimerRef.current !== null) clearTimeout(typingTimerRef.current);
-    },
-    [],
-  );
 
   const runCommand = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
@@ -91,8 +91,6 @@ export default function Terminal() {
       setInput('');
       return;
     }
-
-    const inputLine: Line = { type: 'input', text: raw.trim() };
 
     // Add to history
     if (raw.trim()) {
@@ -105,6 +103,8 @@ export default function Terminal() {
       setInput('');
       return;
     }
+
+    const inputLine = makeLine('input', raw.trim());
 
     let response: string;
     if (cmd === 'sudo make me a sandwich') {
@@ -119,13 +119,9 @@ export default function Terminal() {
       response = `command not found: ${cmd}. try 'help'`;
     }
 
-    setLines((prev) => [...prev, inputLine, { type: 'output', text: response }]);
+    const outputLine = makeLine('output', response);
+    setLines((prev) => [...prev, inputLine, outputLine]);
     setInput('');
-    if (typingTimerRef.current !== null) {
-      clearTimeout(typingTimerRef.current);
-      typingTimerRef.current = null;
-    }
-    setIsTyping(false);
   };
 
   const handleHistoryNav = (direction: 'up' | 'down') => {
@@ -161,8 +157,8 @@ export default function Terminal() {
 
         {/* Scrollable output */}
         <div ref={outputRef} className={styles.output}>
-          {lines.map((line, i) => (
-            <div key={i} className={styles.line}>
+          {lines.map((line) => (
+            <div key={line.id} className={styles.line}>
               {line.type === 'input' ? (
                 <div>
                   <span aria-hidden="true" className={styles.prompt}>
@@ -186,49 +182,35 @@ export default function Terminal() {
               <span aria-hidden="true" className={styles.promptPath}>
                 :~{' '}
               </span>
-              <div className={styles.inputWrapper}>
-                <input
-                  ref={inputRef}
-                  aria-label="Terminal input"
-                  value={input}
-                  spellCheck={false}
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  onChange={(e) => {
-                    reset();
-                    historyIndexRef.current = -1;
-                    setInput(e.target.value);
-                    setIsTyping(true);
-                    if (typingTimerRef.current !== null) clearTimeout(typingTimerRef.current);
-                    typingTimerRef.current = setTimeout(() => setIsTyping(false), 600);
-                  }}
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={() => setIsFocused(false)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Tab') {
-                      e.preventDefault();
-                      setInput(complete(input));
-                    } else if (e.key === 'Enter') {
-                      runCommand(input);
-                    } else if (e.key === 'ArrowUp') {
-                      e.preventDefault();
-                      handleHistoryNav('up');
-                    } else if (e.key === 'ArrowDown') {
-                      e.preventDefault();
-                      handleHistoryNav('down');
-                    }
-                  }}
-                  className={styles.inputField}
-                />
-                <span aria-hidden="true" className={styles.inputMirror}>
-                  {input}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className={`${styles.cursor} ${isFocused && !isTyping ? styles.cursorBlink : styles.cursorSolid}`}
-                />
-              </div>
+              <input
+                ref={inputRef}
+                aria-label="Terminal input"
+                value={input}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                onChange={(e) => {
+                  reset();
+                  historyIndexRef.current = -1;
+                  setInput(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Tab') {
+                    e.preventDefault();
+                    setInput(complete(input));
+                  } else if (e.key === 'Enter') {
+                    runCommand(input);
+                  } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    handleHistoryNav('up');
+                  } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    handleHistoryNav('down');
+                  }
+                }}
+                className={styles.inputField}
+              />
             </div>
           </div>
         </div>
