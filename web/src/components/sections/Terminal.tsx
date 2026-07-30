@@ -85,6 +85,13 @@ export default function Terminal() {
 
   const runCommand = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
+
+    // Empty or whitespace-only submit: just clear the input, no echo/output/history.
+    if (!cmd) {
+      setInput('');
+      return;
+    }
+
     const inputLine: Line = { type: 'input', text: raw.trim() };
 
     // Add to history
