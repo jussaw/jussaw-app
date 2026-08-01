@@ -1,9 +1,9 @@
 /**
  * Shared artwork and metadata for the social preview images (AUD-20260729-03).
  *
- * `opengraph-image.tsx` and `twitter-image.tsx` are byte-identical renders, so
- * the design and the `size` / `contentType` / `alt` values live here once —
- * two copies would silently drift.
+ * `opengraph-image.tsx` consumes the design and the `size` / `contentType` /
+ * `alt` values from this module, keeping the image route focused on its Next.js
+ * metadata-file-convention exports.
  *
  * **Everything in this module must stay deterministic.** Next.js statically
  * optimizes these routes (renders the PNG once at `next build` and serves it
@@ -19,7 +19,7 @@
  * it needs no `'use client'` boundary and must not use hooks or browser APIs.
  */
 
-/** Open Graph / Twitter large-card dimensions, in pixels. */
+/** Open Graph large-card dimensions, in pixels. */
 export const SOCIAL_IMAGE_SIZE = { width: 1200, height: 630 } as const;
 
 /** MIME type `ImageResponse` emits. */
@@ -28,7 +28,7 @@ export const SOCIAL_IMAGE_CONTENT_TYPE = 'image/png';
 /**
  * Alt text for the preview. The card's wording is duplicated here on purpose:
  * the image is decorative reinforcement, and the same message is carried by the
- * Open Graph / Twitter `title` and `description` in `layout.tsx`, so a reader
+ * Open Graph `title` and `description` in `layout.tsx`, so a reader
  * who never sees the image loses nothing.
  */
 export const SOCIAL_IMAGE_ALT =
