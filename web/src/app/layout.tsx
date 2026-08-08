@@ -38,12 +38,6 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: 'jussaw.com',
   },
-  twitter: {
-    card: 'summary',
-    title: 'jussaw — Software Engineer',
-    description:
-      'Full-stack software engineer. I build things for the web — from the database to the browser.',
-  },
   robots: {
     index: true,
     follow: true,
