@@ -86,8 +86,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Scroll reveal */
-.reveal {
+/* Scroll reveal — AUD-20260806-01.
+
+   Revealing is a *progressive enhancement*: `.reveal` content is painted by
+   default, and only becomes hidden-until-observed once the pre-paint script in
+   app/layout.tsx puts `data-js-reveal="on"` on <html>. When that attribute is
+   absent — no script runs at all (JS disabled, the inline script blocked by
+   CSP, a crawler that does not execute JS), or IntersectionObserver is missing
+   — none of these rules match and the page reads as plain, fully visible
+   content.
+
+   The gate is decided pre-paint, before any bundle loads, so it says nothing
+   about a client bundle that fails afterwards: by then the attribute is
+   already set and the hiding rules apply. */
+html[data-js-reveal='on'] .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition:
@@ -95,13 +107,13 @@ body {
     transform 0.55s ease;
 }
 
-.reveal.visible {
+html[data-js-reveal='on'] .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* Staggered child reveals — triggered when parent .reveal becomes .visible */
-.reveal-stagger {
+html[data-js-reveal='on'] .reveal-stagger {
   opacity: 0;
   transform: translateY(16px);
   transition:
@@ -110,23 +122,23 @@ body {
   transition-delay: var(--stagger-delay, 0ms);
 }
 
-.reveal.visible .reveal-stagger {
+html[data-js-reveal='on'] .reveal.visible .reveal-stagger {
   opacity: 1;
   transform: translateY(0);
 }
 
-.reveal.no-transition,
-.reveal.no-transition .reveal-stagger {
+html[data-js-reveal='on'] .reveal.no-transition,
+html[data-js-reveal='on'] .reveal.no-transition .reveal-stagger {
   transition: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  html[data-js-reveal='on'] .reveal {
     opacity: 1;
     transform: none;
     transition: none;
   }
-  .reveal-stagger {
+  html[data-js-reveal='on'] .reveal-stagger {
     opacity: 1;
     transform: none;
     transition: none;
