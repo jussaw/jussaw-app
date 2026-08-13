@@ -12,6 +12,8 @@ on:
     paths:
       - "web/Dockerfile"
       - "web/docker-compose.yml"
+      - "web/package.json"
+      - "web/pnpm-lock.yaml"
       - "web/scripts/assert-public-build-args.sh"
       - "web/src/utils/publicEnv.ts"
       - "web/src/app/layout.tsx"
@@ -22,6 +24,8 @@ on:
     paths:
       - "web/Dockerfile"
       - "web/docker-compose.yml"
+      - "web/package.json"
+      - "web/pnpm-lock.yaml"
       - "web/scripts/assert-public-build-args.sh"
       - "web/src/utils/publicEnv.ts"
       - "web/src/app/layout.tsx"
