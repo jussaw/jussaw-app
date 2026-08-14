@@ -10,6 +10,12 @@ import styles from './Terminal.module.css';
 
 type Line = { id: number; type: 'input' | 'output'; text: string };
 
+// The live region renders one announcement at a time. The id is what forces a fresh DOM node
+// when the same command is run twice in a row (see `announce` below).
+type Announcement = { id: number; text: string };
+
+const CLEAR_ANNOUNCEMENT = 'Terminal cleared.';
+
 const DESTRUCTIVE = /^(sudo|rm|kill|shutdown|reboot|mkfs|dd\s)/i;
 
 const COMMANDS: Record<string, () => string> = {
@@ -71,6 +77,14 @@ export default function Terminal() {
   };
   const [lines, setLines] = useState<Line[]>([WELCOME]);
   const [input, setInput] = useState('');
+  // Screen-reader announcement of the most recent command response only. It starts empty so the
+  // welcome banner is not read on page load, and never mirrors the scrollback or the input.
+  const announcementIdRef = useRef(0);
+  const [announcement, setAnnouncement] = useState<Announcement | null>(null);
+  const announce = (text: string) => {
+    announcementIdRef.current += 1;
+    setAnnouncement({ id: announcementIdRef.current, text });
+  };
   const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { complete, reset } = useTabCompletion({ commands: COMPLETABLE });
@@ -86,7 +100,8 @@ export default function Terminal() {
   const runCommand = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
 
-    // Empty or whitespace-only submit: just clear the input, no echo/output/history.
+    // Empty or whitespace-only submit: just clear the input, no echo/output/history. Deliberately
+    // leaves the live region untouched so a bare Enter neither speaks nor repeats the last response.
     if (!cmd) {
       setInput('');
       return;
@@ -101,6 +116,8 @@ export default function Terminal() {
     if (cmd === 'clear') {
       setLines([]);
       setInput('');
+      // Emptied scrollback has nothing to read back, so confirm the action instead.
+      announce(CLEAR_ANNOUNCEMENT);
       return;
     }
 
@@ -122,6 +139,7 @@ export default function Terminal() {
     const outputLine = makeLine('output', response);
     setLines((prev) => [...prev, inputLine, outputLine]);
     setInput('');
+    announce(response);
   };
 
   const handleHistoryNav = (direction: 'up' | 'down') => {
@@ -214,6 +232,18 @@ export default function Terminal() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/*
+       * AUD-20260802-01. A screen reader gets nothing useful from the scrollback: it is a plain
+       * scroll container, so a new response is silent. This region sits outside both the
+       * scrollback and the input, holds only the latest response, and is announced atomically.
+       * The keyed span is load-bearing — re-running a command whose response is identical must
+       * still mutate the DOM, and React would otherwise leave a same-text node in place and the
+       * repeat would go unspoken. It is never focused, so the caret stays in the input.
+       */}
+      <div role="status" aria-live="polite" aria-atomic="true" className={styles.srOnly}>
+        {announcement ? <span key={announcement.id}>{announcement.text}</span> : null}
       </div>
     </SectionWrapper>
   );
