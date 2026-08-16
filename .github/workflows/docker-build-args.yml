@@ -16,6 +16,7 @@ on:
       - "web/src/utils/publicEnv.ts"
       - "web/src/app/layout.tsx"
       - "web/src/app/sitemap.ts"
+      - "web/src/app/robots.ts"
       - ".github/workflows/docker-build-args.yml"
   push:
     branches: [main]
@@ -26,6 +27,7 @@ on:
       - "web/src/utils/publicEnv.ts"
       - "web/src/app/layout.tsx"
       - "web/src/app/sitemap.ts"
+      - "web/src/app/robots.ts"
       - ".github/workflows/docker-build-args.yml"
 
 concurrency:
