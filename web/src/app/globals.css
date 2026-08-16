@@ -133,6 +133,15 @@ html[data-js-reveal='on'] .reveal.no-transition .reveal-stagger {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Without this, `html { scroll-behavior: smooth }` above animates every scroll
+     the page does not explicitly opt out of (anchor links, scroll restoration,
+     scrollIntoView with the default `behavior: 'auto'`). Unlike the reveal rules
+     below, this one is deliberately *not* gated on `data-js-reveal` — smooth
+     scrolling is applied by the unconditional cascade, so its reduced-motion
+     escape hatch has to be unconditional too. */
+  html {
+    scroll-behavior: auto;
+  }
   html[data-js-reveal='on'] .reveal {
     opacity: 1;
     transform: none;

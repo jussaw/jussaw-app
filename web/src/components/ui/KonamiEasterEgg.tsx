@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { useKonamiCode } from '@/hooks/useKonamiCode';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 interface Particle {
   angle: number;
@@ -34,6 +35,7 @@ function generateParticles(): Particle[] {
 
 export default function KonamiEasterEgg() {
   const konamiActivated = useKonamiCode();
+  const reducedMotion = usePrefersReducedMotion();
   const [dismissed, setDismissed] = useState(false);
   const [particles] = useState<Particle[]>(generateParticles);
 
@@ -53,31 +55,33 @@ export default function KonamiEasterEgg() {
         className="fixed inset-0 z-50 flex items-center justify-center"
         style={{ pointerEvents: 'none' }}
       >
-        {/* Particle burst */}
-        {particles.map((p, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              borderRadius: p.isRound ? '50%' : '2px',
-              background: `hsl(${p.hue}, 80%, 65%)`,
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              animation: `konami-particle 1.5s ease-out ${p.delay}s forwards`,
-              ['--particle-x' as string]: p.x,
-              ['--particle-y' as string]: p.y,
-              opacity: 0,
-            }}
-          />
-        ))}
+        {/* Particle burst — skipped entirely under prefers-reduced-motion */}
+        {!reducedMotion &&
+          particles.map((p, i) => (
+            <div
+              key={i}
+              data-konami-particle
+              style={{
+                position: 'absolute',
+                width: `${p.size}px`,
+                height: `${p.size}px`,
+                borderRadius: p.isRound ? '50%' : '2px',
+                background: `hsl(${p.hue}, 80%, 65%)`,
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                animation: `konami-particle 1.5s ease-out ${p.delay}s forwards`,
+                ['--particle-x' as string]: p.x,
+                ['--particle-y' as string]: p.y,
+                opacity: 0,
+              }}
+            />
+          ))}
 
-        {/* Message */}
+        {/* Message — static acknowledgement under prefers-reduced-motion */}
         <div
           className="text-center font-mono"
-          style={{ animation: 'konami-text 3s ease-out forwards' }}
+          style={reducedMotion ? undefined : { animation: 'konami-text 3s ease-out forwards' }}
         >
           <p className="text-[0.7rem] tracking-[0.2em] uppercase text-accent mb-2">
             Achievement Unlocked
@@ -86,8 +90,9 @@ export default function KonamiEasterEgg() {
         </div>
       </div>
 
-      {/* Konami CSS animations */}
-      <style>{`
+      {/* Konami CSS animations — nothing references them under prefers-reduced-motion */}
+      {!reducedMotion && (
+        <style>{`
         @keyframes konami-particle {
           0% {
             transform: translate(-50%, -50%) scale(0);
@@ -109,6 +114,7 @@ export default function KonamiEasterEgg() {
           100% { opacity: 0; transform: scale(0.95); }
         }
       `}</style>
+      )}
     </>
   );
 }

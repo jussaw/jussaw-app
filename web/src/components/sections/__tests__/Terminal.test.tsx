@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 
 import Terminal from '../Terminal';
 
@@ -9,6 +9,21 @@ vi.stubGlobal(
     return { observe: vi.fn(), disconnect: vi.fn() };
   }),
 );
+
+/**
+ * Queries scoped to the scrollable output. The live region (AUD-20260802-01) repeats the
+ * latest response outside the scrollback, so an unscoped `screen` query matches twice; this
+ * keeps "the terminal printed X" assertions about what is on screen. The live region's own
+ * text is asserted in Terminal.announcements.test.tsx.
+ *
+ * Substring match needed because Vite hashes CSS module class names (_output_abc123).
+ * .output renders before any .lineOutput divs, so this matches the scrollable container.
+ */
+const inScrollback = () => {
+  const output = document.querySelector<HTMLElement>('[class*="output"]');
+  if (!output) throw new Error('scrollback container not found');
+  return within(output);
+};
 
 describe('Terminal (section)', () => {
   it('renders without props', () => {
@@ -26,7 +41,7 @@ describe('Terminal (section)', () => {
     const input = screen.getByLabelText('Terminal input');
     fireEvent.change(input, { target: { value: 'help' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(screen.getByText(/available/i)).toBeInTheDocument();
+    expect(inScrollback().getByText(/available/i)).toBeInTheDocument();
   });
 
   it('responds to the whoami command', () => {
@@ -34,7 +49,7 @@ describe('Terminal (section)', () => {
     const input = screen.getByLabelText('Terminal input');
     fireEvent.change(input, { target: { value: 'whoami' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(screen.getByText(/justin sawyer/i)).toBeInTheDocument();
+    expect(inScrollback().getByText(/justin sawyer/i)).toBeInTheDocument();
   });
 
   it('echoes its argument', () => {
@@ -42,7 +57,7 @@ describe('Terminal (section)', () => {
     const input = screen.getByLabelText('Terminal input');
     fireEvent.change(input, { target: { value: 'echo hello world' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(screen.getByText('hello world')).toBeInTheDocument();
+    expect(inScrollback().getByText('hello world')).toBeInTheDocument();
   });
 
   it('bare echo outputs an empty line instead of command not found', () => {
@@ -58,7 +73,7 @@ describe('Terminal (section)', () => {
     const input = screen.getByLabelText('Terminal input');
     fireEvent.change(input, { target: { value: 'foobar' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(screen.getByText(/command not found/i)).toBeInTheDocument();
+    expect(inScrollback().getByText(/command not found/i)).toBeInTheDocument();
   });
 
   it('shows cheeky response for destructive commands', () => {
@@ -66,7 +81,7 @@ describe('Terminal (section)', () => {
     const input = screen.getByLabelText('Terminal input');
     fireEvent.change(input, { target: { value: 'sudo rm -rf /' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(screen.getByText(/permission denied/i)).toBeInTheDocument();
+    expect(inScrollback().getByText(/permission denied/i)).toBeInTheDocument();
   });
 
   it('exit prints embedded terminal message', () => {
@@ -74,7 +89,9 @@ describe('Terminal (section)', () => {
     const input = screen.getByLabelText('Terminal input');
     fireEvent.change(input, { target: { value: 'exit' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(screen.getByText('this terminal is embedded — nowhere to exit to')).toBeInTheDocument();
+    expect(
+      inScrollback().getByText('this terminal is embedded — nowhere to exit to'),
+    ).toBeInTheDocument();
   });
 
   it('clear command removes output lines', () => {
@@ -232,7 +249,7 @@ describe('Terminal (section)', () => {
       fireEvent.keyDown(input, { key: 'Enter' });
 
       expect(input).toHaveValue('');
-      expect(screen.getByText(ARG)).toBeInTheDocument();
+      expect(inScrollback().getByText(ARG)).toBeInTheDocument();
     });
   });
 

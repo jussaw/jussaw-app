@@ -92,9 +92,9 @@ docker compose up --build   # Build and run locally on port 23412
 
 `NEXT_PUBLIC_*` values are inlined into the client bundle by `next build`, so they are **build-time and browser-visible**. They travel through an explicit allowlist — there is no wildcard forwarding:
 
-| Variable               | Default              | Consumed by                                         |
-| ---------------------- | -------------------- | --------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | `https://jussaw.com` | `app/layout.tsx` metadata/JSON-LD, `app/sitemap.ts` |
+| Variable               | Default              | Consumed by                                                          |
+| ---------------------- | -------------------- | -------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | `https://jussaw.com` | `app/layout.tsx` metadata/JSON-LD, `app/sitemap.ts`, `app/robots.ts` |
 
 Adding one means editing all four in the same change:
 

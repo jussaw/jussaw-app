@@ -26,6 +26,7 @@ const stripComments = (source: string) =>
 const publicEnvSource = stripComments(read(resolve(webRoot, 'src/utils/publicEnv.ts')));
 const layoutSource = read(resolve(webRoot, 'src/app/layout.tsx'));
 const sitemapSource = read(resolve(webRoot, 'src/app/sitemap.ts'));
+const robotsSource = read(resolve(webRoot, 'src/app/robots.ts'));
 const dockerfile = read(resolve(webRoot, 'Dockerfile'));
 const compose = read(resolve(webRoot, 'docker-compose.yml'));
 const webReadme = read(resolve(webRoot, 'README.md'));
@@ -65,8 +66,8 @@ describe('public env allowlist is statically consumed', () => {
     expect(publicEnvSource).not.toMatch(/process\.env(\s*[,)}]|\s*$)/m);
   });
 
-  it('routes layout metadata and the sitemap through SITE_URL, not a hard-coded origin', () => {
-    [layoutSource, sitemapSource].forEach((source) => {
+  it('routes layout metadata, the sitemap and robots through SITE_URL, not a hard-coded origin', () => {
+    [layoutSource, sitemapSource, robotsSource].forEach((source) => {
       expect(source).toMatch(/import \{ SITE_URL \} from '@\/utils\/publicEnv';/);
       expect(source).not.toContain("'https://jussaw.com'");
     });
