@@ -121,6 +121,12 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Without this, `html { scroll-behavior: smooth }` above animates every scroll
+     the page does not explicitly opt out of (anchor links, scroll restoration,
+     scrollIntoView with the default `behavior: 'auto'`). */
+  html {
+    scroll-behavior: auto;
+  }
   .reveal {
     opacity: 1;
     transform: none;

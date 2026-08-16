@@ -1,20 +1,9 @@
 'use client';
 
-import { useState, useEffect, useSyncExternalStore } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useActiveSection, SECTIONS } from '@/hooks/useActiveSection';
-
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-
-function subscribeReducedMotion(callback: () => void) {
-  const mq = window.matchMedia(REDUCED_MOTION_QUERY);
-  mq.addEventListener('change', callback);
-  return () => mq.removeEventListener('change', callback);
-}
-
-const getReducedMotion = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
-// Server snapshot: no media query available — assume motion, corrected on the client.
-const getServerReducedMotion = () => false;
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 function gaussian(dist: number, sigma = 1.0): number {
   return Math.exp(-(dist * dist) / (2 * sigma * sigma));
@@ -42,20 +31,29 @@ function computeMetrics(activeIndex: number, totalHeight: number) {
   return { dotSize, labelOpacity, dotY, weights };
 }
 
-function scrollToSection(id: string) {
+function scrollToSection(id: string, reducedMotion: boolean) {
   const el = document.getElementById(id);
-  if (el) {
+  if (!el) return;
+
+  if (!reducedMotion) {
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  // 'auto' defers to the element's computed scroll-behavior, which globals.css sets to
+  // smooth on <html> — so reduced motion needs an explicit 'instant'. Engines that predate
+  // 'instant' throw on the unknown enum value; there the scoped prefers-reduced-motion rule
+  // in globals.css has already made 'auto' resolve to an instant jump.
+  try {
+    el.scrollIntoView({ behavior: 'instant', block: 'start' });
+  } catch {
+    el.scrollIntoView({ behavior: 'auto', block: 'start' });
   }
 }
 
 export default function TimelineScrollbar() {
   const activeIndex = useActiveSection();
-  const reducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotion,
-    getServerReducedMotion,
-  );
+  const reducedMotion = usePrefersReducedMotion();
   const [totalHeight, setTotalHeight] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -113,7 +111,7 @@ export default function TimelineScrollbar() {
           <button
             key={section.id}
             type="button"
-            onClick={() => scrollToSection(section.id)}
+            onClick={() => scrollToSection(section.id, reducedMotion)}
             aria-label={`Scroll to ${section.label}`}
             className="bg-transparent border-none p-0"
             style={{
