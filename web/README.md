@@ -34,7 +34,7 @@ Husky + lint-staged runs Prettier and ESLint automatically on every `git commit`
 
 ### Continuous integration
 
-`.github/workflows/quality.yml` runs a single `quality` job on every pull request targeting `main` and on every push to `main`. It uses Node 22 and pnpm 11.5.3, and runs these commands from `web/`, stopping at the first failure:
+`.github/workflows/quality.yml` runs the `quality` job on every pull request targeting `main` and on every push to `main`. It uses Node 22 and pnpm 11.5.3, and runs these commands from `web/`, stopping at the first failure:
 
 ```bash
 pnpm format:check
@@ -45,9 +45,28 @@ pnpm build
 
 `quality` is a required status check, so it must pass before a pull request can merge into `main`. Running those four commands locally from `web/` reproduces CI exactly.
 
+On pushes to `main` — and only after `quality` passes — the same workflow publishes the deployable image (see below). Pull requests never publish.
+
 ## Production with Docker
 
 The app uses `output: "standalone"` in `next.config.ts`, which produces a minimal production build containing only the files needed to run the server.
+
+### The published image
+
+Every push to `main` publishes a multi-arch (`linux/amd64` + `linux/arm64`) image to the GitHub
+Container Registry. It is a public package, so no login is needed to pull it:
+
+```bash
+docker run -p 3000:3000 ghcr.io/jussaw/jussaw-app:latest
+```
+
+Tags are `latest` and `sha-<commit>`. `NEXT_PUBLIC_SITE_URL` is baked in as `https://jussaw.com` at
+build time — to run against a different origin you must rebuild (see below), not override it at
+runtime.
+
+The live deployment pulls this image; it is not built on the server, and this repo contains no deploy
+script. The compose file that runs it belongs to [jussaw-server](https://github.com/jussaw/jussaw-server).
+The rest of this section covers building the image yourself.
 
 ### Build the image
 
@@ -123,7 +142,7 @@ docker run -p 8080:8080 -e PORT=8080 -e HOSTNAME=0.0.0.0 jussaw-web
 
 ### Docker Compose
 
-A `docker-compose.yml` is included for convenience. To build and start:
+A `docker-compose.yml` is included for **local** builds — production is the published image above, deployed elsewhere. To build and start:
 
 ```bash
 docker compose up --build
