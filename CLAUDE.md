@@ -7,7 +7,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a small monorepo for the jussaw.com personal portfolio site:
 
 - `web/` — the Next.js 16 application. **This is where nearly all work happens.** It has its own detailed `web/CLAUDE.md` — read it before touching app code.
-- `devops/` — deployment scripts (`deploy.sh`).
 - `.github/workflows/` — CI (see below).
 - `docs/` — design specs and plans (gitignored; not part of the build).
 
@@ -15,7 +14,11 @@ There is no root `package.json`. All build/lint/test tooling lives in `web/`, so
 
 ## CI
 
-`.github/workflows/quality.yml` defines one job, `quality`, that runs on pull requests targeting `main` and on pushes to `main`. Using Node 22 and pnpm 11.5.3, it runs `pnpm format:check`, `pnpm lint`, `pnpm test`, then `pnpm build` from `web/`, stopping at the first failure. `quality` is a required status check for merging into `main` — run those four commands from `web/` before pushing.
+`.github/workflows/quality.yml` defines the `quality` job, which runs on pull requests targeting `main` and on pushes to `main`. Using Node 22 and pnpm 11.5.3, it runs `pnpm format:check`, `pnpm lint`, `pnpm test`, then `pnpm build` from `web/`, stopping at the first failure. `quality` is a required status check for merging into `main` — run those four commands from `web/` before pushing.
+
+The same workflow publishes the deployable image, but **only on pushes to `main`** and only after `quality` passes: `publish-image` builds `linux/amd64` and `linux/arm64` on native runners (`ubuntu-24.04` and `ubuntu-24.04-arm`) and pushes each by digest, then `publish-manifest` joins them into one multi-arch manifest tagged `latest` and `sha-<commit>`. They live in `quality.yml` rather than their own file so `needs: quality` can gate them — a red build must not publish an image, because pi4's watchtower deploys `:latest` automatically. Both are skipped on pull requests.
+
+`.github/workflows/docker-build-args.yml` is separate and path-filtered: it proves the public build-arg contract through a real `docker build`.
 
 ## Git Hooks Gotcha
 
@@ -23,7 +26,11 @@ The pnpm `prepare` script (in `web/package.json`) points Git's `core.hooksPath` 
 
 ## Deployment
 
-`devops/deploy.sh` is the production deploy: it `git pull --ff-only`s, then `docker compose -f web/docker-compose.yml up --build -d`. The container serves on **port 23412** (mapped to the app's internal 3000). The Dockerfile produces a Next.js `output: "standalone"` build, so `NEXT_PUBLIC_*` env vars must be passed as build args, not runtime env.
+**This repository does not deploy itself.** CI publishes `ghcr.io/jussaw/jussaw-app` (public package, multi-arch), and the running stack is owned by [jussaw-server](https://github.com/jussaw/jussaw-server), which deploys the `sites` stack from its own clone of the private `portainer-compose` repo — the compose file lives at `pi4/sites/docker-compose.yml` there, not here. The container serves on **port 23412** (mapped to the app's internal 3000), which cloudflared routes jussaw.com to; changing that port means changing the tunnel.
+
+`web/docker-compose.yml` is for **local builds only**. Running it on a node would stand up a second compose project competing with the managed stack. It stays in the repo because the build-arg contract test and `docker-build-args.yml` both assert against it.
+
+The Dockerfile produces a Next.js `output: "standalone"` build, so `NEXT_PUBLIC_*` env vars must be passed as build args, not runtime env — that is why the publish job passes `NEXT_PUBLIC_SITE_URL` with `--build-arg` rather than leaving it to the container's environment.
 
 Public build-time variables go through an explicit allowlist rather than blanket forwarding: `PUBLIC_ENV_ALLOWLIST` in `web/src/utils/publicEnv.ts`, a matching builder-stage `ARG` in `web/Dockerfile`, and a matching `build.args` entry in `web/docker-compose.yml`. Today that is one variable, `NEXT_PUBLIC_SITE_URL` (default `https://jussaw.com`). Its value is browser-visible, so it must never carry a secret — server-only values stay as runtime `environment` entries. See `web/CLAUDE.md` for the procedure when adding one.
 

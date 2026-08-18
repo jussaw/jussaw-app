@@ -1,5 +1,10 @@
 name: Quality
 
+# Two halves, in order: the `quality` gate (format, lint, test, build) that every
+# pull request must pass, and — on pushes to main only — the GHCR publish that
+# ships the deployable image. They share a file so the publish can `needs:` the
+# gate; see the comment above publish-image.
+
 on:
   pull_request:
     branches: [main]
@@ -54,3 +59,129 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  # Publishes the deployable image to GHCR. Gated on `quality` because pi4's
+  # watchtower auto-deploys ghcr.io/...:latest — an image published from a red
+  # build would ship straight to production. Lives in this workflow rather than
+  # its own file precisely so `needs:` can express that gate.
+  #
+  # Built on two native runners rather than one with QEMU: pi4 is aarch64 and
+  # emulating a Next.js build would take tens of minutes. Standard runners,
+  # including ubuntu-24.04-arm, are free on public repositories.
+  publish-image:
+    name: publish-image (${{ matrix.platform }})
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Normalize platform for artifact name
+        run: echo "PLATFORM_PAIR=${PLATFORM//\//-}" >> "$GITHUB_ENV"
+        env:
+          PLATFORM: ${{ matrix.platform }}
+
+      # Labels only here — tags belong to the manifest, which publish-manifest
+      # assembles. org.opencontainers.image.source is what links the package to
+      # this repo, so it inherits repo permissions and shows the README.
+      - name: Derive image labels
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push by digest
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: ./web
+          file: ./web/Dockerfile
+          platforms: ${{ matrix.platform }}
+          # Public build-time variables, one per PUBLIC_ENV_ALLOWLIST entry in
+          # web/src/utils/publicEnv.ts. These are inlined into the client bundle
+          # and browser-visible — never pass a secret here.
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=https://jussaw.com
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=ghcr.io/${{ github.repository }},push-by-digest=true,name-canonical=true,push=true
+          cache-from: type=gha,scope=${{ matrix.platform }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
+
+      - name: Export digest
+        run: |
+          mkdir -p /tmp/digests
+          touch "/tmp/digests/${DIGEST#sha256:}"
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ env.PLATFORM_PAIR }}
+          path: /tmp/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  # Joins the two per-architecture digests into one multi-arch manifest, so a
+  # single `ghcr.io/jussaw/jussaw-app:latest` serves the right image to pi4
+  # (arm64) and to an x86 host alike.
+  publish-manifest:
+    name: publish-manifest
+    needs: publish-image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: /tmp/digests
+          pattern: digests-*
+          merge-multiple: true
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Derive image tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=long
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create and push manifest list
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create \
+            $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf 'ghcr.io/${{ github.repository }}@sha256:%s ' *)
+
+      - name: Inspect published manifest
+        run: docker buildx imagetools inspect ghcr.io/${{ github.repository }}:latest

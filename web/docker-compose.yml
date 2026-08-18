@@ -1,3 +1,12 @@
+# Local builds only. Production is not deployed from this file: CI publishes
+# ghcr.io/jussaw/jussaw-app on every push to main, and jussaw-server deploys the
+# `sites` stack (portainer-compose/pi4/sites) from that image. Running this on a
+# node would stand up a second, competing compose project.
+#
+# It is still load-bearing: src/utils/__tests__/publicEnvBuildContract.test.ts
+# asserts the long-form `build:`, the `args:` defaults and the absence of public
+# values under `environment:`, and .github/workflows/docker-build-args.yml runs
+# `docker compose config` against it. Don't drop those keys.
 name: jussaw-app
 services:
   web:
