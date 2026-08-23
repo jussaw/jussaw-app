@@ -177,16 +177,3 @@ services:
     env_file:
       - .env.local
 ```
-
-### Multiple replicas / load balancing
-
-If you run more than one container instance, set a shared encryption key so Server Actions work across all of them:
-
-```bash
-# Generate a key (run once, store securely)
-openssl rand -base64 32
-
-docker run -p 3000:3000 \
-  -e NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=<your-base64-key> \
-  jussaw-web
-```
