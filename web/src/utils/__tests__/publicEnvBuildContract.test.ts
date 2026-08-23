@@ -125,6 +125,32 @@ describe('Compose build path', () => {
   });
 });
 
+describe('GHCR publish workflow build-args', () => {
+  const qualityYml = read(resolve(repoRoot, '.github/workflows/quality.yml'));
+
+  it('passes every allowlisted variable as a build-arg in the publish-image job', () => {
+    const lines = qualityYml.split('\n');
+    // The `build-args:` key is a YAML block scalar inside the publish-image
+    // job's docker/build-push-action step, at 10-space indent.
+    const keyIndex = lines.findIndex((line) => /^ {10}build-args:\s*\|/.test(line));
+    expect(keyIndex, 'expected build-args: | block in publish-image job').toBeGreaterThan(-1);
+
+    // Collect the block scalar body — lines indented deeper than the key.
+    const rest = lines.slice(keyIndex + 1);
+    const end = rest.findIndex((line) => line.trim() !== '' && !line.startsWith(' '.repeat(11)));
+    const blockLines = (end === -1 ? rest : rest.slice(0, end)).filter(
+      (line) => line.trim() !== '' && !line.trim().startsWith('#'),
+    );
+
+    PUBLIC_ENV_ALLOWLIST.forEach((name) => {
+      expect(
+        blockLines.some((line) => line.trim().startsWith(`${name}=`)),
+        `publish-image build-args must include ${name}`,
+      ).toBe(true);
+    });
+  });
+});
+
 describe('docs contract', () => {
   it('documents every allowlisted variable wherever the contract is described', () => {
     [webReadme, webClaudeMd, rootClaudeMd].forEach((doc) => {
