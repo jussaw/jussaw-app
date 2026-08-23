@@ -96,12 +96,13 @@ docker compose up --build   # Build and run locally on port 23412
 | ---------------------- | -------------------- | -------------------------------------------------------------------- |
 | `NEXT_PUBLIC_SITE_URL` | `https://jussaw.com` | `app/layout.tsx` metadata/JSON-LD, `app/sitemap.ts`, `app/robots.ts` |
 
-Adding one means editing all four in the same change:
+Adding one means editing all five in the same change:
 
 1. `src/utils/publicEnv.ts` — add to `PUBLIC_ENV_ALLOWLIST` **and** read it as a static `process.env.NEXT_PUBLIC_X` access (a dynamic `process.env[name]` lookup is not inlined by Next and is `undefined` in the browser).
 2. `Dockerfile` — a named `ARG` in the builder stage, before `RUN pnpm build`.
 3. `docker-compose.yml` — a named entry under `build.args`.
 4. `README.md` — the supported-variables table.
+5. `.github/workflows/quality.yml` — a `build-args` entry in the `publish-image` job.
 
 `src/utils/__tests__/publicEnvBuildContract.test.ts` fails if those drift apart; `.github/workflows/docker-build-args.yml` proves the value actually reaches the bundle through `docker build`.
 

@@ -7,10 +7,11 @@
  * stay out of this file and are injected as container runtime env instead.
  *
  * The allowlist below is the single source of truth for the build contract:
- * `web/Dockerfile` declares a matching builder-stage `ARG` and
- * `web/docker-compose.yml` a matching `build.args` entry, so a documented
- * variable actually reaches `pnpm build`. Adding a variable means touching all
- * three (plus the docs) — `src/utils/__tests__/publicEnvBuildContract.test.ts`
+ * `web/Dockerfile` declares a matching builder-stage `ARG`,
+ * `web/docker-compose.yml` a matching `build.args` entry, and the `publish-image`
+ * job in `.github/workflows/quality.yml` a matching `build-args` entry, so a
+ * documented variable actually reaches `pnpm build`. Adding a variable means touching all
+ * four (plus the docs) — `src/utils/__tests__/publicEnvBuildContract.test.ts`
  * fails until they agree.
  *
  * Reads must be *static* `process.env.NEXT_PUBLIC_X` property accesses.

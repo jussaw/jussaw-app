@@ -109,10 +109,11 @@ docker build \
   -t jussaw-web .
 ```
 
-Adding a public variable means updating four places together: the allowlist and
+Adding a public variable means updating five places together: the allowlist and
 its static `process.env.<NAME>` read in `src/utils/publicEnv.ts`, the builder-stage
-`ARG` in `Dockerfile`, the `build.args` entry in `docker-compose.yml`, and this
-table. The contract test in `src/utils/__tests__/publicEnvBuildContract.test.ts`
+`ARG` in `Dockerfile`, the `build.args` entry in `docker-compose.yml`, the
+`build-args` entry in the `publish-image` job of `.github/workflows/quality.yml`,
+and this table. The contract test in `src/utils/__tests__/publicEnvBuildContract.test.ts`
 fails if they drift apart.
 
 **Never** put a secret behind a `NEXT_PUBLIC_` name or in a `--build-arg`: build

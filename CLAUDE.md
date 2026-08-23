@@ -32,7 +32,7 @@ The pnpm `prepare` script (in `web/package.json`) points Git's `core.hooksPath` 
 
 The Dockerfile produces a Next.js `output: "standalone"` build, so `NEXT_PUBLIC_*` env vars must be passed as build args, not runtime env — that is why the publish job passes `NEXT_PUBLIC_SITE_URL` with `--build-arg` rather than leaving it to the container's environment.
 
-Public build-time variables go through an explicit allowlist rather than blanket forwarding: `PUBLIC_ENV_ALLOWLIST` in `web/src/utils/publicEnv.ts`, a matching builder-stage `ARG` in `web/Dockerfile`, and a matching `build.args` entry in `web/docker-compose.yml`. Today that is one variable, `NEXT_PUBLIC_SITE_URL` (default `https://jussaw.com`). Its value is browser-visible, so it must never carry a secret — server-only values stay as runtime `environment` entries. See `web/CLAUDE.md` for the procedure when adding one.
+Public build-time variables go through an explicit allowlist rather than blanket forwarding: `PUBLIC_ENV_ALLOWLIST` in `web/src/utils/publicEnv.ts`, a matching builder-stage `ARG` in `web/Dockerfile`, and a matching `build.args` entry in `web/docker-compose.yml`, and a matching `build-args` entry in the `publish-image` job of `.github/workflows/quality.yml`. Today that is one variable, `NEXT_PUBLIC_SITE_URL` (default `https://jussaw.com`). Its value is browser-visible, so it must never carry a secret — server-only values stay as runtime `environment` entries. See `web/CLAUDE.md` for the procedure when adding one.
 
 ## App Architecture (high level)
 
