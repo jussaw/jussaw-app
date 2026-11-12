@@ -64,7 +64,7 @@ export interface SiteContent {
  * and fails on mismatch, forcing content edits and this date to move together.
  * See web/CLAUDE.md → "Editing site content".
  */
-export const CONTENT_LAST_UPDATED = '2026-07-28';
+export const CONTENT_LAST_UPDATED = '2026-11-12';
 
 /**
  * SHA-256 (hex) fingerprint of {@link siteContent} as of
@@ -73,7 +73,7 @@ export const CONTENT_LAST_UPDATED = '2026-07-28';
  * bump {@link CONTENT_LAST_UPDATED} in the same commit.
  */
 export const CONTENT_FINGERPRINT =
-  '3d03fc39767caf794efb78b84202ddb21638e67e119fe893ec3b64c5ab85d7f7';
+  'f706a7f74027dca58d9d8a1a9ca7da64fa92ce78f2a2a9b21c963c5e98b20892';
 
 export const siteContent: SiteContent = {
   person: {
@@ -118,11 +118,11 @@ export const siteContent: SiteContent = {
       period: '2025 - Present',
       location: 'Atlanta, GA',
       bullets: [
-        'Technical lead for the application formulators at ground meat plants across North America use to build, cost, and manage product formulations — own architecture, technical direction, and team process while continuing to ship features hands-on.',
-        "Engineering owner of the solver's production behavior — triaging infeasibilities and constraint errors, shipping LP model and penalty-lever changes in partnership with the team's data scientist, and giving formulators tunable control over cost versus inventory position. Built solve traceability (input fingerprinting, MIP-gap capture, archived solver I/O) that cut time-to-diagnose from hours to minutes.",
-        "Cut payload on the application's most-used data view by 90% (15.5 MB → 1.9 MB) and load time from 6.3s to 0.67s; drove a modernization slate to production spanning backend framework and runtime upgrades, frontend build tooling and package manager migration, and decomposition of a monolithic API client into per-controller modules.",
-        'Delivered formulator- and business-facing features end-to-end: a self-service price-forecasting screen for margin planning, a production-planning detail view with constraint and allowable-material editing, plant-configurable solver and business-rule settings that eliminated a deploy cycle per plant, and an analytics dashboard built from requirements sessions I ran directly with stakeholders.',
-        'Built and shipped an internal Claude Code plugin marketplace — slash commands codifying story grooming, adversarial PR review, and the release runbook — adopted by every engineer on the team. Also prototyped a read-only MCP server exposing application data to AI assistants behind a default-deny allowlist.',
+        'Technical lead for the product-formulation platform used by ground-meat plants across North America to build, cost, and manage formulations (Java, Spring Boot, React, PostgreSQL, AWS, Kubernetes) — own architecture, technical direction, and team process while shipping hands-on.',
+        "Owned the linear-programming (LP) solver's production behavior: shipped model and penalty-lever changes with the team's data scientist, and built solve traceability (input fingerprinting, MIP-gap capture, archived solver I/O) that cut time-to-diagnose from hours to minutes.",
+        "Built a team's first generative-AI feature: a chat assistant (Java, Spring Boot, Spring AI) that explains a manufacturing-optimization solver's decisions to plant planners in plain language — read-only by design, with every figure it reports computed in application code — and led it through Responsible AI and InfoSec approval for rollout to 15 plants.",
+        'Cut payload on the most-used data view by 88% (15.5 MB → 1.9 MB) and load time from 6.3s to 0.67s; drove a modernization slate spanning backend framework and runtime upgrades, frontend build tooling, and decomposition of a monolithic API client.',
+        'Shipped 3 plugins on the Agent Plugin standard that assist across the full sprint (drafting and grooming Jira stories, implementing them, reviewing code and PRs, authoring end-to-end tests), plus the harness-agnostic marketplace that distributes them to Claude Code, Codex, and GitHub Copilot — 100% adoption on the team and >75% across the department.',
       ],
     },
     {
