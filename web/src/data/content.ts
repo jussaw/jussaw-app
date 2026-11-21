@@ -64,7 +64,7 @@ export interface SiteContent {
  * and fails on mismatch, forcing content edits and this date to move together.
  * See web/CLAUDE.md → "Editing site content".
  */
-export const CONTENT_LAST_UPDATED = '2026-11-12';
+export const CONTENT_LAST_UPDATED = '2026-11-20';
 
 /**
  * SHA-256 (hex) fingerprint of {@link siteContent} as of
@@ -73,7 +73,7 @@ export const CONTENT_LAST_UPDATED = '2026-11-12';
  * bump {@link CONTENT_LAST_UPDATED} in the same commit.
  */
 export const CONTENT_FINGERPRINT =
-  'f706a7f74027dca58d9d8a1a9ca7da64fa92ce78f2a2a9b21c963c5e98b20892';
+  '08602ac5fffabb8787d5bfef1b141f1bd69fd223e05d4370f82819e3bdfe534f';
 
 export const siteContent: SiteContent = {
   person: {
@@ -203,9 +203,42 @@ export const siteContent: SiteContent = {
         'Unit, component, integration, and end-to-end tests with Vitest + Playwright',
         'Self-hosted on Raspberry Pi via Docker Compose',
       ],
-      stack: ['Next.js 16', 'React 19', 'TypeScript', 'PostgreSQL', 'Drizzle ORM', 'Docker'],
+      stack: [
+        'Next.js 16',
+        'React 19',
+        'TypeScript',
+        'PostgreSQL',
+        'Drizzle ORM',
+        'Docker',
+        'Raspberry Pi',
+      ],
       liveUrl: 'https://harborstats.jussaw.com',
       githubUrl: 'https://github.com/jussaw/harborstats',
+    },
+    {
+      title: 'Secret Hitler Online',
+      description: 'Self-hosted fork of an online Secret Hitler board game',
+      highlights: [
+        'Personal fork of ShrimpCryptid/Secret-Hitler-Online, run as a private instance',
+        'Discord sign-in accounts, spectator mode, and lobbies that survive restarts via SQLite',
+        'Stats pages with Elo ratings, per-game timelines, player pages, and trophies',
+        'Host-configurable CPU players with Easy, Normal, and Hard skill levels',
+        'One-screen game and lobby layouts, including a single-column phone layout',
+        'JUnit, Vitest, and Playwright tests across desktop browsers and emulated phones',
+        'Self-hosted on Raspberry Pi as a single multi-arch Docker image',
+      ],
+      stack: [
+        'Java',
+        'Javalin',
+        'React 18',
+        'TypeScript',
+        'Vite',
+        'SQLite',
+        'Docker',
+        'Raspberry Pi',
+      ],
+      liveUrl: 'https://secret-hitler.jussaw.com',
+      githubUrl: 'https://github.com/jussaw/Secret-Hitler-Online',
     },
     {
       title: 'FullHex',
